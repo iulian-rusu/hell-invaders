@@ -1,9 +1,10 @@
 package States;
 
 import Game.GameWindow.GameWindow;
-import Game.Graphics.Assets;
+import Game.Graphics.Backgrounds;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 
@@ -25,7 +26,7 @@ public class GameState extends State {
         Graphics g = bs.getDrawGraphics();
         if (frameCount == 0) {
             g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
-            g.drawImage(Assets.bg_game.getScaledInstance(wnd.GetWndWidth(), wnd.GetWndHeight(), Image.SCALE_SMOOTH),
+            g.drawImage(Backgrounds.bg_game.getScaledInstance(wnd.GetWndWidth(), wnd.GetWndHeight(), Image.SCALE_SMOOTH),
                     0, 0, null);
         }
         bs.show();

@@ -1,19 +1,21 @@
 package Game;
 
 import Game.GameWindow.GameWindow;
-import Game.Graphics.Assets;
+import Game.Graphics.AssetManager;
 import States.StateManager;
 
-import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 
-public class Game extends MouseAdapter implements Runnable {
-    //TODO: figure out mouse listeners
+public class Game extends MouseAdapter implements Runnable, KeyListener {
     //TODO: figure out state transitions made by buttons
     //TODO: add music managers
+    //TODO: add option to save data and figure out the resume button
+    //TODO: add all states
     //class that implements the main game loop
     private GameWindow wnd;
     private boolean runState;
@@ -26,11 +28,12 @@ public class Game extends MouseAdapter implements Runnable {
     private void InitGame() {
         wnd = new GameWindow("Hell Invaders");
         wnd.BuildGameWindow();
-        Assets.Init();
+        AssetManager.Init(wnd);
         stateManager=StateManager.GetInstance();
         Canvas wndCanvas=wnd.GetCanvas();
         wndCanvas.addMouseListener(this);
         wndCanvas.addMouseMotionListener(this);
+        wndCanvas.addKeyListener(this);
     }
 
     @Override
@@ -81,6 +84,21 @@ public class Game extends MouseAdapter implements Runnable {
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         stateManager.GetCurrentState().mouseMoved(mouseEvent);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent keyEvent) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+        stateManager.GetCurrentState().keyPressed(keyEvent);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent keyEvent) {
+
     }
 }
 
