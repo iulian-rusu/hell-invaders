@@ -3,6 +3,6 @@ package GUI;
 import java.awt.*;
 
 public interface GUIElement {
-    void Update();
+    void Init();
     void Draw(Graphics g);
 }

@@ -1,7 +1,7 @@
 package Game;
 
-import Game.GameWindow.GameWindow;
-import Game.Graphics.AssetManager;
+import Audio.AudioManager;
+import Assets.AssetManager;
 import States.StateManager;
 
 import java.awt.*;
@@ -11,15 +11,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 
-public class Game extends MouseAdapter implements Runnable, KeyListener {
-    //TODO: figure out state transitions made by buttons
-    //TODO: add music managers
-    //TODO: add option to save data and figure out the resume button
-    //TODO: add all states
+public class Game extends MouseAdapter implements Runnable, KeyListener{
+    //TODO: implement all states
+    //TODO: implement player stats (current level/gold/upgrades/statistics page)
+    //TODO: add enemies and animate them
+    //TODO: add level system and difficulties
+    //TODO: save player stats into SQL databse and unlock resume button
     //class that implements the main game loop
     private GameWindow wnd;
     private boolean runState;
     private StateManager stateManager;
+    private AudioManager audioManager;
 
     public Game() {
         runState = false;
@@ -29,6 +31,7 @@ public class Game extends MouseAdapter implements Runnable, KeyListener {
         wnd = new GameWindow("Hell Invaders");
         wnd.BuildGameWindow();
         AssetManager.Init(wnd);
+        audioManager=AudioManager.GetInstance();
         stateManager=StateManager.GetInstance();
         Canvas wndCanvas=wnd.GetCanvas();
         wndCanvas.addMouseListener(this);

@@ -22,8 +22,8 @@ public class GUIButton implements GUIElement {
     }
 
     @Override
-    public void Update() {
-
+    public void Init() {
+        currentState=GUIButtonState.RELEASED;
     }
 
     @Override

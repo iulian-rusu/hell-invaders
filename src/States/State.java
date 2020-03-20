@@ -1,19 +1,25 @@
 package States;
 
-import Game.GameWindow.GameWindow;
+import Game.GameWindow;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public abstract class State {
-    protected int frameCount = -1;
+    protected int frameCount;
+    protected int secondCount;
 
-    public abstract void Init();
+    public void Init(){
+        frameCount=-1;
+        secondCount=0;
+    }
 
     public void Update() {
         ++frameCount;
-        if (frameCount >= 60)
+        if (frameCount >= 60) {
             frameCount = 0;
+            ++secondCount;
+        }
     }
 
     public void keyPressed(KeyEvent keyEvent){}

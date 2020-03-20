@@ -1,8 +1,9 @@
 package States;
 
-import GUI.GUIButton;
-import Game.GameWindow.GameWindow;
-import Game.Graphics.Backgrounds;
+import Audio.AudioManager;
+import Audio.BackgroundMusic;
+import Game.GameWindow;
+import Assets.BackgroundAssets;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -11,9 +12,13 @@ import java.awt.image.BufferStrategy;
 
 public class UpgradeState extends State {
 
+    public UpgradeState(){
+    }
+
     @Override
     public void Init() {
-
+        super.Init();
+        AudioManager.GetInstance().Play(BackgroundMusic.upgradeMusic);
     }
 
     @Override
@@ -26,7 +31,7 @@ public class UpgradeState extends State {
         BufferStrategy bs = wnd.GetCanvas().getBufferStrategy();
         Graphics g = bs.getDrawGraphics();
         g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
-        g.drawImage(Backgrounds.bg_game_dark, 0, 0, null);
+        g.drawImage(BackgroundAssets.bg_game_dark, 0, 0, null);
         bs.show();
         g.dispose();
     }
@@ -40,9 +45,17 @@ public class UpgradeState extends State {
     public void mousePressed(MouseEvent mouseEvent) {
 
     }
+
     @Override
     public void keyPressed(KeyEvent keyEvent) {
-        if(keyEvent.getKeyCode()==KeyEvent.VK_ESCAPE)
-            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE);
+        switch(keyEvent.getKeyCode()) {
+            case KeyEvent.VK_ESCAPE:
+                AudioManager.GetInstance().Stop(BackgroundMusic.upgradeMusic);
+                StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE);
+                break;
+            case KeyEvent.VK_ENTER:
+                AudioManager.GetInstance().Stop(BackgroundMusic.upgradeMusic);
+                StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.GAME_STATE);
+        }
     }
 }

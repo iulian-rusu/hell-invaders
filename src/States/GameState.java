@@ -1,7 +1,9 @@
 package States;
 
-import Game.GameWindow.GameWindow;
-import Game.Graphics.Backgrounds;
+import Audio.AudioManager;
+import Audio.BackgroundMusic;
+import Game.GameWindow;
+import Assets.BackgroundAssets;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -12,7 +14,8 @@ public class GameState extends State {
 
     @Override
     public void Init() {
-
+        super.Init();
+        AudioManager.GetInstance().Play(BackgroundMusic.gameMusic);
     }
 
     @Override
@@ -24,11 +27,8 @@ public class GameState extends State {
     public void Draw(GameWindow wnd) {
         BufferStrategy bs = wnd.GetCanvas().getBufferStrategy();
         Graphics g = bs.getDrawGraphics();
-        if (frameCount == 0) {
-            g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
-            g.drawImage(Backgrounds.bg_game.getScaledInstance(wnd.GetWndWidth(), wnd.GetWndHeight(), Image.SCALE_SMOOTH),
-                    0, 0, null);
-        }
+        g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
+        g.drawImage(BackgroundAssets.bg_game, 0, 0, null);
         bs.show();
         g.dispose();
 
@@ -42,5 +42,15 @@ public class GameState extends State {
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
 
+    }
+
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+        switch(keyEvent.getKeyCode()){
+            case KeyEvent.VK_ESCAPE:
+                AudioManager.GetInstance().Stop(BackgroundMusic.gameMusic);
+                StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE);
+                break;
+        }
     }
 }

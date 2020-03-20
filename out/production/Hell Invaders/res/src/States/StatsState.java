@@ -1,7 +1,7 @@
 package States;
 
-import Game.GameWindow.GameWindow;
-import Game.Graphics.Backgrounds;
+import Game.GameWindow;
+import Assets.BackgroundAssets;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -12,7 +12,7 @@ public class StatsState extends State {
 
     @Override
     public void Init() {
-
+        super.Init();
     }
 
     @Override
@@ -25,7 +25,7 @@ public class StatsState extends State {
         BufferStrategy bs = wnd.GetCanvas().getBufferStrategy();
         Graphics g = bs.getDrawGraphics();
         g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
-        g.drawImage(Backgrounds.bg_game_dark, 0, 0, null);
+        g.drawImage(BackgroundAssets.bg_game_dark, 0, 0, null);
         bs.show();
         g.dispose();
     }

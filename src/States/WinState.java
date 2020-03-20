@@ -1,6 +1,6 @@
 package States;
 
-import Game.GameWindow.GameWindow;
+import Game.GameWindow;
 
 import java.awt.event.MouseEvent;
 
@@ -8,7 +8,7 @@ public class WinState extends State {
 
     @Override
     public void Init() {
-
+        super.Init();
     }
 
     @Override

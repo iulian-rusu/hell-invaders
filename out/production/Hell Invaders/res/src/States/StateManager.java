@@ -1,6 +1,6 @@
 package States;
 
-import Game.GameWindow.GameWindow;
+import Game.GameWindow;
 
 public class StateManager {
     //singleton class that holds all states and manages them
@@ -29,9 +29,15 @@ public class StateManager {
     }
 
     private StateManager() {
-        allStates = new State[]{new MenuState(), new OptionsState(), new StatsState(),
-                new UpgradeState(), new GameState(), new LossState(), new WinState()};
-        //game starts in menu state
+        allStates = new State[]{
+                new MenuState(),
+                new OptionsState(),
+                new StatsState(),
+                new UpgradeState(),
+                new GameState(),
+                new LossState(),
+                new WinState()
+        };
         SetCurrentState(StateIndex.MENU_STATE);
     }
 
