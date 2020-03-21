@@ -3,7 +3,8 @@ package Assets;
 import java.awt.image.BufferedImage;
 
 public class EnemyAssets {
-    public static BufferedImage[] dragon_frames,monster_frames;
+    public static BufferedImage[] dragon_frames;
+    public static BufferedImage[] monster_frames;
 
     public static void Init(){
         dragon_frames=new BufferedImage[5];
