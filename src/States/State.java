@@ -11,8 +11,8 @@ public abstract class State {
     protected ArrayList<GUIButton> allButtons;
     protected int frameCount;
     protected int secondCount;
-    protected static final int buttonW = 200;
-    protected static final int buttonH = 55;
+    protected static final int buttonW = 230;
+    protected static final int buttonH = 65;
 
     public void Init() {
         frameCount = -1;

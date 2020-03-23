@@ -1,7 +1,6 @@
 package States;
 
 import Assets.PlayerAssets;
-import Assets.ProjectileAssets;
 import Audio.AudioManager;
 import Audio.BackgroundMusic;
 import GUI.GUIButton;
@@ -12,7 +11,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 
-public class GameState extends ReversableState {
+public class GameState extends ReversibleState {
 
     public GameState() {
         allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE));

@@ -5,9 +5,9 @@ import java.util.Objects;
 
 public class PlayerAssets {
     public static Image[] player_frames;
-    public static final int playerH=160;
-    public static final int playerW=130;
-    public static final int playerX=25;
+    public static final int playerH=140;
+    public static final int playerW=120;
+    public static final int playerX=35;
     public static final int playerY=420;
 
     public static void Init(){

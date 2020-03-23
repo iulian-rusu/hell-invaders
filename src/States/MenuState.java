@@ -17,9 +17,9 @@ public class MenuState extends State {
     private GUIText bottomText;
 
     public MenuState() {
-        final int menuY = Toolkit.getDefaultToolkit().getScreenSize().height / 2;
+        final int menuY = Toolkit.getDefaultToolkit().getScreenSize().height / 2-20;
         final int menuX = (Toolkit.getDefaultToolkit().getScreenSize().width - buttonW) / 2;
-        final int buttonSpacing = 65;
+        final int buttonSpacing = 75;
 
         allButtons = new ArrayList<>(5);
         allButtons.add(new GUIButton(GUIAssets.new_game_button, GUIAssets.new_game_button_hovered, menuX, menuY, buttonW, buttonH));

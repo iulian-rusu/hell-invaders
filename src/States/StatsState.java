@@ -1,8 +1,5 @@
 package States;
 
-import Assets.GUIAssets;
-import Audio.AudioManager;
-import Audio.BackgroundMusic;
 import GUI.GUIButton;
 import Game.GameWindow;
 import Assets.BackgroundAssets;
@@ -11,7 +8,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 
-public class StatsState extends ReversableState {
+public class StatsState extends ReversibleState {
     public StatsState(){
         allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE));
     }
