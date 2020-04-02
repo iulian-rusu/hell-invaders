@@ -17,16 +17,16 @@ public class MenuState extends State {
     private GUIText bottomText;
 
     public MenuState() {
-        final int menuY = Toolkit.getDefaultToolkit().getScreenSize().height / 2-20;
-        final int menuX = (Toolkit.getDefaultToolkit().getScreenSize().width - buttonW) / 2;
+        final int menuY = GameWindow.wndDimension.height / 2-20;
+        final int menuX =( GameWindow.wndDimension.width - BUTTON_W) / 2;
         final int buttonSpacing = 75;
 
         allButtons = new ArrayList<>(5);
-        allButtons.add(new GUIButton(GUIAssets.new_game_button, GUIAssets.new_game_button_hovered, menuX, menuY, buttonW, buttonH));
-        allButtons.add(new GUIButton(GUIAssets.resume_button_blocked, GUIAssets.resume_button_hovered, menuX, menuY + buttonSpacing, buttonW, buttonH));
-        allButtons.add(new GUIButton(GUIAssets.options_button, GUIAssets.options_button_hovered, menuX, menuY + 2 * buttonSpacing, buttonW, buttonH));
-        allButtons.add(new GUIButton(GUIAssets.stats_button, GUIAssets.stats_button_hovered, menuX, menuY + 3 * buttonSpacing, buttonW, buttonH));
-        allButtons.add(new GUIButton(GUIAssets.quit_button, GUIAssets.quit_button_hovered, menuX, menuY + 4 * buttonSpacing, buttonW, buttonH));
+        allButtons.add(new GUIButton(GUIAssets.new_game_button, GUIAssets.new_game_button_hovered, menuX, menuY, BUTTON_W, BUTTON_H));
+        allButtons.add(new GUIButton(GUIAssets.resume_button_blocked, GUIAssets.resume_button_hovered, menuX, menuY + buttonSpacing, BUTTON_W, BUTTON_H));
+        allButtons.add(new GUIButton(GUIAssets.options_button, GUIAssets.options_button_hovered, menuX, menuY + 2 * buttonSpacing, BUTTON_W, BUTTON_H));
+        allButtons.add(new GUIButton(GUIAssets.stats_button, GUIAssets.stats_button_hovered, menuX, menuY + 3 * buttonSpacing, BUTTON_W, BUTTON_H));
+        allButtons.add(new GUIButton(GUIAssets.quit_button, GUIAssets.quit_button_hovered, menuX, menuY + 4 * buttonSpacing, BUTTON_W, BUTTON_H));
         allButtons.get(1).Block();
         //state transition events
         allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE));
@@ -39,7 +39,7 @@ public class MenuState extends State {
         allButtons.get(1).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusic.menuMusic));
         allButtons.get(4).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusic.menuMusic));
         bottomText = new GUIText("COPYRIGHT © 2020 IULIAN RUSU. ALL RIGHTS RESERVED.",
-                5, Toolkit.getDefaultToolkit().getScreenSize().height - 5, 25f);
+                5, GameWindow.wndDimension.height - 5, 25f);
         bottomText.SetColor(Color.GRAY);
     }
 

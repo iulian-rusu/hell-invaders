@@ -12,14 +12,14 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 
 public class UpgradeState extends ReversibleState {
-    private final int playW=400;
-    private  final int playH=110;
-    private final int playX = Toolkit.getDefaultToolkit().getScreenSize().width / 2 - playW/2;
+    private final int playW = 400;
+    private final int playH = 110;
+    private final int playX = GameWindow.wndDimension.width / 2 - playW / 2;
 
     public UpgradeState() {
         allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE));
         allButtons.get(0).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusic.upgradeMusic));
-        allButtons.add(new GUIButton(GUIAssets.play_button, GUIAssets.play_button_hovered, playX, 725, playW, playH ));
+        allButtons.add(new GUIButton(GUIAssets.play_button, GUIAssets.play_button_hovered, playX, 725, playW, playH));
         allButtons.get(1).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.GAME_STATE));
         allButtons.get(1).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusic.upgradeMusic));
     }

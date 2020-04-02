@@ -10,21 +10,17 @@ public class GUIText {
     private Color color;
     private int x, y;
 
-    public GUIText(String text, float size, Color c) {
-        this(text, 0, 0, size);
-        color = c;
-    }
-
-    public GUIText(String text, float size) {
-        this(text, 0, 0, size);
-    }
-
     public GUIText(String text, int x, int y, float size) {
         this.text = text;
         this.x = x;
         this.y = y;
         font = FontAssets.mainFont.deriveFont(size);
         color = Color.WHITE;
+    }
+
+    public GUIText(String text, int x, int y, float size, Color c) {
+        this(text, x,y, size);
+        color = c;
     }
 
     public void SetPosition(int x, int y) {
@@ -45,9 +41,13 @@ public class GUIText {
         font = f.deriveFont(fontSize);
     }
 
-    public float GetFontSize() {
-        return font.getSize();
+    @Override
+    public String toString() {
+        return text;
     }
+
+    public int GetX(){return x;}
+    public int GetY(){return y;}
 
     public void Draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;

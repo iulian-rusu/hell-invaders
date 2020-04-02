@@ -1,6 +1,7 @@
 package Assets;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -12,6 +13,13 @@ public class ImageLoader {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static BufferedImage GetScaledImage(BufferedImage original, int w, int h){
+        Image tmp = original.getScaledInstance(w, h, BufferedImage.SCALE_FAST);
+        BufferedImage resized = new BufferedImage(w, h, original.getType());
+        resized.getGraphics().drawImage(tmp,0,0,null);
+        return resized;
     }
 }
 

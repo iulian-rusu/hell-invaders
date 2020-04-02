@@ -1,27 +1,62 @@
 package States;
 
-import Assets.PlayerAssets;
 import Audio.AudioManager;
 import Audio.BackgroundMusic;
+import Entities.EntityManager;
+import Entities.Enemies.Enemy;
+import Entities.Entity;
+import Entities.Player;
+import Entities.Projectiles.Projectile;
 import GUI.GUIButton;
 import Game.GameWindow;
 import Assets.BackgroundAssets;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
+import java.util.Comparator;
+import java.util.ConcurrentModificationException;
+import java.util.PriorityQueue;
 
 public class GameState extends ReversibleState {
+
+    private Player p;
+    private PriorityQueue<Enemy> allEnemies;
+    private PriorityQueue<Projectile> allProjectiles;
+    private Rectangle clickBox;
 
     public GameState() {
         allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE));
         allButtons.get(0).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusic.gameMusic));
+        allEnemies =new PriorityQueue<>(Comparator.comparingInt(Entity::GetY));
+        allProjectiles =new PriorityQueue<>(Comparator.comparingInt(Entity::GetY));
+        p=new Player();
+
+        Dimension screenSize=GameWindow.wndDimension;
+        clickBox=new Rectangle(200,100,screenSize.width-200,screenSize.height-100);
+    }
+
+    @Override
+    public void Update() {
+        super.Update();
+        for(Enemy e: allEnemies){
+            e.Update();
+        }
+        for(Projectile p: allProjectiles){
+            p.Update();
+        }
+        p.Update();
+        //check for collisions and eventually delete inactive entities
+        EntityManager.Update(allEnemies,allProjectiles);
     }
 
     @Override
     public void Init() {
         super.Init();
         AudioManager.GetInstance().Play(BackgroundMusic.gameMusic);
+        allProjectiles.clear();
+        allEnemies.clear();
     }
 
     @Override
@@ -30,10 +65,20 @@ public class GameState extends ReversibleState {
         Graphics g = bs.getDrawGraphics();
         g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
         g.drawImage(BackgroundAssets.bg_game, 0, 0, null);
+        p.Draw(g);
+        try {
+            for (Enemy e : allEnemies) {
+                e.Draw(g);
+            }
+            for (Projectile p : allProjectiles) {
+                p.Draw(g);
+            }
+        }catch (ConcurrentModificationException e) {
+            e.printStackTrace();
+        }
         for (GUIButton b : allButtons) {
             b.Draw(g);
         }
-        g.drawImage(PlayerAssets.player_frames[(frameCount / 8) % 4], PlayerAssets.playerX, PlayerAssets.playerY, null);
         bs.show();
         g.dispose();
     }
@@ -43,6 +88,14 @@ public class GameState extends ReversibleState {
         if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) {
             AudioManager.GetInstance().Stop(BackgroundMusic.gameMusic);
             StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE);
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+        super.mousePressed(mouseEvent);
+        if(clickBox.contains(mouseEvent.getPoint())){
+            allProjectiles.add(p.FireProjectile(mouseEvent.getPoint()));
         }
     }
 }
