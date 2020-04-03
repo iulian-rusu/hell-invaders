@@ -1,7 +1,7 @@
 package States;
 
 import Audio.AudioManager;
-import Audio.BackgroundMusic;
+import Audio.BackgroundMusicAssets;
 import GUI.GUIButton;
 import GUI.GUIText;
 import Game.GameWindow;
@@ -35,9 +35,9 @@ public class MenuState extends State {
         allButtons.get(3).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.STATS_STATE));
         allButtons.get(4).AddActionListener(actionEvent -> System.exit(0));
         //music events
-        allButtons.get(0).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusic.menuMusic));
-        allButtons.get(1).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusic.menuMusic));
-        allButtons.get(4).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusic.menuMusic));
+        allButtons.get(0).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusicAssets.menuMusic));
+        allButtons.get(1).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusicAssets.menuMusic));
+        allButtons.get(4).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusicAssets.menuMusic));
         bottomText = new GUIText("COPYRIGHT © 2020 IULIAN RUSU. ALL RIGHTS RESERVED.",
                 5, GameWindow.wndDimension.height - 5, 25f);
         bottomText.SetColor(Color.GRAY);
@@ -46,7 +46,7 @@ public class MenuState extends State {
     @Override
     public void Init() {
         super.Init();
-        AudioManager.GetInstance().Play(BackgroundMusic.menuMusic);
+        AudioManager.GetInstance().Play(BackgroundMusicAssets.menuMusic);
         allButtons.get(1).Block();
         logoColorflag = true;
     }

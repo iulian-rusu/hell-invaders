@@ -2,7 +2,7 @@ package States;
 
 import Assets.GUIAssets;
 import Audio.AudioManager;
-import Audio.BackgroundMusic;
+import Audio.BackgroundMusicAssets;
 import GUI.GUIButton;
 import Game.GameWindow;
 import Assets.BackgroundAssets;
@@ -18,16 +18,16 @@ public class UpgradeState extends ReversibleState {
 
     public UpgradeState() {
         allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE));
-        allButtons.get(0).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusic.upgradeMusic));
+        allButtons.get(0).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusicAssets.upgradeMusic));
         allButtons.add(new GUIButton(GUIAssets.play_button, GUIAssets.play_button_hovered, playX, 725, playW, playH));
         allButtons.get(1).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.GAME_STATE));
-        allButtons.get(1).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusic.upgradeMusic));
+        allButtons.get(1).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusicAssets.upgradeMusic));
     }
 
     @Override
     public void Init() {
         super.Init();
-        AudioManager.GetInstance().Play(BackgroundMusic.upgradeMusic);
+        AudioManager.GetInstance().Play(BackgroundMusicAssets.upgradeMusic);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class UpgradeState extends ReversibleState {
     @Override
     public void keyPressed(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            AudioManager.GetInstance().Stop(BackgroundMusic.upgradeMusic);
+            AudioManager.GetInstance().Stop(BackgroundMusicAssets.upgradeMusic);
             StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE);
         }
     }

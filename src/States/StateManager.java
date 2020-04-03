@@ -1,5 +1,6 @@
 package States;
 
+import Audio.AudioManager;
 import Game.GameWindow;
 
 public class StateManager {
@@ -38,6 +39,7 @@ public class StateManager {
                 new LossState(),
                 new WinState()
         };
+        allStates[StateIndex.GAME_STATE.GetValue()].AddObserver(AudioManager.GetInstance());
         SetCurrentState(StateIndex.MENU_STATE);
     }
 

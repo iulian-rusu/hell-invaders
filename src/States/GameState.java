@@ -1,10 +1,11 @@
 package States;
 
 import Audio.AudioManager;
-import Audio.BackgroundMusic;
+import Audio.BackgroundMusicAssets;
+import Entities.Enemies.Monster;
+import Entities.Entity;
 import Entities.EntityManager;
 import Entities.Enemies.Enemy;
-import Entities.Entity;
 import Entities.Player;
 import Entities.Projectiles.Projectile;
 import GUI.GUIButton;
@@ -15,48 +16,62 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
-import java.util.Comparator;
-import java.util.ConcurrentModificationException;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class GameState extends ReversibleState {
 
     private Player p;
-    private PriorityQueue<Enemy> allEnemies;
-    private PriorityQueue<Projectile> allProjectiles;
+    //enemies and projectiles are separated for more efficient collision checking
+    private ArrayList<Enemy> allEnemies;
+    private ArrayList<Projectile> allProjectiles;
     private Rectangle clickBox;
 
     public GameState() {
-        allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE));
-        allButtons.get(0).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusic.gameMusic));
-        allEnemies =new PriorityQueue<>(Comparator.comparingInt(Entity::GetY));
-        allProjectiles =new PriorityQueue<>(Comparator.comparingInt(Entity::GetY));
-        p=new Player();
+        allButtons.get(0).AddActionListener(actionEvent -> {
+            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE);
+            AudioManager.GetInstance().Stop(BackgroundMusicAssets.gameMusic);
+        });
 
-        Dimension screenSize=GameWindow.wndDimension;
-        clickBox=new Rectangle(200,100,screenSize.width-200,screenSize.height-100);
-    }
+        allEnemies = new ArrayList<>() {
+            public boolean add(Enemy mt) {
+                int index = Collections.binarySearch(this, mt);
+                if (index < 0)
+                    index = ~index;
+                super.add(index, mt);
+                return true;
+            }
+        };
+        allProjectiles = new ArrayList<>();
+        p = new Player();
 
-    @Override
-    public void Update() {
-        super.Update();
-        for(Enemy e: allEnemies){
-            e.Update();
-        }
-        for(Projectile p: allProjectiles){
-            p.Update();
-        }
-        p.Update();
-        //check for collisions and eventually delete inactive entities
-        EntityManager.Update(allEnemies,allProjectiles);
+        Dimension screenSize = GameWindow.wndDimension;
+        clickBox = new Rectangle(200, 100, screenSize.width - 200, screenSize.height - 100);
     }
 
     @Override
     public void Init() {
         super.Init();
-        AudioManager.GetInstance().Play(BackgroundMusic.gameMusic);
+        AudioManager.GetInstance().Play(BackgroundMusicAssets.gameMusic);
         allProjectiles.clear();
         allEnemies.clear();
+
+        allEnemies.add(new Monster(1700, 430));
+        allEnemies.add(new Monster(1700, 370));
+        allEnemies.add(new Monster(1700, 300));
+    }
+
+    @Override
+    public void Update() {
+        super.Update();
+        for (Enemy e : allEnemies) {
+            e.Update();
+        }
+        for (Projectile p : allProjectiles) {
+            p.Update();
+        }
+        p.Update();
+        //check for collisions and eventually delete inactive entities
+        EntityManager.Update(allEnemies, allProjectiles);
     }
 
     @Override
@@ -73,7 +88,7 @@ public class GameState extends ReversibleState {
             for (Projectile p : allProjectiles) {
                 p.Draw(g);
             }
-        }catch (ConcurrentModificationException e) {
+        } catch (ConcurrentModificationException e) {
             e.printStackTrace();
         }
         for (GUIButton b : allButtons) {
@@ -86,7 +101,7 @@ public class GameState extends ReversibleState {
     @Override
     public void keyPressed(KeyEvent keyEvent) {
         if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            AudioManager.GetInstance().Stop(BackgroundMusic.gameMusic);
+            AudioManager.GetInstance().Stop(BackgroundMusicAssets.gameMusic);
             StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE);
         }
     }
@@ -94,8 +109,9 @@ public class GameState extends ReversibleState {
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
         super.mousePressed(mouseEvent);
-        if(clickBox.contains(mouseEvent.getPoint())){
-            allProjectiles.add(p.FireProjectile(mouseEvent.getPoint()));
+        if (clickBox.contains(mouseEvent.getPoint())) {
+            Projectile[] toBeAdded = p.FireProjectile(mouseEvent.getPoint());
+            allProjectiles.addAll(Arrays.asList(toBeAdded));
         }
     }
 }

@@ -6,8 +6,8 @@ import java.awt.*;
 
 public class FireProjectile extends Projectile {
 
-    public FireProjectile(int x, int y, double xVelocity, double yVelocity, double angle, int damage) {
-        super(x, y, xVelocity, yVelocity, angle, damage);
+    public FireProjectile(int x, int y, double xVelocity, double yVelocity,int damage, int crithChance) {
+        super(x, y, xVelocity, yVelocity, damage, crithChance);
     }
 
     @Override

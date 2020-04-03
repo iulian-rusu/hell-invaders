@@ -2,27 +2,24 @@ package Entities;
 
 import Entities.Enemies.Enemy;
 import Entities.Projectiles.Projectile;
+import Game.GameWindow;
 
-import java.awt.*;
-import java.util.PriorityQueue;
+import java.util.ArrayList;
 
-public class EntityManager {
+public class EntityManager{
 
-    private static int width=Toolkit.getDefaultToolkit().getScreenSize().width;
-    private static int height=Toolkit.getDefaultToolkit().getScreenSize().height;
-
-    public static void Update(PriorityQueue<Enemy> allEnemies, PriorityQueue<Projectile> allProjectiles) {
+    public static synchronized void Update(ArrayList<Enemy> allEnemies, ArrayList<Projectile> allProjectiles) {
         CheckCollisions(allEnemies, allProjectiles);
         CheckVisibility(allProjectiles);
         Clean(allEnemies);
         Clean(allProjectiles);
     }
 
-    public static synchronized <T extends CollidableEntity> void Clean(PriorityQueue<T> allEntities) {
+    public static synchronized <T extends CollidableEntity> void Clean(ArrayList<T> allEntities) {
         allEntities.removeIf(e -> !e.isActive);
     }
 
-    public static void CheckCollisions(PriorityQueue<Enemy> allEnemies, PriorityQueue<Projectile> allProjectiles) {
+    public static synchronized void CheckCollisions(ArrayList<Enemy> allEnemies, ArrayList<Projectile> allProjectiles) {
         for (Projectile p : allProjectiles) {
             for (Enemy e : allEnemies) {
                 if (p.CollidesWith(e)) {
@@ -34,9 +31,9 @@ public class EntityManager {
         }
     }
 
-    public static void CheckVisibility(PriorityQueue<Projectile> allProjectiles){
+    public static synchronized void CheckVisibility(ArrayList<Projectile> allProjectiles){
         for(Projectile p:allProjectiles){
-            if(p.x<0 || p.x>width || p.y<0 || p.y > height) {
+            if(p.x<0 || p.x> GameWindow.wndDimension.width || p.y<0 || p.y > GameWindow.wndDimension.height) {
                 p.SetActive(false);
             }
         }

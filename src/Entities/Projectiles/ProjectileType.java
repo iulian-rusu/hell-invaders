@@ -1,5 +1,5 @@
 package Entities.Projectiles;
 
 public enum ProjectileType {
-    FIRE, FROST, ARCANE
+    FIRE, FROST, ARCANE, ENEMY
 }

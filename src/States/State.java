@@ -1,5 +1,6 @@
 package States;
 
+import Events.Observable;
 import GUI.GUIButton;
 import Game.GameWindow;
 
@@ -7,7 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public abstract class State {
+public abstract class State extends Observable {
     protected ArrayList<GUIButton> allButtons;
     protected int frameCount;
     protected int secondCount;
@@ -50,6 +51,5 @@ public abstract class State {
             }
         }
     }
-
     public abstract void Draw(GameWindow wnd);
 }

@@ -13,7 +13,6 @@ public class GameWindow {
     public static final  Dimension wndDimension=Toolkit.getDefaultToolkit().getScreenSize();
 
     public GameWindow(String title) {
-        Toolkit tk = Toolkit.getDefaultToolkit();
         wndTitle = title;
         wndWidth = wndDimension.width;
         wndHeight = wndDimension.height;
