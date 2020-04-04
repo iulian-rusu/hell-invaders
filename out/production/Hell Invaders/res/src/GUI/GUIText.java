@@ -23,6 +23,13 @@ public class GUIText {
         color = c;
     }
 
+    public void Draw(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(color);
+        g2d.setFont(font);
+        g2d.drawString(text, x, y);
+    }
+
     public void SetPosition(int x, int y) {
         this.x = x;
         this.y = y;
@@ -41,18 +48,6 @@ public class GUIText {
         font = f.deriveFont(fontSize);
     }
 
-    @Override
-    public String toString() {
-        return text;
-    }
-
     public int GetX(){return x;}
     public int GetY(){return y;}
-
-    public void Draw(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(color);
-        g2d.setFont(font);
-        g2d.drawString(text, x, y);
-    }
 }

@@ -1,6 +1,6 @@
 package Assets;
 
-import Entities.Projectiles.Projectile;
+import Entities.CollidableEntities.Projectiles.Projectile;
 
 import java.awt.image.BufferedImage;
 import java.util.Objects;

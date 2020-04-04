@@ -1,6 +1,9 @@
 package States;
 
+
+import Audio.BackgroundMusic;
 import Audio.AudioManager;
+import Audio.BackgroundMusicAssets;
 import Game.GameWindow;
 
 public class StateManager {
@@ -13,21 +16,22 @@ public class StateManager {
     }
 
     public void Update() {
-        allStates[currentStateIndex.GetValue()].Update();
+        allStates[currentStateIndex.value].Update();
     }
 
     public void Draw(GameWindow wnd) {
-        allStates[currentStateIndex.GetValue()].Draw(wnd);
+        allStates[currentStateIndex.value].Draw(wnd);
     }
 
     public void SetCurrentState(StateIndex newStateIndex) {
         currentStateIndex = newStateIndex;
-        allStates[currentStateIndex.GetValue()].Init();
+        allStates[currentStateIndex.value].Init();
     }
 
     public State GetCurrentState() {
-        return allStates[currentStateIndex.GetValue()];
+        return allStates[currentStateIndex.value];
     }
+    public StateIndex GetCurrentStateIndex(){return currentStateIndex;}
 
     private StateManager() {
         allStates = new State[]{
@@ -39,8 +43,9 @@ public class StateManager {
                 new LossState(),
                 new WinState()
         };
-        allStates[StateIndex.GAME_STATE.GetValue()].AddObserver(AudioManager.GetInstance());
-        SetCurrentState(StateIndex.MENU_STATE);
+        for(State s:allStates) {
+            s.AddObserver(AudioManager.GetInstance());
+        }
     }
 
     private StateIndex currentStateIndex;
@@ -49,22 +54,20 @@ public class StateManager {
 
     public enum StateIndex {
         //helper enum for more meaningful index names for the state vector
-        MENU_STATE(0),
-        OPTIONS_STATE(1),
-        STATS_STATE(2),
-        UPGRADE_STATE(3),
-        GAME_STATE(4),
-        LOSS_STATE(5),
-        WIN_STATE(6);
+        MENU_STATE(0, BackgroundMusicAssets.menuMusic),
+        OPTIONS_STATE(1, BackgroundMusicAssets.menuMusic),
+        STATS_STATE(2, BackgroundMusicAssets.menuMusic),
+        UPGRADE_STATE(3, BackgroundMusicAssets.upgradeMusic),
+        GAME_STATE(4, BackgroundMusicAssets.gameMusic),
+        LOSS_STATE(5, BackgroundMusicAssets.lossMusic),
+        WIN_STATE(6, BackgroundMusicAssets.winMusic);
 
-        private int value;
+        public int value;
+        public BackgroundMusic bgMusic;
 
-        public int GetValue() {
-            return value;
-        }
-
-        StateIndex(int i) {
+        StateIndex(int i, BackgroundMusic music) {
             this.value = i;
+            this.bgMusic=music;
         }
     }
 }

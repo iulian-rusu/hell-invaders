@@ -1,8 +1,9 @@
 package Audio;
 
-import Events.SFXEvent;
-import Events.GameEvent;
-import Events.Observer;
+import EventSystem.Events.AudioEvent;
+import EventSystem.Events.GameEvent;
+import EventSystem.Observer;
+import States.StateManager;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -42,19 +43,31 @@ public class AudioManager implements Observer {
     private static AudioManager instance = null;
 
     @Override
-    public void OnNotify(GameEvent e){
-        if(!(e instanceof SFXEvent))
+    public void OnNotify(GameEvent e) {
+        if (!(e.GetType() == GameEvent.GameEventType.SFXEvent))
             return;
-        int eventType = e.GetType();
-        if ((eventType & SFXEvent.PLAY_SPELL_SHOOT) != 0)
-            Play(SoundEffectAssets.spellShoot);
-        if ((eventType & SFXEvent.PLAY_MONSTER_SPAWN) != 0)
-            Play(SoundEffectAssets.monsterSpawn);
-        if ((eventType & SFXEvent.PLAY_MONSTER_SHOOT) != 0)
-            Play(SoundEffectAssets.mosnterShoot);
-        if ((eventType & SFXEvent.PLAY_MONSTER_HURT) != 0)
-            Play(SoundEffectAssets.monsterHurt);
-        if ((eventType & SFXEvent.PLAY_WIN_SFX) != 0)
-            Play(SoundEffectAssets.winSFX);
+        switch ((AudioEvent) e) {
+            case PLAY_CURRENT_STATE_MUSIC:
+                Play(StateManager.GetInstance().GetCurrentStateIndex().bgMusic);
+                break;
+            case STOP_CURRENT_STATE_MUSIC:
+                Stop(StateManager.GetInstance().GetCurrentStateIndex().bgMusic);
+                break;
+            case PLAY_SPELL_SHOOT:
+                Play(SoundEffectAssets.spellShoot);
+                break;
+            case PLAY_ENEMY_SPAWN:
+                Play(SoundEffectAssets.enemySpawn);
+                break;
+            case PLAY_DRAGON_SHOOT:
+                Play(SoundEffectAssets.dragonShoot);
+                break;
+            case PLAY_ENEMY_HURT:
+                Play(SoundEffectAssets.enemyHurt);
+                break;
+            case PLAY_WIN_SFX:
+                Play(SoundEffectAssets.winSFX);
+                break;
+        }
     }
 }

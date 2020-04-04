@@ -47,7 +47,4 @@ public class GameWindow {
     public Canvas GetCanvas() {
         return canvas;
     }
-    public JFrame GetFrame(){
-        return wndFrame;
-    }
 }

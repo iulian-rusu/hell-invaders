@@ -1,4 +1,4 @@
-package Entities.Projectiles;
+package Entities.CollidableEntities.Projectiles;
 
 import Assets.ProjectileAssets;
 

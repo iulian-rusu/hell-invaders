@@ -1,8 +1,7 @@
-package Entities.Projectiles;
+package Entities.CollidableEntities.Projectiles;
 
-import Assets.ProjectileAssets;
-import Entities.CollidableEntity;
-import Entities.Enemies.Enemy;
+import Entities.CollidableEntities.CollidableEntity;
+import Entities.CollidableEntities.Enemies.Enemy;
 
 import java.util.Random;
 
@@ -21,9 +20,7 @@ public abstract class Projectile extends CollidableEntity {
     protected int critChance;
 
     public Projectile(int x, int y, double xVelocity, double yVelocity, int damage, int critChance) {
-        super(PROJECTILE_WIDTH, PROJECTILE_HEIGHT,PROJECTILE_WIDTH,PROJECTILE_HEIGHT);
-        this.x = x;
-        this.y = y;
+        super(x,y,PROJECTILE_WIDTH, PROJECTILE_HEIGHT,PROJECTILE_WIDTH,PROJECTILE_HEIGHT);
         //doubles for precise position calculation
         fx = x;
         fy = y;
@@ -44,7 +41,7 @@ public abstract class Projectile extends CollidableEntity {
     }
 
     public void DealDamage(Enemy e) {
-        if (RNG.nextInt() % 100 < critChance) {
+        if (Math.abs(RNG.nextInt() )% 100 < critChance) {
             e.TakeDamage(damage * CRIT_AMPLIFIER);
         } else {
             e.TakeDamage(damage);

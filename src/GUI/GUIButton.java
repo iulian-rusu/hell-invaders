@@ -1,5 +1,7 @@
 package GUI;
 
+import Assets.GUIAssets;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -65,7 +67,15 @@ public class GUIButton {
     }
 
     public void Block() {
-        currentState = GUIButtonState.BLOCKED;
+        if (currentState != GUIButtonState.BLOCKED) {
+            currentState = GUIButtonState.BLOCKED;
+        }
+    }
+
+    public void Unblock() {
+        if (currentState == GUIButtonState.BLOCKED) {
+            currentState = GUIButtonState.RELEASED;
+        }
     }
 
     private enum GUIButtonState {

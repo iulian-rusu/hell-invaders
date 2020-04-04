@@ -5,11 +5,11 @@ import Game.GameWindow;
 import Assets.BackgroundAssets;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 
 public class StatsState extends ReversibleState {
     public StatsState(){
+        //back button
         allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE));
     }
 
@@ -24,11 +24,5 @@ public class StatsState extends ReversibleState {
         }
         bs.show();
         g.dispose();
-    }
-
-    @Override
-    public void keyPressed(KeyEvent keyEvent) {
-        if(keyEvent.getKeyCode()==KeyEvent.VK_ESCAPE)
-            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE);
     }
 }

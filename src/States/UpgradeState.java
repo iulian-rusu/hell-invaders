@@ -1,14 +1,12 @@
 package States;
 
 import Assets.GUIAssets;
-import Audio.AudioManager;
-import Audio.BackgroundMusicAssets;
+import EventSystem.Events.AudioEvent;
 import GUI.GUIButton;
 import Game.GameWindow;
 import Assets.BackgroundAssets;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 
 public class UpgradeState extends ReversibleState {
@@ -17,17 +15,23 @@ public class UpgradeState extends ReversibleState {
     private final int playX = GameWindow.wndDimension.width / 2 - playW / 2;
 
     public UpgradeState() {
-        allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE));
-        allButtons.get(0).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusicAssets.upgradeMusic));
+        //back button events
+        allButtons.get(0).AddActionListener(actionEvent -> {
+            NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
+            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE);
+        });
+        //play button
         allButtons.add(new GUIButton(GUIAssets.play_button, GUIAssets.play_button_hovered, playX, 725, playW, playH));
-        allButtons.get(1).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.GAME_STATE));
-        allButtons.get(1).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusicAssets.upgradeMusic));
+        allButtons.get(1).AddActionListener(actionEvent -> {
+            NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
+            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.GAME_STATE);
+        });
     }
 
     @Override
     public void Init() {
         super.Init();
-        AudioManager.GetInstance().Play(BackgroundMusicAssets.upgradeMusic);
+        NotifyAllObservers(AudioEvent.PLAY_CURRENT_STATE_MUSIC);
     }
 
     @Override
@@ -41,13 +45,5 @@ public class UpgradeState extends ReversibleState {
         }
         bs.show();
         g.dispose();
-    }
-
-    @Override
-    public void keyPressed(KeyEvent keyEvent) {
-        if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            AudioManager.GetInstance().Stop(BackgroundMusicAssets.upgradeMusic);
-            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE);
-        }
     }
 }

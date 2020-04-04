@@ -30,4 +30,6 @@ public class GUITextPanel {
         text.Draw(g);
     }
 
+    public GUIText Gettext(){return text;}
+
 }

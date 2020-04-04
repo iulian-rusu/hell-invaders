@@ -1,10 +1,9 @@
 package States;
 
-import Events.Observable;
+import EventSystem.Observable;
 import GUI.GUIButton;
 import Game.GameWindow;
 
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
@@ -31,9 +30,6 @@ public abstract class State extends Observable {
             frameCount = 0;
             ++secondCount;
         }
-    }
-
-    public void keyPressed(KeyEvent keyEvent) {
     }
 
     public void mousePressed(MouseEvent mouseEvent) {

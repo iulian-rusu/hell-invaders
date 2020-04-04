@@ -1,4 +1,6 @@
-package Events;
+package EventSystem;
+
+import EventSystem.Events.GameEvent;
 
 import java.util.ArrayList;
 
