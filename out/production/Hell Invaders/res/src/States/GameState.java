@@ -138,8 +138,7 @@ public class GameState extends ReversibleState {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
             NotifyAllObservers(AudioEvent.STOP_ALL_SFX);
             if (isWon) {
-               // p.SetLevel(p.GetLevel() + 1);
-                Game.DIFFICULTY=Game.DIFFICULTY%3+1;
+                p.SetLevel(p.GetLevel() + 1);
                 StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.WIN_STATE);
             } else {
                 StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.LOSS_STATE);

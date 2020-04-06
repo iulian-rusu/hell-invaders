@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 public class BackgroundAssets {
+
     public static BufferedImage bg_game;
     public static BufferedImage bg_game_dark;
     public static BufferedImage bg_menu0;
@@ -13,9 +14,9 @@ public class BackgroundAssets {
     public static BufferedImage bg_win;
     public static BufferedImage bg_game_over;
 
-    public static void Init(GameWindow wnd) {
-        int w=wnd.GetWndWidth();
-        int h=wnd.GetWndHeight();
+    public static void Init() {
+        int w=GameWindow.wndDimension.width;
+        int h=GameWindow.wndDimension.height;
 
         bg_game = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage("/backgrounds/bg_game.png")),w,h);
         bg_game_dark = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage("/backgrounds/bg_game_dark.png")),w,h);
