@@ -1,23 +1,17 @@
 package Entities;
 
+import EventSystem.Observable;
+
 import java.awt.*;
 
-public abstract class Entity {
-    protected int frameCount;
-    protected int x;
-    protected int y;
+public abstract class Entity extends Observable{
 
-    public int GetX() {
-        return x;
-    }
-
-    public int GetY() {
-        return y;
-    }
-
+    protected int frameCount=-1;
+    
     public void Update() {
         frameCount = (frameCount + 1) % 60;
     }
 
     public abstract void Draw(Graphics g);
+
 }

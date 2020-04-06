@@ -1,62 +1,150 @@
 package States;
 
-import Audio.AudioManager;
-import Audio.BackgroundMusic;
-import Entities.EntityManager;
-import Entities.Enemies.Enemy;
-import Entities.Entity;
+import Entities.CollidableEntities.CollisionManager;
+import Entities.CollidableEntities.Enemies.Enemy;
 import Entities.Player;
-import Entities.Projectiles.Projectile;
+import Entities.CollidableEntities.Projectiles.Projectile;
+import EventSystem.Events.AudioEvent;
 import GUI.GUIButton;
+import GUI.GUIText;
+import Game.Game;
 import Game.GameWindow;
 import Assets.BackgroundAssets;
+import LevelSystem.LevelInitializer;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
-import java.util.Comparator;
-import java.util.ConcurrentModificationException;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class GameState extends ReversibleState {
 
-    private Player p;
-    private PriorityQueue<Enemy> allEnemies;
-    private PriorityQueue<Projectile> allProjectiles;
+    public static final int BATTLEFIELD_Y = 180;
+    public static final int BATTLEFIELD_HEIGHT = 250;
+
+    public Player p;
+    //enemies and projectiles are separated for more efficient collision checking
+    private ArrayList<Enemy> allEnemies;
+    private ArrayList<Projectile> allProjectiles;
+    private ArrayList<GUIText> combatText;
+    private ArrayList<GUIText> infoText;
     private Rectangle clickBox;
+    private int finishTime;
+    private boolean isWon;
 
     public GameState() {
-        allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE));
-        allButtons.get(0).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusic.gameMusic));
-        allEnemies =new PriorityQueue<>(Comparator.comparingInt(Entity::GetY));
-        allProjectiles =new PriorityQueue<>(Comparator.comparingInt(Entity::GetY));
-        p=new Player();
+        //back button
+        allButtons.get(0).AddActionListener(actionEvent -> {
+            NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
+            NotifyAllObservers(AudioEvent.STOP_ALL_SFX);
+            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE);
 
-        Dimension screenSize=GameWindow.wndDimension;
-        clickBox=new Rectangle(200,100,screenSize.width-200,screenSize.height-100);
-    }
+        });
+        //create Enemy and Projectile lists
+        allEnemies = new ArrayList<>() {
+            public boolean add(Enemy mt) {
+                int index = Collections.binarySearch(this, mt);
+                if (index < 0)
+                    index = ~index;
+                super.add(index, mt);
+                return true;
+            }
+        };
+        allProjectiles = new ArrayList<>();
+        combatText = new ArrayList<>();
+        p = Player.GetInstance();
 
-    @Override
-    public void Update() {
-        super.Update();
-        for(Enemy e: allEnemies){
-            e.Update();
-        }
-        for(Projectile p: allProjectiles){
-            p.Update();
-        }
-        p.Update();
-        //check for collisions and eventually delete inactive entities
-        EntityManager.Update(allEnemies,allProjectiles);
+        //various text for player info
+        int infoTextSize = 100;
+        infoText = new ArrayList<>(2);
+        infoText.add(new GUIText("EASY", GameWindow.wndDimension.width - 270,
+                Player.MANABAR_Y+Player.HEALTHBAR_HEIGHT, infoTextSize));
+        infoText.add(new GUIText("LEVEL 1", GameWindow.wndDimension.width / 2 - 100,
+                BACK_BUTTON_Y + BUTTON_H, infoTextSize));
+
+        //clickable field to fire projectiles
+        Dimension screenSize = GameWindow.wndDimension;
+        clickBox = new Rectangle(200, 100, screenSize.width - 200, screenSize.height - 100);
     }
 
     @Override
     public void Init() {
         super.Init();
-        AudioManager.GetInstance().Play(BackgroundMusic.gameMusic);
-        allProjectiles.clear();
-        allEnemies.clear();
+        NotifyAllObservers(AudioEvent.PLAY_CURRENT_STATE_MUSIC);
+        finishTime = -1;
+        isWon = false;
+        p.Init();
+
+        InitText();
+        //load enemy waves
+        LevelInitializer.InitLevel(allProjectiles, allEnemies, p.GetLevel());
+        //make the player an observer of all enemies
+        for (Enemy e : allEnemies) {
+            e.AddObserver(p);
+        }
+        combatText.clear();
+    }
+
+    void InitText() {
+        //init difficulty text
+        String d = "EASY";
+        Color c=Color.GREEN;
+        switch (Game.DIFFICULTY) {
+            case 1:
+                break;
+            case 2:
+                d = "MEDIUM";
+                c=Color.YELLOW;
+                break;
+            case 3:
+                d = "HARD";
+                c=Color.RED;
+                break;
+        }
+        infoText.get(0).SetText(d);
+        infoText.get(0).SetColor(c);
+        //init level text
+        infoText.get(1).SetText("LEVEL " + (p.GetLevel() + 1));
+    }
+
+    @Override
+    public void Update() {
+        super.Update();
+        try {
+            for (Enemy e : allEnemies) {
+                e.Update();
+            }
+            for (Projectile p : allProjectiles) {
+                p.Update();
+            }
+            p.Update();
+            //check for collisions and eventually delete inactive entities
+            CleanCombatText();
+            combatText.addAll(CollisionManager.GetInstance().Update(allEnemies, allProjectiles));
+        } catch (ConcurrentModificationException e) {
+            e.printStackTrace();
+        }
+        CheckIfFinished();
+    }
+
+    private void CheckIfFinished() {
+        //if no enemies and it's not the beginning of the level -> level ended
+        if (finishTime == -1 && secondCount > 0 && allEnemies.size() == 0) {
+            finishTime = secondCount;
+            NotifyAllObservers(AudioEvent.PLAY_WIN_SFX);
+        }
+        if (finishTime != -1 && (secondCount - finishTime > 2)) {
+            isWon = p.GetHealth() > 0;
+            NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
+            NotifyAllObservers(AudioEvent.STOP_ALL_SFX);
+            if (isWon) {
+               // p.SetLevel(p.GetLevel() + 1);
+                Game.DIFFICULTY=Game.DIFFICULTY%3+1;
+                StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.WIN_STATE);
+            } else {
+                StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.LOSS_STATE);
+            }
+        }
     }
 
     @Override
@@ -73,29 +161,36 @@ public class GameState extends ReversibleState {
             for (Projectile p : allProjectiles) {
                 p.Draw(g);
             }
-        }catch (ConcurrentModificationException e) {
+            for (GUIText t : combatText) {
+                t.Draw(g);
+            }
+        } catch (ConcurrentModificationException e) {
             e.printStackTrace();
         }
+
         for (GUIButton b : allButtons) {
             b.Draw(g);
+        }
+        for (GUIText t : infoText) {
+            t.Draw(g);
         }
         bs.show();
         g.dispose();
     }
 
     @Override
-    public void keyPressed(KeyEvent keyEvent) {
-        if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            AudioManager.GetInstance().Stop(BackgroundMusic.gameMusic);
-            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE);
+    public void mousePressed(MouseEvent mouseEvent) {
+        super.mousePressed(mouseEvent);
+        if (clickBox.contains(mouseEvent.getPoint())) {
+            Projectile[] toBeAdded = p.ShootProjectile(mouseEvent.getPoint());
+            //check if player had enough mana to shoot
+            if (toBeAdded != null) {
+                allProjectiles.addAll(Arrays.asList(toBeAdded));
+            }
         }
     }
 
-    @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-        super.mousePressed(mouseEvent);
-        if(clickBox.contains(mouseEvent.getPoint())){
-            allProjectiles.add(p.FireProjectile(mouseEvent.getPoint()));
-        }
+    private void CleanCombatText() {
+        combatText.removeIf(text -> !text.isActive);
     }
 }

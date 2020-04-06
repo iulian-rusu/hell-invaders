@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameWindow {
+
     private JFrame wndFrame;
     private String wndTitle;
     private int wndWidth;
@@ -13,7 +14,6 @@ public class GameWindow {
     public static final  Dimension wndDimension=Toolkit.getDefaultToolkit().getScreenSize();
 
     public GameWindow(String title) {
-        Toolkit tk = Toolkit.getDefaultToolkit();
         wndTitle = title;
         wndWidth = wndDimension.width;
         wndHeight = wndDimension.height;
@@ -47,8 +47,5 @@ public class GameWindow {
     }
     public Canvas GetCanvas() {
         return canvas;
-    }
-    public JFrame GetFrame(){
-        return wndFrame;
     }
 }

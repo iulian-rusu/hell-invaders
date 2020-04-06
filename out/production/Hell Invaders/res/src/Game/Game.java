@@ -1,27 +1,27 @@
 package Game;
 
 import Audio.AudioManager;
-import Assets.AssetManager;
+import Assets.AssetInitializer;
 import States.StateManager;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 
-public class Game extends MouseAdapter implements Runnable, KeyListener{
-    //TODO: implement all states
-    //TODO: implement player stats (current level/gold/upgrades/statistics page)
-    //TODO: add enemies and animate them
+public class Game extends MouseAdapter implements Runnable {
+    //TODO: add upgrade buttons
+    //TODO: make enemies attack
     //TODO: add level system and difficulties
     //TODO: save player stats into SQL databse and unlock resume button
+    //TODO: implement player stats (max level/total enemies killed/max single spell hit)
     //class that implements the main game loop
+
+    public static int DIFFICULTY=1;
+
     private GameWindow wnd;
     private boolean runState;
     private StateManager stateManager;
-    private AudioManager audioManager;
 
     public Game() {
         runState = false;
@@ -30,13 +30,18 @@ public class Game extends MouseAdapter implements Runnable, KeyListener{
     private void InitGame() {
         wnd = new GameWindow("Hell Invaders");
         wnd.BuildGameWindow();
-        AssetManager.Init(wnd);
-        audioManager=AudioManager.GetInstance();
-        stateManager=StateManager.GetInstance();
-        Canvas wndCanvas=wnd.GetCanvas();
+        //load assets
+        AssetInitializer.Init();
+        //load audio
+        AudioManager.GetInstance();
+        //load all game states
+        stateManager = StateManager.GetInstance();
+        //game starts in emnu state
+        stateManager.SetCurrentState(StateManager.StateIndex.MENU_STATE);
+        //enable mouse events
+        Canvas wndCanvas = wnd.GetCanvas();
         wndCanvas.addMouseListener(this);
         wndCanvas.addMouseMotionListener(this);
-        wndCanvas.addKeyListener(this);
     }
 
     @Override
@@ -80,28 +85,16 @@ public class Game extends MouseAdapter implements Runnable, KeyListener{
         }
         stateManager.Draw(wnd);
     }
+
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
         stateManager.GetCurrentState().mousePressed(mouseEvent);
     }
+
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         stateManager.GetCurrentState().mouseMoved(mouseEvent);
     }
 
-    @Override
-    public void keyTyped(KeyEvent keyEvent) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent keyEvent) {
-        stateManager.GetCurrentState().keyPressed(keyEvent);
-    }
-
-    @Override
-    public void keyReleased(KeyEvent keyEvent) {
-
-    }
 }
 

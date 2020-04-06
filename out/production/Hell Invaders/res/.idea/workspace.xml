@@ -2,13 +2,144 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d28048e-94e2-4db0-bf3a-f45dd18af9c3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Entities/CollidableEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entities/Entity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entities/Player.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/moving objects/projectiles/old_arcane_projectile5 (1).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/moving objects/projectiles/old_arcane_projectile5 (2).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/moving objects/projectiles/old_arcane_projectile5 (3).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/moving objects/projectiles/old_arcane_projectile5 (4).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/moving objects/projectiles/old_arcane_projectile5 (5).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/moving objects/projectiles/old_arcane_projectile5 (6).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/sounds/arcane_shoot.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/sounds/frost_shoot.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/ArcaneProjectile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/FrostProjectile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/Assets/EnemyAssets.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/Assets/EnemyAssets.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/Assets/ProjectileAssets.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/Assets/ProjectileAssets.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/Audio/AudioManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/Audio/AudioManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/Audio/SoundEffect.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/Audio/SoundEffect.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIButton$GUIButtonState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIButton$GUIButtonState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIButton.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIText.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIText.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/Game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/Game/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/GameState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/LossState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/LossState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/MenuState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/MenuState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/ReversibleState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/ReversibleState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/State.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/State.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/StateManager$StateIndex.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/StateManager$StateIndex.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/StateManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/StateManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/UpgradeState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/UpgradeState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/WinState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/WinState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/backgrounds/bg_game_over.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/backgrounds/bg_game_over.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/levels/level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/levels/level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/arcane_projectile0.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/arcane_projectile0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/arcane_projectile1.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/arcane_projectile1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/arcane_projectile2.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/arcane_projectile2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/arcane_projectile3.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/arcane_projectile3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/arcane_projectile4.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/arcane_projectile4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/arcane_projectile5.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/arcane_projectile5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/fire_projectile0.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/fire_projectile0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/fire_projectile1.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/fire_projectile1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/frost_projectile0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/frost_projectile1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/moving objects/projectiles/frost_projectile2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/others/crit.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/others/crit.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/others/damage.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/others/damage.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/others/projectiles.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/others/projectiles.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/others/upgrade_arcane.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/others/upgrade_arcane.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/others/upgrade_frost.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/others/upgrade_frost.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Assets/PlayerAssets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Assets/PlayerAssets.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/backgrounds/bg_game_over.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/backgrounds/bg_game_over.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/arcane_projectile0.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/arcane_projectile0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/arcane_projectile1.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/arcane_projectile1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/arcane_projectile2.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/arcane_projectile2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/arcane_projectile3.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/arcane_projectile3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/arcane_projectile4.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/arcane_projectile4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/arcane_projectile5.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/arcane_projectile5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/fire_projectile0.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/fire_projectile0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/fire_projectile1.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/fire_projectile1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/frost_projectile0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/frost_projectile1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/moving objects/projectiles/frost_projectile2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/crit.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/crit.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/damage.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/damage.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/projectiles.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/projectiles.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/upgrade_arcane.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/upgrade_arcane.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/upgrade_frost.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/upgrade_frost.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/sounds/spell_shoot.wav" beforeDir="false" afterPath="$PROJECT_DIR$/res/sounds/fire_shoot.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/sounds/win_sfx.wav" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/sounds/win_sfx.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/Assets/EnemyAssets.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/Assets/EnemyAssets.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/Assets/ProjectileAssets.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/Assets/ProjectileAssets.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/Audio/AudioManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/Audio/AudioManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/Audio/SoundEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/Audio/SoundEffect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/GUI/GUIButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/GUI/GUIButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/GUI/GUIText.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/GUI/GUIText.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/Game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/LossState.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/LossState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/MenuState.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/MenuState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/ReversibleState.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/ReversibleState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/StateManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/StateManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/UpgradeState.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/UpgradeState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/WinState.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/WinState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/sounds/spell_shoot.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/sounds/win_sfx.wav" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/sounds/win_sfx.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/backgrounds/bg_game_over.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/backgrounds/bg_game_over.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/levels/level1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/levels/level1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/levels/level2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/levels/level2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/levels/level3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/levels/level3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/levels/level4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/levels/level4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/moving objects/projectiles/arcane_projectile.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/moving objects/projectiles/arcane_projectile0.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/moving objects/projectiles/arcane_projectile0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/moving objects/projectiles/arcane_projectile1.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/moving objects/projectiles/arcane_projectile1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/moving objects/projectiles/arcane_projectile2.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/moving objects/projectiles/arcane_projectile2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/moving objects/projectiles/arcane_projectile3.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/moving objects/projectiles/arcane_projectile3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/moving objects/projectiles/arcane_projectile4.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/moving objects/projectiles/arcane_projectile4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/moving objects/projectiles/arcane_projectile5.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/moving objects/projectiles/arcane_projectile5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/moving objects/projectiles/fire_projectile.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/moving objects/projectiles/fire_projectile0.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/moving objects/projectiles/fire_projectile0.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/moving objects/projectiles/fire_projectile1.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/moving objects/projectiles/fire_projectile1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/moving objects/projectiles/frost_projectile.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/moving objects/projectiles/frost_projectile.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/moving objects/projectiles/frost_projectile0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/moving objects/projectiles/frost_projectile1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/moving objects/projectiles/frost_projectile2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/others/crit.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/others/crit.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/others/damage.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/others/damage.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/others/projectiles.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/others/projectiles.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/others/upgrade_arcane.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/others/upgrade_arcane.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/others/upgrade_frost.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/others/upgrade_frost.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/sounds/spell_shoot.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/sounds/win_sfx.wav" beforeDir="false" afterPath="$PROJECT_DIR$/res/sounds/win_sfx.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Assets/EnemyAssets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Assets/EnemyAssets.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Assets/ProjectileAssets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Assets/ProjectileAssets.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Audio/AudioManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Audio/AudioManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Audio/SoundEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Audio/SoundEffect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Audio/SoundEffectAssets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Audio/SoundEffectAssets.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/CollidableEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/CollidableEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/CollisionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/CollisionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Enemies/Dragon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Enemies/Dragon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Enemies/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Enemies/Enemy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Enemies/EnemyState.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Enemies/Monster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Enemies/Monster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/FireProjectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/FireProjectile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/Projectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/Projectile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/ProjectileFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/ProjectileFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/ProjectileType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/ProjectileType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventSystem/Events/AudioEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventSystem/Events/AudioEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventSystem/Events/CombatEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventSystem/Events/CombatEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/GUIButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUIButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/GUIEnemyHealthBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUIStatusBar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/GUIText.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUIText.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LevelSystem/LevelInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LevelSystem/LevelInitializer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/States/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/States/LossState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/LossState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/States/MenuState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/MenuState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/States/ReversibleState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/ReversibleState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/States/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/States/UpgradeState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/UpgradeState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/States/WinState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/WinState.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +150,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -28,6 +160,11 @@
       <list>
         <option value="Iulian Rusu" />
       </list>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -128,7 +265,28 @@
       <option name="project" value="LOCAL" />
       <updated>1584950943520</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added ability to shoot projectiles.">
+      <created>1585847158252</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1585847158252</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Integrated Observer design pattern for event handling.">
+      <created>1585924481874</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1585924481874</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added level mechanic, healthbars and dragons.">
+      <created>1586020149783</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1586020149783</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -138,17 +296,21 @@
     <MESSAGE value="Added audio and some GUI features." />
     <MESSAGE value="Added ReversableState abstract class and new assets." />
     <MESSAGE value="Changed menu background and button sizes." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed menu background and button sizes." />
+    <MESSAGE value="Added ability to shoot projectiles." />
+    <MESSAGE value="Integrated Observer design pattern for event handling." />
+    <MESSAGE value="Added level mechanic, healthbars and dragons." />
+    <MESSAGE value="Added combat text and 2 projectile types." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added combat text and 2 projectile types." />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584525283738">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1584525283738" />
-    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser" timestamp="1585826921678">
+    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser" timestamp="1586084759191">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1585826921677" />
+    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1586084759191" />
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1584778090011">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -161,34 +323,38 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="566" y="318" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1536.824@0.0.1536.824" timestamp="1584695718155" />
+    <state x="428" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1586000452479">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="428" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1586000452479" />
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1584800079770">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1584800079770" />
-    <state x="424" y="108" key="CommitChangelistDialog2" timestamp="1584950939574">
+    <state x="424" y="108" key="CommitChangelistDialog2" timestamp="1586083025154">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="424" y="108" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1584950939574" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1585485498107">
+    <state x="424" y="108" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1586083025154" />
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1586152664259">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585485498107" />
-    <state width="1493" height="249" key="GridCell.Tab.0.bottom" timestamp="1585770061147">
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1586152664259" />
+    <state width="1493" height="71" key="GridCell.Tab.0.bottom" timestamp="1586171233997">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="249" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585770061147" />
-    <state width="1493" height="249" key="GridCell.Tab.0.center" timestamp="1585770061147">
+    <state width="1493" height="71" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586171233997" />
+    <state width="1493" height="71" key="GridCell.Tab.0.center" timestamp="1586171233996">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="249" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585770061147" />
-    <state width="1493" height="249" key="GridCell.Tab.0.left" timestamp="1585770061147">
+    <state width="1493" height="71" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1586171233996" />
+    <state width="1493" height="71" key="GridCell.Tab.0.left" timestamp="1586171233996">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="249" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585770061147" />
-    <state width="1493" height="249" key="GridCell.Tab.0.right" timestamp="1585770061147">
+    <state width="1493" height="71" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1586171233996" />
+    <state width="1493" height="71" key="GridCell.Tab.0.right" timestamp="1586171233997">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="249" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585770061147" />
+    <state width="1493" height="71" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1586171233997" />
     <state width="1493" height="185" key="GridCell.Tab.1.bottom" timestamp="1584803012329">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -209,25 +375,37 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="249" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1584527370110" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1584950968889">
+    <state width="254" height="198" key="ShowFilterAction_Filter_Popup" timestamp="1585923519118">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1584950968889" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1585825887942">
+    <state width="254" height="198" key="ShowFilterAction_Filter_Popup/0.0.1536.824@0.0.1536.824" timestamp="1585923519118" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1586020152704">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1585825887942" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1586020152704" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1586178352724">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1586178352724" />
+    <state x="462" y="10" width="611" height="804" key="find.popup" timestamp="1586087050867">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="462" y="10" width="611" height="804" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1586087050867" />
     <state x="491" y="204" key="git4idea.merge.GitPullDialog" timestamp="1584950962749">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="491" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1584950962749" />
-    <state x="209" y="33" key="new project wizard" timestamp="1585485514714">
+    <state x="209" y="33" key="new project wizard" timestamp="1586104001455">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="209" y="33" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1585485514714" />
-    <state x="425" y="187" key="run.anything.popup" timestamp="1584647000009">
+    <state x="209" y="33" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1586104001455" />
+    <state x="425" y="187" key="run.anything.popup" timestamp="1585832128379">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1584647000009" />
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1585832128379" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1586102747903">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1586102747903" />
   </component>
 </project>

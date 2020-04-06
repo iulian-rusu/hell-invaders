@@ -1,23 +1,25 @@
 package Assets;
 
 import java.awt.image.BufferedImage;
-import java.util.Objects;
 
 public class ProjectileAssets {
+    public static BufferedImage[] fire_projectiles;
     public static BufferedImage frost_projectile;
-    public static BufferedImage fire_projectile;
-    public static BufferedImage arcane_projectile;
-    public static final int PROJECTILE_WIDTH = 30;
-    public static final int PROJECTILE_HEIGHT = 30;
+    public static BufferedImage[] arcane_projectiles;
+
 
     public static void Init() {
-        fire_projectile = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage(
-                "/moving objects/projectiles/fire_projectile.png")), PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
 
-        frost_projectile = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage(
-                "/moving objects/projectiles/frost_projectile.png")), PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
+        fire_projectiles = new BufferedImage[2];
+        for (int i = 0; i < 2; ++i) {
+            fire_projectiles[i] = ImageLoader.LoadImage("/moving objects/projectiles/fire_projectile" + i + ".png");
+        }
 
-        arcane_projectile = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage(
-                "/moving objects/projectiles/arcane_projectile.png")), PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
+        frost_projectile = ImageLoader.LoadImage("/moving objects/projectiles/frost_projectile.png");
+
+        arcane_projectiles = new BufferedImage[6];
+        for (int i = 0; i < 6; ++i) {
+            arcane_projectiles[i] = ImageLoader.LoadImage("/moving objects/projectiles/arcane_projectile" + i + ".png");
+        }
     }
 }

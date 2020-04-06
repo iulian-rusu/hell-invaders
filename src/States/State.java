@@ -1,18 +1,18 @@
 package States;
 
+import EventSystem.Observable;
 import GUI.GUIButton;
 import Game.GameWindow;
 
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public abstract class State {
+public abstract class State extends Observable {
     protected ArrayList<GUIButton> allButtons;
     protected int frameCount;
     protected int secondCount;
-    protected static final int BUTTON_W = 230;
-    protected static final int BUTTON_H = 65;
+    public static final int BUTTON_W = 230;
+    public static final int BUTTON_H = 65;
 
     public void Init() {
         frameCount = -1;
@@ -32,9 +32,6 @@ public abstract class State {
         }
     }
 
-    public void keyPressed(KeyEvent keyEvent) {
-    }
-
     public void mousePressed(MouseEvent mouseEvent) {
         if(allButtons!=null) {
             for (GUIButton b : allButtons) {
@@ -50,6 +47,5 @@ public abstract class State {
             }
         }
     }
-
     public abstract void Draw(GameWindow wnd);
 }

@@ -1,9 +1,6 @@
 package States;
 
-import Assets.GUIAssets;
 import GUI.GUIButton;
-import GUI.GUIText;
-import GUI.GUITextPanel;
 import Game.GameWindow;
 import Assets.BackgroundAssets;
 
@@ -13,6 +10,7 @@ import java.awt.image.BufferStrategy;
 public class OptionsState extends ReversibleState {
 
     public OptionsState() {
+        //back button
         allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE));
     }
 

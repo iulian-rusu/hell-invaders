@@ -1,33 +1,40 @@
 package States;
 
 import Assets.GUIAssets;
-import Audio.AudioManager;
-import Audio.BackgroundMusic;
+import Audio.SoundEffect;
+import Audio.SoundEffectAssets;
+import Entities.Player;
+import EventSystem.Events.AudioEvent;
 import GUI.GUIButton;
 import Game.GameWindow;
 import Assets.BackgroundAssets;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 
 public class UpgradeState extends ReversibleState {
-    private final int playW=400;
-    private  final int playH=110;
-    private final int playX = Toolkit.getDefaultToolkit().getScreenSize().width / 2 - playW/2;
 
     public UpgradeState() {
-        allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE));
-        allButtons.get(0).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusic.upgradeMusic));
-        allButtons.add(new GUIButton(GUIAssets.play_button, GUIAssets.play_button_hovered, playX, 725, playW, playH ));
-        allButtons.get(1).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.GAME_STATE));
-        allButtons.get(1).AddActionListener(actionEvent -> AudioManager.GetInstance().Stop(BackgroundMusic.upgradeMusic));
+        //back button events
+        allButtons.get(0).AddActionListener(actionEvent -> {
+            NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
+            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE);
+        });
+        //play button
+        int playH = 110;
+        int playW = 400;
+        int playX = GameWindow.wndDimension.width / 2 - playW / 2;
+        allButtons.add(new GUIButton(GUIAssets.play_button, GUIAssets.play_button_hovered, playX, 725, playW, playH));
+        allButtons.get(1).AddActionListener(actionEvent -> {
+            NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
+            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.GAME_STATE);
+        });
     }
 
     @Override
     public void Init() {
         super.Init();
-        AudioManager.GetInstance().Play(BackgroundMusic.upgradeMusic);
+        NotifyAllObservers(AudioEvent.PLAY_CURRENT_STATE_MUSIC);
     }
 
     @Override
@@ -41,13 +48,5 @@ public class UpgradeState extends ReversibleState {
         }
         bs.show();
         g.dispose();
-    }
-
-    @Override
-    public void keyPressed(KeyEvent keyEvent) {
-        if (keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            AudioManager.GetInstance().Stop(BackgroundMusic.upgradeMusic);
-            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE);
-        }
     }
 }

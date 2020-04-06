@@ -4,7 +4,6 @@ import javax.sound.sampled.*;
 import java.io.IOException;
 
 public class BackgroundMusic implements Audio {
-
     Clip clip;
     AudioInputStream audioInputStream;
     AudioFormat format;
