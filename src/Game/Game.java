@@ -10,13 +10,14 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 
 public class Game extends MouseAdapter implements Runnable {
-    //TODO: implement all states
-    //TODO: implement player stats (current level/gold/upgrades/statistics page)
+    //TODO: add upgrade buttons
+    //TODO: make enemies attack
     //TODO: add level system and difficulties
     //TODO: save player stats into SQL databse and unlock resume button
+    //TODO: implement player stats (max level/total enemies killed/max single spell hit)
     //class that implements the main game loop
 
-    public static int DIFFICULTY=2;
+    public static int DIFFICULTY=1;
 
     private GameWindow wnd;
     private boolean runState;
@@ -29,10 +30,15 @@ public class Game extends MouseAdapter implements Runnable {
     private void InitGame() {
         wnd = new GameWindow("Hell Invaders");
         wnd.BuildGameWindow();
-        AssetInitializer.Init(wnd);
+        //load assets
+        AssetInitializer.Init();
+        //load audio
         AudioManager.GetInstance();
+        //load all game states
         stateManager = StateManager.GetInstance();
+        //game starts in emnu state
         stateManager.SetCurrentState(StateManager.StateIndex.MENU_STATE);
+        //enable mouse events
         Canvas wndCanvas = wnd.GetCanvas();
         wndCanvas.addMouseListener(this);
         wndCanvas.addMouseMotionListener(this);

@@ -4,12 +4,14 @@ import javax.sound.sampled.*;
 import java.io.IOException;
 
 public class SoundEffect implements Audio {
+
     Clip clip;
     String path;
-    boolean isPlaying;
+    public boolean isPlaying;
+    private SoundEffect child = null;
 
     public SoundEffect(String path) throws IOException, UnsupportedAudioFileException, LineUnavailableException {
-        this.path=path;
+        this.path = path;
         AudioInputStream audioInputStream;
         AudioFormat format;
         DataLine.Info info;
@@ -28,18 +30,28 @@ public class SoundEffect implements Audio {
         clip.stop();
     }
 
+    public void StopAllSFX() {
+        if (child != null) {
+            child.StopAllSFX();
+        }
+        Stop();
+    }
+
     @Override
     public void Play() {
-        if(isPlaying){
-            try {
-                SoundEffect tmp = new SoundEffect(this.path);
-                tmp.Play();
-            }catch(Exception e){
-                e.printStackTrace();
+        if (isPlaying) {
+            //if this sound effects is already playing -> recursively ask the child to play
+            if (child == null) {
+                try {
+                    child = new SoundEffect(this.path);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+            child.Play();
             return;
         }
-        isPlaying=true;
+        isPlaying = true;
         clip.start();
     }
 

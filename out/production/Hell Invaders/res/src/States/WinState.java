@@ -2,12 +2,11 @@ package States;
 
 import Assets.BackgroundAssets;
 
+import Assets.FontAssets;
 import Assets.GUIAssets;
-import Audio.Audio;
-import Audio.AudioManager;
-import Audio.BackgroundMusicAssets;
 import EventSystem.Events.AudioEvent;
 import GUI.GUIButton;
+import GUI.GUIText;
 import Game.GameWindow;
 
 import java.awt.*;
@@ -16,18 +15,26 @@ import java.util.ArrayList;
 
 
 public class WinState extends State {
-    private final int backW = 400;
-    private final int backH = 110;
-    private final int backX = GameWindow.wndDimension.width / 2 - backW / 2;
+
+    private GUIText winText;
 
     public WinState(){
         allButtons=new ArrayList<>();
         //back button
-        allButtons.add(new GUIButton(GUIAssets.back_button,GUIAssets.back_button_hovered,backX,725,backW,backH));
+        int backH = 110;
+        int backW = 400;
+        int backX = GameWindow.wndDimension.width / 2 - backW / 2;
+        allButtons.add(new GUIButton(GUIAssets.back_button,GUIAssets.back_button_hovered, backX,725, backW, backH));
         allButtons.get(0).AddActionListener(actionEvent -> {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
             StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE);
         });
+        //level failure text
+        int textX = backX-200;
+        int textY = 550;
+        winText =new GUIText("YOU WON!",textX,textY,300);
+        winText.SetFont(FontAssets.mainFont_bold);
+        winText.SetColor(Color.YELLOW);
     }
 
     @Override
@@ -35,7 +42,6 @@ public class WinState extends State {
         super.Update();
         if(secondCount==5 && frameCount==0) {
             allButtons.get(0).Unblock();
-            System.out.println("Unblocked");
         }
     }
 
@@ -52,6 +58,9 @@ public class WinState extends State {
         Graphics g = bs.getDrawGraphics();
         g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
         g.drawImage(BackgroundAssets.bg_win, 0, 0, null);
+        if(secondCount>1){
+            winText.Draw(g);
+        }
         if(secondCount>5) {
             allButtons.get(0).Draw(g);
         }

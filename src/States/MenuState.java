@@ -32,11 +32,13 @@ public class MenuState extends State {
         //play
         allButtons.get(0).AddActionListener(actionEvent -> {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
+            //this will also clear everything from the database before going to UPGRADE_STATE
             StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE);}
         );
         //resume
         allButtons.get(1).AddActionListener(actionEvent ->{
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
+            //this goes to UPGRADE_STATE without clearing player data
             StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE);
         });
         //options

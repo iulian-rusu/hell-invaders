@@ -4,9 +4,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class GUITextPanel {
+
     public static final Color DEFAULT_YELLOW_COLOR = new Color(121, 85, 72);
     public static final Color DEFAULT_GREEN_COLOR = new Color(27, 94, 32);
-    private static final int DEFAULT_FONT_SIZE = 70;
+    public static final int DEFAULT_FONT_SIZE = 70;
 
     private Rectangle box;
     private BufferedImage image;

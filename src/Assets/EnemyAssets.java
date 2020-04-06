@@ -15,7 +15,8 @@ public class EnemyAssets {
         }
         monster_frames=new BufferedImage[4];
         for(int i=0;i<4;++i){
-            monster_frames[i]= ImageLoader.LoadImage("/moving objects/monster/monster_frame" + i + ".png");
+            monster_frames[i]= Objects.requireNonNull(ImageLoader.LoadImage("/moving objects/monster/monster_frame" + i + ".png"))
+                    .getSubimage(20,30,200,225);;
 
         }
     }

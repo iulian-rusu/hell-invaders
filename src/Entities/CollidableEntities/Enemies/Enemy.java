@@ -1,37 +1,48 @@
 package Entities.CollidableEntities.Enemies;
 
 import Entities.CollidableEntities.CollidableEntity;
+import Entities.CollidableEntities.Projectiles.FrostProjectile;
 import EventSystem.Events.CombatEvent;
 import EventSystem.Events.AudioEvent;
-import GUI.GUIEnemyHealthBar;
+import GUI.GUIStatusBar;
 import Game.Game;
 import Game.GameWindow;
 
 import java.awt.*;
 
 public abstract class Enemy extends CollidableEntity implements Comparable<Enemy> {
+    //size and speed paramaters
     public static final int DEFAULT_WIDTH = 200;
-    public static final int DEFAULT_HEIGHT = 220;
+    public static final int DEFAULT_HEIGHT = 240;
     public static final int DEFAULT_X_VELOCITY = -1;
-    public static final int DEFAULT_HEALTH = 50 * Game.DIFFICULTY;
-    public static final int HEALTH_INCREMENT = 10 * Game.DIFFICULTY;
-    public static final int DEFAULT_DAMAGE = 10;
+    //damage parameters
+    public static int GET_DEFAULT_DAMAGE(){ return 10 + 5 * Game.DIFFICULTY;}
 
     protected int health;
     protected int level;
     protected double xVelocity;
-    protected GUIEnemyHealthBar healthBar;
-    protected EnemyState state;
+    protected double fx;
+    protected GUIStatusBar<Enemy> healthBar;
+    //flags for effects
+    protected boolean isMoving = true;
+    protected boolean isVisile = false;
+    protected boolean isSlowed = false;
+    private int slowedBegin = -1;//counts from when the enemy was slowed
 
 
     public Enemy(int x, int y, int hiboxW, int hitboxH, int textureW, int textureH, int level) {
         super(x, y, hiboxW, hitboxH, textureW, textureH);
+        fx = x;
         this.xVelocity = DEFAULT_X_VELOCITY;
-        this.health = DEFAULT_HEALTH + level * HEALTH_INCREMENT;
         this.level = level;
-        healthBar = new GUIEnemyHealthBar(this, this::GetHealth);
+        //health depends on enemy type -> InitHealth must be overrided for each derived class
+        InitHealth();
+        //init healthbar
+        healthBar = new GUIStatusBar<>(this, Enemy::ProvideHealthData);
+        int healthBarX = hitBox.x + (hitBox.width - GUIStatusBar.DEFAULT_WIDTH) / 2;
+        int healthBarY = hitBox.y + GUIStatusBar.DEFAULT_Y_OFFSET;
+        healthBar.SetPosition(healthBarX, healthBarY);
         AddObserver(healthBar);
-        state = EnemyState.INVISIBLE;
     }
 
     public void TakeDamage(int damage) {
@@ -41,26 +52,60 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
             NotifyAllObservers(CombatEvent.MONSTER_DEATH);
         }
         NotifyAllObservers(AudioEvent.PLAY_ENEMY_HURT);
-        NotifyAllObservers(CombatEvent.MONSTER_HIT);
+        NotifyAllObservers(CombatEvent.STATUS_BAR_UPDATE);
     }
 
-    public Integer GetHealth(Enemy e) {
-        return e.health;
-    }
-
+    protected abstract void InitHealth();
     protected abstract void Attack();
+
+    public void GetSlowed() {
+        slowedBegin = 0;
+        if (!isSlowed) {
+            isSlowed = true;
+            xVelocity *= FrostProjectile.SLOW_PERCENTAGE;
+        }
+    }
 
     @Override
     public void Update() {
         super.Update();
-        if (state == EnemyState.INVISIBLE && x < GameWindow.wndDimension.width) {
+        //move healthbar
+        int healthBarX = hitBox.x + (hitBox.width - GUIStatusBar.DEFAULT_WIDTH) / 2;
+        int healthBarY = hitBox.y + GUIStatusBar.DEFAULT_Y_OFFSET;
+        healthBar.SetPosition(healthBarX, healthBarY);
+
+        //update position
+        if (isMoving) {
+            fx += xVelocity;
+            x = (int) fx;
+            if (x <= GetAttackTransitionX()) {
+                isMoving = false;
+                xVelocity = 0;
+            }
+        } else {
+            Attack();
+        }
+
+        //make it visible if it's on screen
+        if (!isVisile && x <= GameWindow.wndDimension.width) {
             NotifyAllObservers(AudioEvent.PLAY_ENEMY_SPAWN);
-            state = EnemyState.MOVING;
+            isVisile = true;
+        }
+
+        //check slowed status
+        if (isSlowed) {
+            ++slowedBegin;
+            if (slowedBegin > FrostProjectile.SLOW_FRAME_COUNT) {
+                isSlowed = false;
+                xVelocity = DEFAULT_X_VELOCITY;
+                slowedBegin = -1;
+            }
         }
     }
 
     @Override
     public void Draw(Graphics g) {
+        //g.drawRect(hitBox.x,hitBox.y,hitBox.width,hitBox.height);
         healthBar.Draw(g);
     }
 
@@ -76,4 +121,10 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
     public int GetWidth() {
         return DEFAULT_WIDTH;
     }
+
+    public static Integer ProvideHealthData(Enemy e) {
+        return e.health;
+    }
+
+    protected abstract int GetAttackTransitionX();
 }

@@ -65,7 +65,19 @@ public class GUIButton {
     }
 
     public void Block() {
-        currentState = GUIButtonState.BLOCKED;
+        if (currentState != GUIButtonState.BLOCKED) {
+            currentState = GUIButtonState.BLOCKED;
+        }
+    }
+
+    public void Unblock() {
+        if (currentState == GUIButtonState.BLOCKED) {
+            currentState = GUIButtonState.RELEASED;
+        }
+    }
+
+    public void SetReleasedImage(BufferedImage released){
+        imageReleased=released;
     }
 
     private enum GUIButtonState {

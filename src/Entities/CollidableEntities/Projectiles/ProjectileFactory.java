@@ -34,7 +34,15 @@ public class ProjectileFactory {
                 }
                 return ans;
             case FROST:
+                for (int i = 0; i < numProjectiles; ++i) {
+                    ans[i] = new FrostProjectile(from.x, from.y, vx[i], vy[i], damage, critChance);
+                }
+                return ans;
             case ARCANE:
+                for (int i = 0; i < numProjectiles; ++i) {
+                    ans[i] = new ArcaneProjectile(from.x, from.y, vx[i], vy[i], damage, critChance);
+                }
+                return ans;
             case ENEMY:
             default:
                 return null;

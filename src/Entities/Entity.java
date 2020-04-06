@@ -5,6 +5,7 @@ import EventSystem.Observable;
 import java.awt.*;
 
 public abstract class Entity extends Observable{
+
     protected int frameCount=-1;
     
     public void Update() {

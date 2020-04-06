@@ -6,19 +6,19 @@ import Entities.Entity;
 import java.awt.*;
 
 public abstract class CollidableEntity extends Entity {
+
     protected Rectangle hitBox;
     protected Rectangle textureBox;
     protected int x;
     protected int y;
 
-    public boolean isActive;
+    public boolean isActive=true;
 
     public CollidableEntity(int x, int y,int hitboxW, int hitboxH, int textureW, int textureH){
         this.x=x;
         this.y=y;
         hitBox=new Rectangle(hitboxW,hitboxH);
         textureBox=new Rectangle(textureW,textureH);
-        isActive=true;
         AddObserver(AudioManager.GetInstance());
     }
     public void SetActive(boolean f) {
@@ -37,7 +37,9 @@ public abstract class CollidableEntity extends Entity {
     @Override
     public void Update() {
         super.Update();
-        hitBox.setLocation(x,y+(textureBox.height-hitBox.height));
         textureBox.setLocation(x,y);
+        hitBox.setLocation(x+(textureBox.width-hitBox.width)/2,y+(textureBox.height-hitBox.height)/2 + GetHitBoxYOffset());
     }
+
+    public abstract int GetHitBoxYOffset();
 }

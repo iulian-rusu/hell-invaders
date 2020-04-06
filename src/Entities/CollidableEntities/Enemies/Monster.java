@@ -1,12 +1,18 @@
 package Entities.CollidableEntities.Enemies;
 
 import Assets.EnemyAssets;
+import Game.Game;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Monster extends Enemy {
-    public static final int DEFAULT_HITBOX_WIDTH = (int) (DEFAULT_WIDTH * 0.9);
+    //health parameters
+    public static int GET_DEFAULT_HEALTH(){ return 50 * Game.DIFFICULTY;}
+    public static int GET_HEALTH_INCREMENT(){return 5 * Game.DIFFICULTY;}
+    public static final double HEALTH_DEPENDECNY_EXPONENT = 2.0;
+    //size parameters
+    public static final int DEFAULT_HITBOX_WIDTH = (int) (DEFAULT_WIDTH * 0.5);
     public static final int DEFAULT_HITBOX_HEIGHT = (int) (DEFAULT_HEIGHT * 0.6);
     public static final int DEFAULT_ATTACK_TRANSITION_X = 170;
 
@@ -15,40 +21,37 @@ public class Monster extends Enemy {
     }
 
     @Override
+    protected void InitHealth() {
+        this.health = GET_DEFAULT_HEALTH() + (int) (Math.pow(level, HEALTH_DEPENDECNY_EXPONENT)) * GET_HEALTH_INCREMENT();
+    }
+
+    @Override
     protected void Attack() {
 
     }
 
     @Override
-    public void Update() {
-        super.Update();
-        switch (state) {
-            case INVISIBLE:
-            case MOVING:
-                x += xVelocity;
-                if (x <= DEFAULT_ATTACK_TRANSITION_X) {
-                    state = EnemyState.ATTACKING;
-                }
-                break;
-            case ATTACKING:
-                Attack();
-                break;
-        }
-    }
-
-    @Override
     public void Draw(Graphics g) {
-        switch (state) {
-            case INVISIBLE:
-                return;
-            case MOVING:
-                BufferedImage currentFrame = EnemyAssets.monster_frames[(frameCount / 5) % 4];
-                g.drawImage(currentFrame, x, y, textureBox.width, textureBox.height, null);
-                break;
-            case ATTACKING:
-                currentFrame = EnemyAssets.monster_frames[(frameCount / 15) % 4];
-                g.drawImage(currentFrame, x, y, textureBox.width, textureBox.height, null);
+        if (!isVisile) {
+            return;
         }
-        super.Draw(g);
-    }
-}
+        BufferedImage currentFrame;
+        if (isSlowed||!isMoving) {
+            currentFrame = EnemyAssets.monster_frames[(frameCount / 15) % 4];
+         } else {
+         currentFrame = EnemyAssets.monster_frames[(frameCount / 5) % 4];
+         }
+         g.drawImage(currentFrame, x, y, textureBox.width, textureBox.height, null);
+         super.Draw(g);
+         }
+
+@Override
+public int GetHitBoxYOffset() {
+        return +30;
+        }
+
+@Override
+protected int GetAttackTransitionX() {
+        return DEFAULT_ATTACK_TRANSITION_X;
+        }
+        }

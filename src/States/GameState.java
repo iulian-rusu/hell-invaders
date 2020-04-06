@@ -1,12 +1,13 @@
 package States;
 
-
 import Entities.CollidableEntities.CollisionManager;
 import Entities.CollidableEntities.Enemies.Enemy;
 import Entities.Player;
 import Entities.CollidableEntities.Projectiles.Projectile;
 import EventSystem.Events.AudioEvent;
 import GUI.GUIButton;
+import GUI.GUIText;
+import Game.Game;
 import Game.GameWindow;
 import Assets.BackgroundAssets;
 import LevelSystem.LevelInitializer;
@@ -19,12 +20,14 @@ import java.util.*;
 public class GameState extends ReversibleState {
 
     public static final int BATTLEFIELD_Y = 180;
-    public static final int BATTLEFIELD_HEIGHT = 270;
+    public static final int BATTLEFIELD_HEIGHT = 250;
 
-    private Player p;
+    public Player p;
     //enemies and projectiles are separated for more efficient collision checking
     private ArrayList<Enemy> allEnemies;
     private ArrayList<Projectile> allProjectiles;
+    private ArrayList<GUIText> combatText;
+    private ArrayList<GUIText> infoText;
     private Rectangle clickBox;
     private int finishTime;
     private boolean isWon;
@@ -33,10 +36,11 @@ public class GameState extends ReversibleState {
         //back button
         allButtons.get(0).AddActionListener(actionEvent -> {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
+            NotifyAllObservers(AudioEvent.STOP_ALL_SFX);
             StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE);
 
         });
-        //init Enemy and Projectile lists
+        //create Enemy and Projectile lists
         allEnemies = new ArrayList<>() {
             public boolean add(Enemy mt) {
                 int index = Collections.binarySearch(this, mt);
@@ -47,8 +51,16 @@ public class GameState extends ReversibleState {
             }
         };
         allProjectiles = new ArrayList<>();
+        combatText = new ArrayList<>();
+        p = Player.GetInstance();
 
-        p = new Player();
+        //various text for player info
+        int infoTextSize = 100;
+        infoText = new ArrayList<>(2);
+        infoText.add(new GUIText("EASY", GameWindow.wndDimension.width - 270,
+                Player.MANABAR_Y+Player.HEALTHBAR_HEIGHT, infoTextSize));
+        infoText.add(new GUIText("LEVEL 1", GameWindow.wndDimension.width / 2 - 100,
+                BACK_BUTTON_Y + BUTTON_H, infoTextSize));
 
         //clickable field to fire projectiles
         Dimension screenSize = GameWindow.wndDimension;
@@ -57,15 +69,42 @@ public class GameState extends ReversibleState {
 
     @Override
     public void Init() {
-        finishTime = -1;
-        isWon = false;
         super.Init();
         NotifyAllObservers(AudioEvent.PLAY_CURRENT_STATE_MUSIC);
+        finishTime = -1;
+        isWon = false;
+        p.Init();
+
+        InitText();
+        //load enemy waves
         LevelInitializer.InitLevel(allProjectiles, allEnemies, p.GetLevel());
         //make the player an observer of all enemies
         for (Enemy e : allEnemies) {
             e.AddObserver(p);
         }
+        combatText.clear();
+    }
+
+    void InitText() {
+        //init difficulty text
+        String d = "EASY";
+        Color c=Color.GREEN;
+        switch (Game.DIFFICULTY) {
+            case 1:
+                break;
+            case 2:
+                d = "MEDIUM";
+                c=Color.YELLOW;
+                break;
+            case 3:
+                d = "HARD";
+                c=Color.RED;
+                break;
+        }
+        infoText.get(0).SetText(d);
+        infoText.get(0).SetColor(c);
+        //init level text
+        infoText.get(1).SetText("LEVEL " + (p.GetLevel() + 1));
     }
 
     @Override
@@ -80,7 +119,8 @@ public class GameState extends ReversibleState {
             }
             p.Update();
             //check for collisions and eventually delete inactive entities
-            CollisionManager.GetInstance().Update(allEnemies, allProjectiles);
+            CleanCombatText();
+            combatText.addAll(CollisionManager.GetInstance().Update(allEnemies, allProjectiles));
         } catch (ConcurrentModificationException e) {
             e.printStackTrace();
         }
@@ -96,11 +136,13 @@ public class GameState extends ReversibleState {
         if (finishTime != -1 && (secondCount - finishTime > 2)) {
             isWon = p.GetHealth() > 0;
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
+            NotifyAllObservers(AudioEvent.STOP_ALL_SFX);
             if (isWon) {
                 p.SetLevel(p.GetLevel() + 1);
                 StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.WIN_STATE);
+            } else {
+                StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.LOSS_STATE);
             }
-            //else loss state
         }
     }
 
@@ -118,12 +160,18 @@ public class GameState extends ReversibleState {
             for (Projectile p : allProjectiles) {
                 p.Draw(g);
             }
+            for (GUIText t : combatText) {
+                t.Draw(g);
+            }
         } catch (ConcurrentModificationException e) {
             e.printStackTrace();
         }
 
         for (GUIButton b : allButtons) {
             b.Draw(g);
+        }
+        for (GUIText t : infoText) {
+            t.Draw(g);
         }
         bs.show();
         g.dispose();
@@ -134,7 +182,14 @@ public class GameState extends ReversibleState {
         super.mousePressed(mouseEvent);
         if (clickBox.contains(mouseEvent.getPoint())) {
             Projectile[] toBeAdded = p.ShootProjectile(mouseEvent.getPoint());
-            allProjectiles.addAll(Arrays.asList(toBeAdded));
+            //check if player had enough mana to shoot
+            if (toBeAdded != null) {
+                allProjectiles.addAll(Arrays.asList(toBeAdded));
+            }
         }
+    }
+
+    private void CleanCombatText() {
+        combatText.removeIf(text -> !text.isActive);
     }
 }

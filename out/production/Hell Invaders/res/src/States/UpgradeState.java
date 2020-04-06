@@ -1,21 +1,18 @@
 package States;
 
 import Assets.GUIAssets;
-import Audio.AudioManager;
-import Audio.BackgroundMusicAssets;
+import Audio.SoundEffect;
+import Audio.SoundEffectAssets;
+import Entities.Player;
 import EventSystem.Events.AudioEvent;
 import GUI.GUIButton;
 import Game.GameWindow;
 import Assets.BackgroundAssets;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 
 public class UpgradeState extends ReversibleState {
-    private final int playW = 400;
-    private final int playH = 110;
-    private final int playX = GameWindow.wndDimension.width / 2 - playW / 2;
 
     public UpgradeState() {
         //back button events
@@ -24,6 +21,9 @@ public class UpgradeState extends ReversibleState {
             StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE);
         });
         //play button
+        int playH = 110;
+        int playW = 400;
+        int playX = GameWindow.wndDimension.width / 2 - playW / 2;
         allButtons.add(new GUIButton(GUIAssets.play_button, GUIAssets.play_button_hovered, playX, 725, playW, playH));
         allButtons.get(1).AddActionListener(actionEvent -> {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);

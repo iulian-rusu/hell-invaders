@@ -3,7 +3,6 @@ package Audio;
 import EventSystem.Events.AudioEvent;
 import EventSystem.Events.GameEvent;
 import EventSystem.Observer;
-import States.StateManager;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -31,6 +30,13 @@ public class AudioManager implements Observer {
         sound.Stop();
     }
 
+    public void StopAllSFX() {
+        //recursively stops all active sound effects from their respective lists
+        SoundEffectAssets.enemySpawn.StopAllSFX();
+        SoundEffectAssets.enemyHurt.StopAllSFX();
+        SoundEffectAssets.dragonShoot.StopAllSFX();
+    }
+
     public void Resume(Audio sound) {
         sound.Resume();
     }
@@ -40,34 +46,12 @@ public class AudioManager implements Observer {
         SoundEffectAssets.Init();
     }
 
-    private static AudioManager instance = null;
-
     @Override
     public void OnNotify(GameEvent e) {
         if (!(e.GetType() == GameEvent.GameEventType.SFXEvent))
             return;
-        switch ((AudioEvent) e) {
-            case PLAY_CURRENT_STATE_MUSIC:
-                Play(StateManager.GetInstance().GetCurrentStateIndex().bgMusic);
-                break;
-            case STOP_CURRENT_STATE_MUSIC:
-                Stop(StateManager.GetInstance().GetCurrentStateIndex().bgMusic);
-                break;
-            case PLAY_SPELL_SHOOT:
-                Play(SoundEffectAssets.spellShoot);
-                break;
-            case PLAY_ENEMY_SPAWN:
-                Play(SoundEffectAssets.enemySpawn);
-                break;
-            case PLAY_DRAGON_SHOOT:
-                Play(SoundEffectAssets.dragonShoot);
-                break;
-            case PLAY_ENEMY_HURT:
-                Play(SoundEffectAssets.enemyHurt);
-                break;
-            case PLAY_WIN_SFX:
-                Play(SoundEffectAssets.winSFX);
-                break;
-        }
+        ((AudioEvent)e).performAction.apply(null);
     }
+
+    private static AudioManager instance = null;
 }

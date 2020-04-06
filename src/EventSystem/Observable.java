@@ -5,6 +5,7 @@ import EventSystem.Events.GameEvent;
 import java.util.ArrayList;
 
 public abstract class Observable {
+
     private ArrayList<Observer> allObservers;
 
     public void AddObserver(Observer o){

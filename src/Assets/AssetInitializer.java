@@ -1,11 +1,8 @@
 package Assets;
 
-import Game.GameWindow;
-
 public class AssetInitializer {
-
-    public static void Init(GameWindow wnd){
-        BackgroundAssets.Init(wnd);
+    public static void Init(){
+        BackgroundAssets.Init();
         GUIAssets.Init();
         PlayerAssets.Init();
         EnemyAssets.Init();

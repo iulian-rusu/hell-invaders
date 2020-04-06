@@ -11,8 +11,8 @@ public abstract class State extends Observable {
     protected ArrayList<GUIButton> allButtons;
     protected int frameCount;
     protected int secondCount;
-    protected static final int BUTTON_W = 230;
-    protected static final int BUTTON_H = 65;
+    public static final int BUTTON_W = 230;
+    public static final int BUTTON_H = 65;
 
     public void Init() {
         frameCount = -1;

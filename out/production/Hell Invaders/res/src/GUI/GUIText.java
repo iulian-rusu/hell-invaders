@@ -5,6 +5,11 @@ import java.awt.*;
 import Assets.FontAssets;
 
 public class GUIText {
+
+    public boolean isActive = true;
+
+    private int frameCount = -1;
+    private int lifetime = -1;
     private String text;
     private Font font;
     private Color color;
@@ -19,20 +24,37 @@ public class GUIText {
     }
 
     public GUIText(String text, int x, int y, float size, Color c) {
-        this(text, x,y, size);
+        this(text, x, y, size);
         color = c;
     }
 
     public void Draw(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(color);
-        g2d.setFont(font);
-        g2d.drawString(text, x, y);
+        Tick();
+        if (isActive) {
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setColor(color);
+            g2d.setFont(font);
+            g2d.drawString(text, x, y);
+        }
+    }
+
+    private void Tick() {
+        if (lifetime > 0 && lifetime < ++frameCount) {
+            isActive = false;
+        }
+    }
+
+    public void SetText(String t){
+        text=t;
     }
 
     public void SetPosition(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public void SetDuration(int frames) {
+        lifetime = frames;
     }
 
     public void SetColor(Color c) {
@@ -48,6 +70,11 @@ public class GUIText {
         font = f.deriveFont(fontSize);
     }
 
-    public int GetX(){return x;}
-    public int GetY(){return y;}
+    public int GetX() {
+        return x;
+    }
+
+    public int GetY() {
+        return y;
+    }
 }

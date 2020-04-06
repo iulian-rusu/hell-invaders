@@ -18,19 +18,19 @@ import java.util.Scanner;
 public class LevelInitializer {
 
     public static final int LEVEL_PERIOD_LENGTH = 5;
-    public static final int SECONDS_BETWEEN_WAVES = (4-Game.DIFFICULTY)*5;
+    public static int GET_SECONDS_BETWEEN_WAVES(){return Game.DIFFICULTY == 3 ? 5 : 10;}
     public static final int X_DEVIATION = 500;
     private static final Random RNG = new Random();
 
     public static void InitLevel(ArrayList<Projectile> allProjectiles, ArrayList<Enemy> allEnemies, int level) {
         allProjectiles.clear();
         allEnemies.clear();
-        LoadEnemies(allEnemies, level % LEVEL_PERIOD_LENGTH);
+        LoadEnemies(allEnemies, level);
     }
 
     public static void LoadEnemies(ArrayList<Enemy> allEnemies, int level) {
         try {
-            String path = "out/production/Hell Invaders/levels/level" + level + ".txt";
+            String path = "out/production/Hell Invaders/levels/level" + level%LEVEL_PERIOD_LENGTH + ".txt";
             File f = new File(path);
             Scanner in = new Scanner(f);
             int numWaves = in.nextInt();
@@ -45,7 +45,7 @@ public class LevelInitializer {
     }
 
     public static void LoadWave(ArrayList<Enemy> allEnemies, int level, int wave, int monsters, int dragons) {
-        int x = GameWindow.wndDimension.width + 180 - Enemy.DEFAULT_X_VELOCITY * 60 * SECONDS_BETWEEN_WAVES * (wave);
+        int x = GameWindow.wndDimension.width + 180 - Enemy.DEFAULT_X_VELOCITY * 60 * GET_SECONDS_BETWEEN_WAVES() * (wave);
         int y;
         for (int i = 0; i < monsters; ++i) {
             int xOffset = (i > 0) ? x + Math.abs(RNG.nextInt()) % X_DEVIATION : x;
