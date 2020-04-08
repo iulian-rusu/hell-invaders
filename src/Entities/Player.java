@@ -17,27 +17,38 @@ import java.awt.*;
 public class Player extends Entity implements Observer {
     //singleton class that implements a player controller
     //player position constants
-    public static final int PLAYER_H = 140;
-    public static final int PLAYER_W = 120;
+    public static final int PLAYER_H = 150;
+    public static final int PLAYER_W = 125;
     public static final int PLAYER_X = 35;
     public static final int PLAYER_Y = 420;
+
     //health and healthbar constants
-    public static int GET_DEFAULT_HEALTH(){ return 100 + (4 - Game.DIFFICULTY) * 50;}
+    public static int GET_DEFAULT_HEALTH() {
+        return 100 + (4 - Game.DIFFICULTY) * 50;
+    }
+
     public static final int HEALTHBAR_HEIGHT = 20;
     public static final int HEALTHBAR_WIDTH = 250;
     public static final int HEALTHBAR_Y = 770;
     public static final int HEALTHBAR_X = 70;
+
     //mana constants
-    public static int GET_DEFAULT_MANA(){ return 100 + (3 - Game.DIFFICULTY) * 25;}
+    public static int GET_DEFAULT_MANA() {
+        return 100 + (3 - Game.DIFFICULTY) * 25;
+    }
+
     public static final int MANA_COST_PER_SHOOT = 10;
     public static final int MANA_REGEN_CHUNK = 3;
     public static final int MANA_REGEN_PERIOD = 30; //how many frames between mana regens
     public static final int MANABAR_Y = HEALTHBAR_Y + HEALTHBAR_HEIGHT + 10;
     //experience constants
-    public static final double EXPERIENCE_DEPENDENCY_EXPONENT=1.5;
-    public static int GET_DEFAULT_EXPERIENCE_GAIN(){ return (10 + 5 * Game.DIFFICULTY);}
+    public static final double EXPERIENCE_DEPENDENCY_EXPONENT = 1.5;
 
-    private static Player instance=null;
+    public static int GET_DEFAULT_EXPERIENCE_GAIN() {
+        return (10 + 5 * Game.DIFFICULTY);
+    }
+
+    private static Player instance = null;
 
     private GUIStatusBar<Player> healthBar;
     private GUIStatusBar<Player> manaBar;
@@ -50,9 +61,9 @@ public class Player extends Entity implements Observer {
     private int critChance;
     private int experience;
 
-    public static Player GetInstance(){
-        if(instance==null){
-            instance=new Player();
+    public static Player GetInstance() {
+        if (instance == null) {
+            instance = new Player();
         }
         return instance;
     }
@@ -81,14 +92,14 @@ public class Player extends Entity implements Observer {
         NotifyAllObservers(CombatEvent.STATUS_BAR_RESET);
     }
 
-    public void ResetAllStats(){
+    public void ResetAllStats() {
         //used when a new game is started, sets all stats to their base value
-        numProjectiles=1;
-        projectileDamage=20;
-        critChance=0;
-        currentProjetile=ProjectileType.FIRE;
-        experience=0;
-        level=0;
+        numProjectiles = 1;
+        projectileDamage = 20;
+        critChance = 0;
+        currentProjetile = ProjectileType.FIRE;
+        experience = 0;
+        level = 1;
     }
 
     @Override
@@ -104,7 +115,7 @@ public class Player extends Entity implements Observer {
 
     @Override
     public void Draw(Graphics g) {
-        g.drawImage(PlayerAssets.player_frames[(frameCount / 8) % 4], PLAYER_X, PLAYER_Y, null);
+        g.drawImage(PlayerAssets.player_frames[(frameCount / 8) % 4], PLAYER_X, PLAYER_Y, PLAYER_W,PLAYER_H,null);
         healthBar.Draw(g);
         manaBar.Draw(g);
     }
@@ -116,10 +127,12 @@ public class Player extends Entity implements Observer {
         mana -= MANA_COST_PER_SHOOT;
         NotifyAllObservers(currentProjetile.sfxEvent);
         NotifyAllObservers(CombatEvent.STATUS_BAR_UPDATE);
-        Point to = new Point(p.x, p.y - Projectile.PROJECTILE_HEIGHT / 2);
+        //calculate coordinates of hitbox to center it at p -> subtract half widht and height from each coordinate
+        Point to = new Point(p.x - Projectile.PROJECTILE_WIDTH / 2, p.y - Projectile.PROJECTILE_HEIGHT / 2);
         return ProjectileFactory.MakeProjectile(currentProjetile,
-                new Point(PLAYER_X + 100, PLAYER_Y), to, projectileDamage, numProjectiles, critChance);
+                new Point(PLAYER_X + 100, PLAYER_Y+10), to, projectileDamage, numProjectiles, critChance);
     }
+
     @Override
     public void OnNotify(GameEvent e) {
         if (e.GetType() != GameEvent.GameEventType.CombatEvent) {

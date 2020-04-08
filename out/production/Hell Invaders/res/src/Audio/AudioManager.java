@@ -48,7 +48,7 @@ public class AudioManager implements Observer {
 
     @Override
     public void OnNotify(GameEvent e) {
-        if (!(e.GetType() == GameEvent.GameEventType.SFXEvent))
+        if (!(e.GetType() == GameEvent.GameEventType.AudioEvent))
             return;
         ((AudioEvent)e).performAction.apply(null);
     }

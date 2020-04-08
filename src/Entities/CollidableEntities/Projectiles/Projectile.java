@@ -19,19 +19,21 @@ public abstract class Projectile extends CollidableEntity {
 
     protected double xVelocity;
     protected double yVelocity;
+    protected double angle;
     protected double fx;
     protected double fy;
     protected int damage;
     protected int critChance;
     protected boolean hasCrit = false;
 
-    public Projectile(int x, int y, double xVelocity, double yVelocity, int damage, int critChance) {
+    public Projectile(int x, int y,double xVelocity, double yVelocity, double angle, int damage, int critChance) {
         super(x, y, PROJECTILE_WIDTH, PROJECTILE_HEIGHT, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
         //doubles for precise position calculation
         fx = x;
         fy = y;
         this.xVelocity = xVelocity;
         this.yVelocity = yVelocity;
+        this.angle=angle;
         this.damage = damage;
         this.critChance = critChance;
         isActive = true;

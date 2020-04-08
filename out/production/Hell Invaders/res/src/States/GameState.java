@@ -74,7 +74,7 @@ public class GameState extends ReversibleState {
         finishTime = -1;
         isWon = false;
         p.Init();
-
+        //init info text
         InitText();
         //load enemy waves
         LevelInitializer.InitLevel(allProjectiles, allEnemies, p.GetLevel());
@@ -104,7 +104,7 @@ public class GameState extends ReversibleState {
         infoText.get(0).SetText(d);
         infoText.get(0).SetColor(c);
         //init level text
-        infoText.get(1).SetText("LEVEL " + (p.GetLevel() + 1));
+        infoText.get(1).SetText("LEVEL " + p.GetLevel());
     }
 
     @Override
@@ -152,7 +152,6 @@ public class GameState extends ReversibleState {
         Graphics g = bs.getDrawGraphics();
         g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
         g.drawImage(BackgroundAssets.bg_game, 0, 0, null);
-        p.Draw(g);
         try {
             for (Enemy e : allEnemies) {
                 e.Draw(g);
@@ -166,7 +165,7 @@ public class GameState extends ReversibleState {
         } catch (ConcurrentModificationException e) {
             e.printStackTrace();
         }
-
+        p.Draw(g);
         for (GUIButton b : allButtons) {
             b.Draw(g);
         }

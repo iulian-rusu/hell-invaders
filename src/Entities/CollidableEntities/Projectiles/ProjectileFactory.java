@@ -30,17 +30,17 @@ public class ProjectileFactory {
         switch (type) {
             case FIRE:
                 for (int i = 0; i < numProjectiles; ++i) {
-                    ans[i] = new FireProjectile(from.x, from.y, vx[i], vy[i], damage, critChance);
+                    ans[i] = new FireProjectile(from.x, from.y, vx[i], vy[i], angles[i], damage, critChance);
                 }
                 return ans;
             case FROST:
                 for (int i = 0; i < numProjectiles; ++i) {
-                    ans[i] = new FrostProjectile(from.x, from.y, vx[i], vy[i], damage, critChance);
+                    ans[i] = new FrostProjectile(from.x, from.y, vx[i], vy[i], angles[i], damage, critChance);
                 }
                 return ans;
             case ARCANE:
                 for (int i = 0; i < numProjectiles; ++i) {
-                    ans[i] = new ArcaneProjectile(from.x, from.y, vx[i], vy[i], damage, critChance);
+                    ans[i] = new ArcaneProjectile(from.x, from.y, vx[i], vy[i], angles[i], damage, critChance);
                 }
                 return ans;
             case ENEMY:

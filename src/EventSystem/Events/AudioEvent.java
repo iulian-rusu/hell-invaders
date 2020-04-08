@@ -57,6 +57,6 @@ public enum AudioEvent implements GameEvent {
 
     @Override
     public GameEventType GetType() {
-        return GameEventType.SFXEvent;
+        return GameEventType.AudioEvent;
     }
 }

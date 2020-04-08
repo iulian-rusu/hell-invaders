@@ -16,11 +16,11 @@ public class CollisionManager {
     }
 
     public ArrayList<GUIText> Update(ArrayList<Enemy> allEnemies, ArrayList<Projectile> allProjectiles) {
-        ArrayList<GUIText> ans = CheckCollisions(allEnemies, allProjectiles);
+        ArrayList<GUIText> combatTexts = CheckCollisions(allEnemies, allProjectiles);
         CheckVisibility(allProjectiles);
         Clean(allEnemies);
         Clean(allProjectiles);
-        return ans;
+        return combatTexts;
     }
 
     public <T extends CollidableEntity> void Clean(ArrayList<T> allEntities) {
@@ -29,18 +29,18 @@ public class CollisionManager {
     }
 
     public ArrayList<GUIText> CheckCollisions(ArrayList<Enemy> allEnemies, ArrayList<Projectile> allProjectiles) {
-        ArrayList<GUIText> ans=new ArrayList<>();
+        ArrayList<GUIText> combatTexts =new ArrayList<>();
         for (Projectile p : allProjectiles) {
             for (Enemy e : allEnemies) {
                 if (p.CollidesWith(e)) {
                     p.DealDamage(e);
                     p.SetActive(false);
-                    ans.add(p.GetCombatText());
+                    combatTexts.add(p.GetCombatText());
                     break;
                 }
             }
         }
-        return ans;
+        return combatTexts ;
     }
 
     public void CheckVisibility(ArrayList<Projectile> allProjectiles) {

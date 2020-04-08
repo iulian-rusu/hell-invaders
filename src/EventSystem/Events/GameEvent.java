@@ -4,7 +4,7 @@ public interface GameEvent {
     GameEventType GetType();
 
     enum GameEventType{
-        SFXEvent,
+        AudioEvent,
         CombatEvent,
         UpgradeEvent
     }

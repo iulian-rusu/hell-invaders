@@ -30,7 +30,7 @@ public class LevelInitializer {
 
     public static void LoadEnemies(ArrayList<Enemy> allEnemies, int level) {
         try {
-            String path = "out/production/Hell Invaders/levels/level" + level%LEVEL_PERIOD_LENGTH + ".txt";
+            String path = "out/production/Hell Invaders/levels/level" + ((level-1)%LEVEL_PERIOD_LENGTH+1) + ".txt";
             File f = new File(path);
             Scanner in = new Scanner(f);
             int numWaves = in.nextInt();

@@ -9,8 +9,8 @@ public class ArcaneProjectile extends Projectile {
     //override base CRIT_AMPLIFIER
     public static final int CRIT_AMPLIFIER = 4;
 
-    public ArcaneProjectile(int x, int y, double xVelocity, double yVelocity, int damage, int critChance) {
-        super(x, y, xVelocity, yVelocity, damage, critChance);
+    public ArcaneProjectile(int x, int y, double xVelocity, double yVelocity, double angle, int damage, int critChance) {
+        super(x, y, xVelocity, yVelocity, angle, damage, critChance);
     }
 
     @Override
@@ -27,6 +27,12 @@ public class ArcaneProjectile extends Projectile {
 
     @Override
     public void Draw(Graphics g) {
-        g.drawImage(ProjectileAssets.arcane_projectiles[frameCount / 10], x, y, hitBox.width, hitBox.height, null);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.rotate(angle);
+        //change coordinates to account for g2d rotation
+        int xTransform = (int) ((x+textureBox.width*0.5) * Math.cos(-angle) - (y+textureBox.height*0.5) * Math.sin(-angle)-textureBox.width*0.5);
+        int yTransform = (int) ((x+textureBox.width*0.5) * Math.sin(-angle) + (y+textureBox.height*0.5) * Math.cos(-angle)-textureBox.height*0.5);
+        g2d.drawImage(ProjectileAssets.arcane_projectiles[frameCount / 10], xTransform, yTransform, textureBox.width, textureBox.height, null);
+        g2d.rotate(-angle);
     }
 }
