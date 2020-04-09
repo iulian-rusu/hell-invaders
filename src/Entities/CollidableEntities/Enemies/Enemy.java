@@ -15,8 +15,10 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
     public static final int DEFAULT_WIDTH = 200;
     public static final int DEFAULT_HEIGHT = 240;
     public static final int DEFAULT_X_VELOCITY = -1;
+
     //damage parameters
-    public static int GET_DEFAULT_DAMAGE(){ return 10 + 5 * Game.DIFFICULTY;}
+    public static int GET_DEFAULT_DAMAGE() { return 10 + 5 * Game.DIFFICULTY; }
+    public static final int FRAMES_BETWEEN_ATTACKS = 60;
 
     protected int health;
     protected int level;
@@ -28,6 +30,7 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
     protected boolean isVisile = false;
     protected boolean isSlowed = false;
     private int slowedBegin = -1;//counts from when the enemy was slowed
+    protected int framesSinceLastAttack = FRAMES_BETWEEN_ATTACKS ;//for delay between attacks
 
 
     public Enemy(int x, int y, int hiboxW, int hitboxH, int textureW, int textureH, int level) {
@@ -56,6 +59,7 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
     }
 
     protected abstract void InitHealth();
+
     protected abstract void Attack();
 
     public void GetSlowed() {
@@ -100,6 +104,11 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
                 xVelocity = DEFAULT_X_VELOCITY;
                 slowedBegin = -1;
             }
+        }
+
+        //update frames since last attack
+        if (framesSinceLastAttack < FRAMES_BETWEEN_ATTACKS ) {
+            ++framesSinceLastAttack;
         }
     }
 

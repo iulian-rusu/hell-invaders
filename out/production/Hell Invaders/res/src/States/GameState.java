@@ -5,19 +5,21 @@ import Entities.CollidableEntities.Enemies.Enemy;
 import Entities.Player;
 import Entities.CollidableEntities.Projectiles.Projectile;
 import EventSystem.Events.AudioEvent;
+import EventSystem.Events.CombatEvent;
+import EventSystem.Events.GameEvent;
 import GUI.GUIButton;
 import GUI.GUIText;
 import Game.Game;
 import Game.GameWindow;
 import Assets.BackgroundAssets;
-import LevelSystem.LevelInitializer;
+import LevelSystem.LevelLoader;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.util.*;
 
-public class GameState extends ReversibleState {
+public class GameState extends ReversibleState implements EventSystem.Observer{
 
     public static final int BATTLEFIELD_Y = 180;
     public static final int BATTLEFIELD_HEIGHT = 250;
@@ -29,7 +31,6 @@ public class GameState extends ReversibleState {
     private ArrayList<GUIText> combatText;
     private ArrayList<GUIText> infoText;
     private Rectangle clickBox;
-    private int finishTime;
     private boolean isWon;
 
     public GameState() {
@@ -42,17 +43,21 @@ public class GameState extends ReversibleState {
         });
         //create Enemy and Projectile lists
         allEnemies = new ArrayList<>() {
-            public boolean add(Enemy mt) {
-                int index = Collections.binarySearch(this, mt);
+            //sort enemies by y coordinate
+            public boolean add(Enemy newEnemy) {
+                int index = Collections.binarySearch(this, newEnemy);
                 if (index < 0)
                     index = ~index;
-                super.add(index, mt);
+                super.add(index, newEnemy);
                 return true;
             }
         };
         allProjectiles = new ArrayList<>();
         combatText = new ArrayList<>();
+
+        //create player
         p = Player.GetInstance();
+        p.AddObserver(this);
 
         //various text for player info
         int infoTextSize = 100;
@@ -71,13 +76,12 @@ public class GameState extends ReversibleState {
     public void Init() {
         super.Init();
         NotifyAllObservers(AudioEvent.PLAY_CURRENT_STATE_MUSIC);
-        finishTime = -1;
         isWon = false;
         p.Init();
         //init info text
         InitText();
         //load enemy waves
-        LevelInitializer.InitLevel(allProjectiles, allEnemies, p.GetLevel());
+        LevelLoader.InitLevel(allProjectiles, allEnemies, p.GetLevel());
         //make the player an observer of all enemies
         for (Enemy e : allEnemies) {
             e.AddObserver(p);
@@ -129,21 +133,29 @@ public class GameState extends ReversibleState {
 
     private void CheckIfFinished() {
         //if no enemies and it's not the beginning of the level -> level ended
-        if (finishTime == -1 && secondCount > 0 && allEnemies.size() == 0) {
-            finishTime = secondCount;
+        if (secondCount > 0 && allEnemies.size() == 0) {
+           Finish();
+        }
+    }
+
+    private void Finish(){
+        //checks if level was lost or won and goes to the respective state
+        isWon = p.GetHealth() > 0;
+        if(isWon){
             NotifyAllObservers(AudioEvent.PLAY_WIN_SFX);
         }
-        if (finishTime != -1 && (secondCount - finishTime > 2)) {
-            isWon = p.GetHealth() > 0;
-            NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
-            NotifyAllObservers(AudioEvent.STOP_ALL_SFX);
-            if (isWon) {
-                p.SetLevel(p.GetLevel() + 1);
-                StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.WIN_STATE);
-            } else {
-                StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.LOSS_STATE);
-            }
+        NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
+        NotifyAllObservers(AudioEvent.STOP_ALL_SFX);
+        if (isWon) {
+            p.SetLevel(p.GetLevel() + 1);
+            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.WIN_STATE);
+        } else {
+            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.LOSS_STATE);
         }
+    }
+
+    private void CleanCombatText() {
+        combatText.removeIf(text -> !text.isActive);
     }
 
     @Override
@@ -188,7 +200,14 @@ public class GameState extends ReversibleState {
         }
     }
 
-    private void CleanCombatText() {
-        combatText.removeIf(text -> !text.isActive);
+    @Override
+    public void OnNotify(GameEvent e) {
+        if(e.GetType()!= GameEvent.GameEventType.CombatEvent)
+            return;
+        switch((CombatEvent)e){
+            case LEVEL_LOSS:
+            case LEVEL_WIN: Finish();
+            break;
+        }
     }
 }

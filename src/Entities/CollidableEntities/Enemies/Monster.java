@@ -1,6 +1,7 @@
 package Entities.CollidableEntities.Enemies;
 
 import Assets.EnemyAssets;
+import Entities.Player;
 import Game.Game;
 
 import java.awt.*;
@@ -27,7 +28,10 @@ public class Monster extends Enemy {
 
     @Override
     protected void Attack() {
-
+        if(framesSinceLastAttack>=FRAMES_BETWEEN_ATTACKS ){
+            framesSinceLastAttack=0;
+            Player.GetInstance().TakeDamage(Enemy.GET_DEFAULT_DAMAGE());
+        }
     }
 
     @Override

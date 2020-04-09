@@ -10,10 +10,10 @@ public class GUIText {
 
     private int frameCount = -1;
     private int lifetime = -1;
-    private String text;
-    private Font font;
-    private Color color;
-    private int x, y;
+    protected String text;
+    protected Font font;
+    protected Color color;
+    protected int x, y;
 
     public GUIText(String text, int x, int y, float size) {
         this.text = text;
@@ -38,7 +38,7 @@ public class GUIText {
         }
     }
 
-    private void Tick() {
+    protected void Tick() {
         if (lifetime > 0 && lifetime < ++frameCount) {
             isActive = false;
         }

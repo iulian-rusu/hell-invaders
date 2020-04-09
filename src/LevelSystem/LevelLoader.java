@@ -15,7 +15,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 
-public class LevelInitializer {
+public class LevelLoader {
 
     public static final int LEVEL_PERIOD_LENGTH = 5;
     public static int GET_SECONDS_BETWEEN_WAVES(){return Game.DIFFICULTY == 3 ? 5 : 10;}

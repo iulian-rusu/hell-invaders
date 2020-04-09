@@ -6,6 +6,7 @@ import Entities.CollidableEntities.Enemies.Enemy;
 import Entities.CollidableEntities.Projectiles.Projectile;
 import Entities.CollidableEntities.Projectiles.ProjectileFactory;
 import Entities.CollidableEntities.Projectiles.ProjectileType;
+import EventSystem.Events.AudioEvent;
 import EventSystem.Events.CombatEvent;
 import EventSystem.Events.GameEvent;
 import EventSystem.Observer;
@@ -55,7 +56,7 @@ public class Player extends Entity implements Observer {
     private int health = GET_DEFAULT_HEALTH();
     private int mana = GET_DEFAULT_MANA();
     private int level;
-    private ProjectileType currentProjetile = ProjectileType.ARCANE;
+    private ProjectileType currentProjetile;
     private int projectileDamage;
     private int numProjectiles;
     private int critChance;
@@ -97,7 +98,7 @@ public class Player extends Entity implements Observer {
         numProjectiles = 1;
         projectileDamage = 20;
         critChance = 0;
-        currentProjetile = ProjectileType.FIRE;
+        currentProjetile = ProjectileType.FROST;
         experience = 0;
         level = 1;
     }
@@ -111,6 +112,9 @@ public class Player extends Entity implements Observer {
                 mana = GET_DEFAULT_MANA();
             NotifyAllObservers(CombatEvent.STATUS_BAR_UPDATE);
         }
+        if(health<=0){
+            NotifyAllObservers(CombatEvent.LEVEL_LOSS);
+        }
     }
 
     @Override
@@ -118,6 +122,14 @@ public class Player extends Entity implements Observer {
         g.drawImage(PlayerAssets.player_frames[(frameCount / 8) % 4], PLAYER_X, PLAYER_Y, PLAYER_W,PLAYER_H,null);
         healthBar.Draw(g);
         manaBar.Draw(g);
+    }
+
+    public void TakeDamage(int damage){
+        health-=damage;
+        if(health>0) {
+            NotifyAllObservers(AudioEvent.PLAY_OOF);
+            NotifyAllObservers(CombatEvent.STATUS_BAR_UPDATE);
+        }
     }
 
     public Projectile[] ShootProjectile(Point p) {

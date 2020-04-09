@@ -13,6 +13,7 @@ public class SoundEffectAssets {
     public static SoundEffect frostShoot;
     public static SoundEffect arcaneShoot;
     public static SoundEffect winSFX;
+    public static SoundEffect oof;
 
     public static void Init() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         enemyHurt = new SoundEffect("/sounds/enemy_hurt.wav");
@@ -22,5 +23,6 @@ public class SoundEffectAssets {
         frostShoot = new SoundEffect("/sounds/frost_shoot.wav");
         arcaneShoot = new SoundEffect("/sounds/arcane_shoot.wav");
         winSFX = new SoundEffect("/sounds/win_sfx.wav");
+        oof = new SoundEffect("/sounds/oof.wav");
     }
 }
