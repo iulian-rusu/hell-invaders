@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class LossState extends State {
 
-    private GUIText gameOverText;
+    private final GUIText gameOverText;
     public LossState(){
         allButtons=new ArrayList<>();
         //back button

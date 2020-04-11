@@ -6,9 +6,9 @@ import java.awt.*;
 public class GameWindow {
 
     private JFrame wndFrame;
-    private String wndTitle;
-    private int wndWidth;
-    private int wndHeight;
+    private final String wndTitle;
+    private final int wndWidth;
+    private final int wndHeight;
     private Canvas canvas;
 
     public static final  Dimension wndDimension=Toolkit.getDefaultToolkit().getScreenSize();

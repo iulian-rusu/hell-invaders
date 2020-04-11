@@ -14,13 +14,13 @@ public class GUIStatusBar<T extends Entity> implements Observer {
     public static final int DEFAULT_HEIGHT = 5;
     public static final int DEFAULT_Y_OFFSET = -20;//offset above target entity hitbox
 
-    private Rectangle bar;
+    private final Rectangle bar;
     private Color color;
     private double currentValue;
     private double maxValue;
     private int maxWidth = DEFAULT_WIDTH;
-    private T target;
-    private Function<T, Integer> getter;
+    private final T target;
+    private final Function<T, Integer> getter;
 
     public GUIStatusBar(T target, Function<T, Integer> getter) {
         this.target = target;

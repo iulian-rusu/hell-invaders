@@ -35,15 +35,11 @@ public class AudioManager implements Observer {
         SoundEffectAssets.enemySpawn.StopAllSFX();
         SoundEffectAssets.enemyHurt.StopAllSFX();
         SoundEffectAssets.dragonShoot.StopAllSFX();
+        SoundEffectAssets.oof.StopAllSFX();
     }
 
     public void Resume(Audio sound) {
         sound.Resume();
-    }
-
-    private AudioManager() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        BackgroundMusicAssets.Init();
-        SoundEffectAssets.Init();
     }
 
     @Override
@@ -51,6 +47,11 @@ public class AudioManager implements Observer {
         if (!(e.GetType() == GameEvent.GameEventType.AudioEvent))
             return;
         ((AudioEvent)e).performAction.apply(null);
+    }
+
+    private AudioManager() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        BackgroundMusicAssets.Init();
+        SoundEffectAssets.Init();
     }
 
     private static AudioManager instance = null;

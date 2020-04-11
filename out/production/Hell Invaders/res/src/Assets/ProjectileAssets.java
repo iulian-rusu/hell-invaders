@@ -6,6 +6,7 @@ public class ProjectileAssets {
     public static BufferedImage[] fire_projectiles;
     public static BufferedImage[] frost_projectiles;
     public static BufferedImage[] arcane_projectiles;
+    public static BufferedImage[] enemy_projectiles;
 
     public static void InitFromSpriteSheet(){
         BufferedImage sprites=ImageLoader.LoadImage("/moving objects/projectiles/fire_sprites.png");
@@ -27,6 +28,13 @@ public class ProjectileAssets {
         arcane_projectiles = new BufferedImage[6];
         for (int i = 0; i < 6; ++i) {
             arcane_projectiles[i] = sprites.getSubimage(i*16,0,16,16);
+        }
+
+        sprites=ImageLoader.LoadImage("/moving objects/projectiles/enemy_sprites.png");
+        assert sprites != null;
+        enemy_projectiles = new BufferedImage[2];
+        for (int i = 0; i < 2; ++i) {
+            enemy_projectiles[i] = sprites.getSubimage(i*17,0,17,16);
         }
     }
 }

@@ -12,6 +12,7 @@ import EventSystem.Events.GameEvent;
 import EventSystem.Observer;
 import GUI.GUIStatusBar;
 import Game.Game;
+import PlayerStats.ExperiencePanel;
 
 import java.awt.*;
 
@@ -43,16 +44,16 @@ public class Player extends Entity implements Observer {
     public static final int MANA_REGEN_PERIOD = 30; //how many frames between mana regens
     public static final int MANABAR_Y = HEALTHBAR_Y + HEALTHBAR_HEIGHT + 10;
     //experience constants
-    public static final double EXPERIENCE_DEPENDENCY_EXPONENT = 1.5;
+    public static final double EXPERIENCE_BASE = 1.1;
 
     public static int GET_DEFAULT_EXPERIENCE_GAIN() {
-        return (10 + 5 * Game.DIFFICULTY);
+        return (500 + 5 * Game.DIFFICULTY);
     }
 
     private static Player instance = null;
 
-    private GUIStatusBar<Player> healthBar;
-    private GUIStatusBar<Player> manaBar;
+    private final GUIStatusBar<Player> healthBar;
+    private final GUIStatusBar<Player> manaBar;
     private int health = GET_DEFAULT_HEALTH();
     private int mana = GET_DEFAULT_MANA();
     private int level;
@@ -83,6 +84,8 @@ public class Player extends Entity implements Observer {
         manaBar.SetSize(HEALTHBAR_WIDTH, HEALTHBAR_HEIGHT);
         manaBar.SetColor(Color.CYAN);
         AddObserver(manaBar);
+        //add experience observer
+        AddObserver(ExperiencePanel.GetInstance());
 
         ResetAllStats();
     }
@@ -98,7 +101,7 @@ public class Player extends Entity implements Observer {
         numProjectiles = 1;
         projectileDamage = 20;
         critChance = 0;
-        currentProjetile = ProjectileType.FROST;
+        currentProjetile = ProjectileType.FIRE;
         experience = 0;
         level = 1;
     }
@@ -112,21 +115,21 @@ public class Player extends Entity implements Observer {
                 mana = GET_DEFAULT_MANA();
             NotifyAllObservers(CombatEvent.STATUS_BAR_UPDATE);
         }
-        if(health<=0){
+        if (health <= 0) {
             NotifyAllObservers(CombatEvent.LEVEL_LOSS);
         }
     }
 
     @Override
     public void Draw(Graphics g) {
-        g.drawImage(PlayerAssets.player_frames[(frameCount / 8) % 4], PLAYER_X, PLAYER_Y, PLAYER_W,PLAYER_H,null);
+        g.drawImage(PlayerAssets.player_frames[(frameCount / 8) % 4], PLAYER_X, PLAYER_Y, PLAYER_W, PLAYER_H, null);
         healthBar.Draw(g);
         manaBar.Draw(g);
     }
 
-    public void TakeDamage(int damage){
-        health-=damage;
-        if(health>0) {
+    public void TakeDamage(int damage) {
+        health -= damage;
+        if (health > 0) {
             NotifyAllObservers(AudioEvent.PLAY_OOF);
             NotifyAllObservers(CombatEvent.STATUS_BAR_UPDATE);
         }
@@ -142,7 +145,7 @@ public class Player extends Entity implements Observer {
         //calculate coordinates of hitbox to center it at p -> subtract half widht and height from each coordinate
         Point to = new Point(p.x - Projectile.PROJECTILE_WIDTH / 2, p.y - Projectile.PROJECTILE_HEIGHT / 2);
         return ProjectileFactory.MakeProjectile(currentProjetile,
-                new Point(PLAYER_X + 100, PLAYER_Y+10), to, projectileDamage, numProjectiles, critChance);
+                new Point(PLAYER_X + 100, PLAYER_Y + 10), to, projectileDamage, numProjectiles, critChance);
     }
 
     @Override
@@ -151,10 +154,12 @@ public class Player extends Entity implements Observer {
             return;
         }
         switch ((CombatEvent) e) {
-            case MONSTER_DEATH:
-                experience += GET_DEFAULT_EXPERIENCE_GAIN() * (int) (Math.pow(1 + level, EXPERIENCE_DEPENDENCY_EXPONENT));
+            case ENEMY_DEATH:
+                experience += (int) (GET_DEFAULT_EXPERIENCE_GAIN() * (Math.pow(EXPERIENCE_BASE, level - 1)));
+                //pass the notification to the experience panel
+                NotifyAllObservers(CombatEvent.ENEMY_DEATH);
                 break;
-            case MONSTER_ATTACK:
+            case ENEMY_ATTACK:
                 health -= Enemy.GET_DEFAULT_DAMAGE();
         }
     }
@@ -185,6 +190,10 @@ public class Player extends Entity implements Observer {
 
     public int GetHealth() {
         return health;
+    }
+
+    public int GetExperience() {
+        return experience;
     }
 
     public static Integer ProvideHealthData(Player p) {

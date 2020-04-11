@@ -21,8 +21,8 @@ public class WinState extends State {
     public static final int WIN_TEXT_TRANSITION = WIN_BACKGROUND_TRANSITION + 2;
     public static final int BACK_BUTTON_TRANSITION = WIN_TEXT_TRANSITION + 3;
 
-    private GUIText winText;
-    private Player p;
+    private final GUIText winText;
+    private final Player p;
 
     public WinState() {
         p = Player.GetInstance();

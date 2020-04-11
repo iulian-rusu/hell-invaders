@@ -2,6 +2,7 @@ package Entities.CollidableEntities.Enemies;
 
 import Entities.CollidableEntities.CollidableEntity;
 import Entities.CollidableEntities.Projectiles.FrostProjectile;
+import Entities.Player;
 import EventSystem.Events.CombatEvent;
 import EventSystem.Events.AudioEvent;
 import GUI.GUIStatusBar;
@@ -18,7 +19,7 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
 
     //damage parameters
     public static int GET_DEFAULT_DAMAGE() { return 10 + 5 * Game.DIFFICULTY; }
-    public static final int FRAMES_BETWEEN_ATTACKS = 60;
+    public static final int FRAMES_BETWEEN_ATTACKS = 120;
 
     protected int health;
     protected int level;
@@ -46,13 +47,15 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
         int healthBarY = hitBox.y + GUIStatusBar.DEFAULT_Y_OFFSET;
         healthBar.SetPosition(healthBarX, healthBarY);
         AddObserver(healthBar);
+        //add the player as an observer
+        AddObserver(Player.GetInstance());
     }
 
     public void TakeDamage(int damage) {
         health -= damage;
         if (health <= 0) {
             isActive = false;
-            NotifyAllObservers(CombatEvent.MONSTER_DEATH);
+            NotifyAllObservers(CombatEvent.ENEMY_DEATH);
         }
         NotifyAllObservers(AudioEvent.PLAY_ENEMY_HURT);
         NotifyAllObservers(CombatEvent.STATUS_BAR_UPDATE);

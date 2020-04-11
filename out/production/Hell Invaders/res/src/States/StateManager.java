@@ -49,7 +49,7 @@ public class StateManager {
     }
 
     private StateIndex currentStateIndex;
-    private State[] allStates;
+    private final State[] allStates;
     private static StateManager instance = null;
 
     public enum StateIndex {

@@ -13,6 +13,7 @@ import Game.Game;
 import Game.GameWindow;
 import Assets.BackgroundAssets;
 import LevelSystem.LevelLoader;
+import PlayerStats.ExperiencePanel;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -25,12 +26,13 @@ public class GameState extends ReversibleState implements EventSystem.Observer{
     public static final int BATTLEFIELD_HEIGHT = 250;
 
     public Player p;
+    ExperiencePanel experiencePanel;
     //enemies and projectiles are separated for more efficient collision checking
-    private ArrayList<Enemy> allEnemies;
-    private ArrayList<Projectile> allProjectiles;
-    private ArrayList<GUIText> combatText;
-    private ArrayList<GUIText> infoText;
-    private Rectangle clickBox;
+    private final ArrayList<Enemy> allEnemies;
+    private final ArrayList<Projectile> allProjectiles;
+    private final ArrayList<GUIText> combatText;
+    private final ArrayList<GUIText> infoText;
+    private final Rectangle clickBox;
     private boolean isWon;
 
     public GameState() {
@@ -58,6 +60,7 @@ public class GameState extends ReversibleState implements EventSystem.Observer{
         //create player
         p = Player.GetInstance();
         p.AddObserver(this);
+        experiencePanel=ExperiencePanel.GetInstance();
 
         //various text for player info
         int infoTextSize = 100;
@@ -82,10 +85,6 @@ public class GameState extends ReversibleState implements EventSystem.Observer{
         InitText();
         //load enemy waves
         LevelLoader.InitLevel(allProjectiles, allEnemies, p.GetLevel());
-        //make the player an observer of all enemies
-        for (Enemy e : allEnemies) {
-            e.AddObserver(p);
-        }
         combatText.clear();
     }
 
@@ -115,12 +114,8 @@ public class GameState extends ReversibleState implements EventSystem.Observer{
     public void Update() {
         super.Update();
         try {
-            for (Enemy e : allEnemies) {
-                e.Update();
-            }
-            for (Projectile p : allProjectiles) {
-                p.Update();
-            }
+            allEnemies.forEach(Enemy::Update);
+            allProjectiles.forEach(Projectile::Update);
             p.Update();
             //check for collisions and eventually delete inactive entities
             CleanCombatText();
@@ -178,6 +173,7 @@ public class GameState extends ReversibleState implements EventSystem.Observer{
             e.printStackTrace();
         }
         p.Draw(g);
+        experiencePanel.Draw(g);
         for (GUIButton b : allButtons) {
             b.Draw(g);
         }

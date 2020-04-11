@@ -11,13 +11,11 @@ import java.awt.image.BufferStrategy;
 
 public class Game extends MouseAdapter implements Runnable {
     //TODO: add upgrade buttons
-    //TODO: make enemies attack
-    //TODO: add level system and difficulties
     //TODO: save player stats into SQL databse and unlock resume button
     //TODO: implement player stats (max level/total enemies killed/max single spell hit)
     //class that implements the main game loop
 
-    public static int DIFFICULTY=2;
+    public static int DIFFICULTY = 2;
 
     private GameWindow wnd;
     private boolean runState;

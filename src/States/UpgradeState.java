@@ -1,19 +1,18 @@
 package States;
 
 import Assets.GUIAssets;
-import Audio.SoundEffect;
-import Audio.SoundEffectAssets;
-import Entities.Player;
 import EventSystem.Events.AudioEvent;
 import GUI.GUIButton;
 import Game.GameWindow;
 import Assets.BackgroundAssets;
+import PlayerStats.ExperiencePanel;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class UpgradeState extends ReversibleState {
 
+    ExperiencePanel experiencePanel;
     public UpgradeState() {
         //back button events
         allButtons.get(0).AddActionListener(actionEvent -> {
@@ -29,11 +28,14 @@ public class UpgradeState extends ReversibleState {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
             StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.GAME_STATE);
         });
+
+        experiencePanel=ExperiencePanel.GetInstance();
     }
 
     @Override
     public void Init() {
         super.Init();
+        ExperiencePanel.GetInstance().UpdateValue();//TODO: remove this from here, find another way to init experience panel
         NotifyAllObservers(AudioEvent.PLAY_CURRENT_STATE_MUSIC);
     }
 
@@ -46,6 +48,7 @@ public class UpgradeState extends ReversibleState {
         for (GUIButton b : allButtons) {
             b.Draw(g);
         }
+        experiencePanel.Draw(g);
         bs.show();
         g.dispose();
     }

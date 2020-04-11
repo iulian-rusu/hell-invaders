@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class MenuState extends State {
 
     private boolean logoColorflag = true;
-    private GUIText bottomText;
+    private final GUIText bottomText;
 
     public MenuState() {
         final int menuY = GameWindow.wndDimension.height / 2-20;

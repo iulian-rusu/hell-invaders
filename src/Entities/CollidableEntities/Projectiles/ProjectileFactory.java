@@ -44,6 +44,10 @@ public class ProjectileFactory {
                 }
                 return ans;
             case ENEMY:
+                for (int i = 0; i < numProjectiles; ++i) {
+                    ans[i] = new EnemyProjectile(from.x, from.y, -vx[i], -vy[i], angles[i], damage, 0);
+                }
+                return ans;
             default:
                 return null;
         }

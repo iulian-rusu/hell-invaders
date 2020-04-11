@@ -19,6 +19,10 @@ public abstract class CollidableEntity extends Entity {
         this.y=y;
         hitBox=new Rectangle(hitboxW,hitboxH);
         textureBox=new Rectangle(textureW,textureH);
+        //init texture and hit box locations
+        textureBox.setLocation(x,y);
+        hitBox.setLocation(x+(textureBox.width-hitBox.width)/2,y+(textureBox.height-hitBox.height)/2 + GetHitBoxYOffset());
+        //add audio observer
         AddObserver(AudioManager.GetInstance());
     }
     public void SetActive(boolean f) {

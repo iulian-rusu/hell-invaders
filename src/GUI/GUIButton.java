@@ -9,9 +9,10 @@ import java.util.ArrayList;
 public class GUIButton {
 
     private GUIButtonState currentState;
-    private Rectangle clickBox;
-    private ArrayList<ActionListener> actionListeners;
-    private BufferedImage imageReleased, imageHovered;
+    private final Rectangle clickBox;
+    private final ArrayList<ActionListener> actionListeners;
+    private BufferedImage imageReleased;
+    private final BufferedImage imageHovered;
 
     public GUIButton(BufferedImage released, BufferedImage hovered, int x, int y, int width, int height) {
         imageReleased = released;

@@ -3,17 +3,17 @@ package GUI;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class GUITextPanel  extends  GUIText{
+public class GUITextPanel extends GUIText {
 
     public static final Color DEFAULT_YELLOW_COLOR = new Color(121, 85, 72);
     public static final Color DEFAULT_GREEN_COLOR = new Color(27, 94, 32);
-    public static final int DEFAULT_FONT_SIZE = 70;
+    public static final int DEFAULT_FONT_SIZE = 60;
 
-    private Rectangle box;
-    private BufferedImage image;
+    private final Rectangle box;
+    private final BufferedImage image;
 
     public GUITextPanel(String text, BufferedImage image, int x, int y, int w, int h) {
-        super(text,x + 30,y - h / 2 + 90,DEFAULT_FONT_SIZE,DEFAULT_YELLOW_COLOR);
+        super(text, x + 30, y - h / 2 + 80, DEFAULT_FONT_SIZE, DEFAULT_YELLOW_COLOR);
         this.image = image;
         this.box = new Rectangle(x, y, w, h);
     }
