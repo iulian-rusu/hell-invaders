@@ -67,8 +67,8 @@ public class GameState extends ReversibleState implements EventSystem.Observer{
         infoText = new ArrayList<>(2);
         infoText.add(new GUIText("EASY", GameWindow.wndDimension.width - 270,
                 Player.MANABAR_Y+Player.HEALTHBAR_HEIGHT, infoTextSize));
-        infoText.add(new GUIText("LEVEL 1", GameWindow.wndDimension.width / 2 - 100,
-                BACK_BUTTON_Y + BUTTON_H, infoTextSize));
+        infoText.add(new GUIText("DAY 1", GameWindow.wndDimension.width / 2 - 100,
+                BACK_BUTTON_Y + BUTTON_H - 10, infoTextSize));
 
         //clickable field to fire projectiles
         Dimension screenSize = GameWindow.wndDimension;

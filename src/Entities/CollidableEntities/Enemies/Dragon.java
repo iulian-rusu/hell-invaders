@@ -17,20 +17,10 @@ import java.util.Arrays;
 public class Dragon extends Enemy {
     //projectile parameters
     public static final Point to = new Point(Player.PLAYER_X + Player.PLAYER_W, Player.PLAYER_Y + Player.PLAYER_H / 2);
-
-    public static int GET_DEFAULT_DAMAGE() {
-        return 15 - 2 * Game.DIFFICULTY;
-    }
-
+    public static int GET_DEFAULT_DAMAGE() { return 15 - 2 * Game.DIFFICULTY; }
     //health parameters
-    public static int GET_DEFAULT_HEALTH() {
-        return 25 * Game.DIFFICULTY;
-    }
-
-    public static int GET_HEALTH_INCREMENT() {
-        return 3 * Game.DIFFICULTY;
-    }
-
+    public static int GET_DEFAULT_HEALTH() { return 25 * Game.DIFFICULTY; }
+    public static int GET_HEALTH_INCREMENT() { return 3 * Game.DIFFICULTY; }
     //size parameters
     public static final int DEFAULT_HEIGHT = 100;
     public static final int DEFAULT_HITBOX_WIDTH = (int) (DEFAULT_WIDTH * 0.6);
@@ -44,14 +34,6 @@ public class Dragon extends Enemy {
     }
 
     @Override
-    public void TakeDamage(long damage) {
-        super.TakeDamage(damage);
-        //dragon doesn't immediately become inactive if there are projectiles flying
-        //isActive = true if health > 0, otherwise it's false if there are no projectiles flying
-        isActive = (health > 0 || (projectiles != null && projectiles.size() > 0));
-    }
-
-    @Override
     protected void InitHealth() {
         this.health = GET_DEFAULT_HEALTH() + (long) (Math.pow(HEALTH_BASE, level - 1) * GET_HEALTH_INCREMENT());
         //test for overflow
@@ -62,14 +44,12 @@ public class Dragon extends Enemy {
 
     @Override
     public void Update() {
+        //it's active if it's alive of if threre are projectiles still flying
+        isActive = (health > 0 || (projectiles != null && projectiles.size() > 0));
         super.Update();
         if (projectiles != null) {
             projectiles.forEach(Projectile::Update);
             projectiles.removeIf(projectile -> !projectile.isActive);
-            //dragon becomes incative only when all projectiles have disappeared and health <= 0
-            if (health <= 0 && projectiles.size() == 0) {
-                isActive = false;
-            }
         }
     }
 
@@ -94,11 +74,7 @@ public class Dragon extends Enemy {
 
     @Override
     public void Draw(Graphics g) {
-        if (!isVisile) {
-            return;
-        }
-        if (health > 0) {
-            //only draw the dragon if it's alive
+        if (isVisile) {
             BufferedImage currentFrame = EnemyAssets.dragon_frames[(frameCount / 12) % 5];
             g.drawImage(currentFrame, x, y, textureBox.width, textureBox.height, null);
         }
@@ -119,7 +95,6 @@ public class Dragon extends Enemy {
     public int GetHitBoxYOffset() {
         return 0;
     }
-
 
     @Override
     protected int GetAttackTransitionX() {

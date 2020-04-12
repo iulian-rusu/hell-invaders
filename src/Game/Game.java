@@ -15,7 +15,7 @@ public class Game extends MouseAdapter implements Runnable {
     //TODO: implement player stats (max level/total enemies killed/max single spell hit)
     //class that implements the main game loop
 
-    public static int DIFFICULTY = 2;
+    public static int DIFFICULTY = 1;
 
     private GameWindow wnd;
     private boolean runState;

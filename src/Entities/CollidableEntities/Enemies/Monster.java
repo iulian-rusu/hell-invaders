@@ -21,6 +21,14 @@ public class Monster extends Enemy {
     }
 
     @Override
+    public void Update() {
+        super.Update();
+        if(health<=0){
+            isActive=false;
+        }
+    }
+
+    @Override
     protected void InitHealth() {
         this.health = GET_DEFAULT_HEALTH() + (long) (Math.pow(HEALTH_BASE, level-1) * GET_HEALTH_INCREMENT());
         //test for overflow

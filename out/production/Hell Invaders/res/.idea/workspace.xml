@@ -2,23 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d28048e-94e2-4db0-bf3a-f45dd18af9c3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/GameState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIButton$GUIButtonState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIButton$GUIButtonState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIButton.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/GUI/GUIButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/GUI/GUIButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/CollidableEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/CollidableEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Enemies/Dragon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Enemies/Dragon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Enemies/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Enemies/Enemy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Enemies/Monster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Enemies/Monster.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/ArcaneProjectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/ArcaneProjectile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/EnemyProjectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/EnemyProjectile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/FireProjectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/FireProjectile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/FrostProjectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/FrostProjectile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/Projectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/Projectile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/ProjectileFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/ProjectileFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entities/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/GUIButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUIButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/GUIStatusBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUIStatusBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PlayerStats/ExperiencePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlayerStats/ExperiencePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/States/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/GameState.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +192,14 @@
       <option name="project" value="LOCAL" />
       <updated>1586638262364</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="New level progression, fixed dragon shooting mechanic.">
+      <created>1586692195750</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1586692195750</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -221,17 +219,18 @@
     <MESSAGE value="Added loading from sprite sheets + image rotation." />
     <MESSAGE value="Added ability to take damage fro enemies." />
     <MESSAGE value="Added enemy attacks and experience system." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added enemy attacks and experience system." />
+    <MESSAGE value="New level progression, fixed dragon shooting mechanic." />
+    <option name="LAST_COMMIT_MESSAGE" value="New level progression, fixed dragon shooting mechanic." />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584525283738">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1584525283738" />
-    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser" timestamp="1586634846322">
+    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser" timestamp="1586703113784">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1586634846322" />
+    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1586703113784" />
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1586620582484">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -252,30 +251,30 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1584800079770" />
-    <state x="424" y="108" key="CommitChangelistDialog2" timestamp="1586638254336">
+    <state x="424" y="108" key="CommitChangelistDialog2" timestamp="1586692192980">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="424" y="108" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1586638254336" />
+    <state x="424" y="108" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1586692192980" />
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1586357967076">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1586357967076" />
-    <state width="1493" height="205" key="GridCell.Tab.0.bottom" timestamp="1586689578842">
+    <state width="1493" height="205" key="GridCell.Tab.0.bottom" timestamp="1586693889253">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="205" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586689578842" />
-    <state width="1493" height="205" key="GridCell.Tab.0.center" timestamp="1586689578842">
+    <state width="1493" height="205" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1586693889253" />
+    <state width="1493" height="205" key="GridCell.Tab.0.center" timestamp="1586693889252">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="205" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1586689578842" />
-    <state width="1493" height="205" key="GridCell.Tab.0.left" timestamp="1586689578842">
+    <state width="1493" height="205" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1586693889252" />
+    <state width="1493" height="205" key="GridCell.Tab.0.left" timestamp="1586693889252">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="205" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1586689578842" />
-    <state width="1493" height="205" key="GridCell.Tab.0.right" timestamp="1586689578842">
+    <state width="1493" height="205" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1586693889252" />
+    <state width="1493" height="205" key="GridCell.Tab.0.right" timestamp="1586693889253">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="205" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1586689578842" />
+    <state width="1493" height="205" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1586693889253" />
     <state width="1493" height="185" key="GridCell.Tab.1.bottom" timestamp="1586638316704">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

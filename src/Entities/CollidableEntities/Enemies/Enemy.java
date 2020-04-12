@@ -18,7 +18,7 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
     public static final int DEFAULT_X_VELOCITY = -1;
     //damage parameters
     public static int GET_DEFAULT_DAMAGE() { return 10 + 5 * Game.DIFFICULTY; }
-    public static final int FRAMES_BETWEEN_ATTACKS = 10;
+    public static final int FRAMES_BETWEEN_ATTACKS = 120;
     //healt multiplier per level
     public static final double HEALTH_BASE = 1.12;
 
@@ -32,7 +32,7 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
     protected boolean isVisile = false;
     protected boolean isSlowed = false;
     private int slowedBegin = -1;//counts from when the enemy was slowed
-    protected int framesSinceLastAttack = FRAMES_BETWEEN_ATTACKS ;//for delay between attacks
+    protected int framesSinceLastAttack = FRAMES_BETWEEN_ATTACKS;//for delay between attacks
 
 
     public Enemy(int x, int y, int hiboxW, int hitboxH, int textureW, int textureH, int level) {
@@ -55,7 +55,9 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
     public void TakeDamage(long damage) {
         health -= damage;
         if (health <= 0) {
-            isActive = false;
+            isVisile = false;
+            isCollisionActive = false;
+            isMoving = false;
             NotifyAllObservers(CombatEvent.ENEMY_DEATH);
         }
         NotifyAllObservers(AudioEvent.PLAY_ENEMY_HURT);
@@ -90,12 +92,12 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
                 isMoving = false;
                 xVelocity = 0;
             }
-        } else {
+        } else if (health >0 ) {
             Attack();
         }
 
         //make it visible if it's on screen
-        if (!isVisile && x <= GameWindow.wndDimension.width) {
+        if (isMoving && !isVisile && x <= GameWindow.wndDimension.width) {
             NotifyAllObservers(AudioEvent.PLAY_ENEMY_SPAWN);
             isVisile = true;
         }
@@ -111,7 +113,7 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
         }
 
         //update frames since last attack
-        if (framesSinceLastAttack < FRAMES_BETWEEN_ATTACKS ) {
+        if (framesSinceLastAttack < FRAMES_BETWEEN_ATTACKS) {
             ++framesSinceLastAttack;
         }
     }

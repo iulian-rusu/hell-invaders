@@ -15,7 +15,6 @@ import java.awt.*;
 
 public class ExperiencePanel implements Observer {
     //singleton class that manages player experience
-
     public static final int EXPERIENCE_PANEL_WIDTH = State.BUTTON_W;
     public static final int EXPERIENCE_PANEL_X = GameWindow.wndDimension.width - ReversibleState.BACK_BUTTON_X - EXPERIENCE_PANEL_WIDTH;
 
