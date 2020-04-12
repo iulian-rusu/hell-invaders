@@ -18,36 +18,29 @@ import java.awt.*;
 
 public class Player extends Entity implements Observer {
     //singleton class that implements a player controller
-    //player position constants
+    //player position parameters
     public static final int PLAYER_H = 150;
     public static final int PLAYER_W = 125;
     public static final int PLAYER_X = 35;
     public static final int PLAYER_Y = 420;
-
-    //health and healthbar constants
+    //health and healthbar parameters
     public static int GET_DEFAULT_HEALTH() {
         return 100 + (4 - Game.DIFFICULTY) * 50;
     }
-
     public static final int HEALTHBAR_HEIGHT = 20;
     public static final int HEALTHBAR_WIDTH = 250;
     public static final int HEALTHBAR_Y = 770;
     public static final int HEALTHBAR_X = 70;
-
-    //mana constants
-    public static int GET_DEFAULT_MANA() {
-        return 100 + (3 - Game.DIFFICULTY) * 25;
-    }
-
+    //mana parameters
+    public static int GET_DEFAULT_MANA() { return 100 + (3 - Game.DIFFICULTY) * 25; }
     public static final int MANA_COST_PER_SHOOT = 10;
     public static final int MANA_REGEN_CHUNK = 3;
     public static final int MANA_REGEN_PERIOD = 30; //how many frames between mana regens
     public static final int MANABAR_Y = HEALTHBAR_Y + HEALTHBAR_HEIGHT + 10;
-    //experience constants
+    //experience parameters
     public static final double EXPERIENCE_BASE = 1.1;
-
     public static int GET_DEFAULT_EXPERIENCE_GAIN() {
-        return (500 + 5 * Game.DIFFICULTY);
+        return (10 * Game.DIFFICULTY);
     }
 
     private static Player instance = null;
@@ -56,12 +49,12 @@ public class Player extends Entity implements Observer {
     private final GUIStatusBar<Player> manaBar;
     private int health = GET_DEFAULT_HEALTH();
     private int mana = GET_DEFAULT_MANA();
-    private int level;
+    private int level;//in the interval [1, 365]
     private ProjectileType currentProjetile;
-    private int projectileDamage;
     private int numProjectiles;
     private int critChance;
-    private int experience;
+    private long projectileDamage;
+    private long experience;
 
     public static Player GetInstance() {
         if (instance == null) {
@@ -127,7 +120,7 @@ public class Player extends Entity implements Observer {
         manaBar.Draw(g);
     }
 
-    public void TakeDamage(int damage) {
+    public void TakeDamage(long damage) {
         health -= damage;
         if (health > 0) {
             NotifyAllObservers(AudioEvent.PLAY_OOF);
@@ -155,7 +148,7 @@ public class Player extends Entity implements Observer {
         }
         switch ((CombatEvent) e) {
             case ENEMY_DEATH:
-                experience += (int) (GET_DEFAULT_EXPERIENCE_GAIN() * (Math.pow(EXPERIENCE_BASE, level - 1)));
+                experience += (long) (GET_DEFAULT_EXPERIENCE_GAIN() * (Math.pow(EXPERIENCE_BASE, level - 1)));
                 //pass the notification to the experience panel
                 NotifyAllObservers(CombatEvent.ENEMY_DEATH);
                 break;
@@ -192,15 +185,15 @@ public class Player extends Entity implements Observer {
         return health;
     }
 
-    public int GetExperience() {
+    public long GetExperience() {
         return experience;
     }
 
-    public static Integer ProvideHealthData(Player p) {
-        return p.health;
+    public static Long ProvideHealthData(Player p) {
+        return (long) p.health;
     }
 
-    public static Integer ProvideManaData(Player p) {
-        return p.mana;
+    public static Long ProvideManaData(Player p) {
+        return (long) p.mana;
     }
 }

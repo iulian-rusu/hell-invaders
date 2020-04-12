@@ -9,9 +9,8 @@ import java.awt.image.BufferedImage;
 
 public class Monster extends Enemy {
     //health parameters
-    public static int GET_DEFAULT_HEALTH() { return 50 * Game.DIFFICULTY; }
-    public static int GET_HEALTH_INCREMENT() { return 5 * Game.DIFFICULTY; }
-    public static final double HEALTH_BASE = 1.15;
+    public static int GET_DEFAULT_HEALTH() { return 40 * Game.DIFFICULTY; }
+    public static int GET_HEALTH_INCREMENT() { return 4 * Game.DIFFICULTY; }
     //size parameters
     public static final int DEFAULT_HITBOX_WIDTH = (int) (DEFAULT_WIDTH * 0.5);
     public static final int DEFAULT_HITBOX_HEIGHT = (int) (DEFAULT_HEIGHT * 0.6);
@@ -23,14 +22,18 @@ public class Monster extends Enemy {
 
     @Override
     protected void InitHealth() {
-        this.health = GET_DEFAULT_HEALTH() + (int) (Math.pow(HEALTH_BASE, level-1) * GET_HEALTH_INCREMENT());
+        this.health = GET_DEFAULT_HEALTH() + (long) (Math.pow(HEALTH_BASE, level-1) * GET_HEALTH_INCREMENT());
+        //test for overflow
+        if(this.health<0){
+            this.health=-this.health;
+        }
     }
 
     @Override
     protected void Attack() {
         if (framesSinceLastAttack >= FRAMES_BETWEEN_ATTACKS) {
             framesSinceLastAttack = 0;
-            Player.GetInstance().TakeDamage(Enemy.GET_DEFAULT_DAMAGE());
+            Player.GetInstance().TakeDamage(GET_DEFAULT_DAMAGE());
         }
     }
 

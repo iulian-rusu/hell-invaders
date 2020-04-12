@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class EnemyProjectile extends Projectile {
 
-    public EnemyProjectile(int x, int y, double xVelocity, double yVelocity, double angle, int damage, int critChance) {
+    public EnemyProjectile(int x, int y, double xVelocity, double yVelocity, double angle, long damage, int critChance) {
         super(x, y, xVelocity, yVelocity, angle, damage, critChance);
     }
 

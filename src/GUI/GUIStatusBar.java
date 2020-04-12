@@ -20,9 +20,9 @@ public class GUIStatusBar<T extends Entity> implements Observer {
     private double maxValue;
     private int maxWidth = DEFAULT_WIDTH;
     private final T target;
-    private final Function<T, Integer> getter;
+    private final Function<T, Long> getter;
 
-    public GUIStatusBar(T target, Function<T, Integer> getter) {
+    public GUIStatusBar(T target, Function<T, Long> getter) {
         this.target = target;
         this.getter = getter;
         color = Color.red;

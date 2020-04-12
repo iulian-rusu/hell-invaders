@@ -107,7 +107,7 @@ public class GameState extends ReversibleState implements EventSystem.Observer{
         infoText.get(0).SetText(d);
         infoText.get(0).SetColor(c);
         //init level text
-        infoText.get(1).SetText("LEVEL " + p.GetLevel());
+        infoText.get(1).SetText("DAY " + p.GetLevel());
     }
 
     @Override

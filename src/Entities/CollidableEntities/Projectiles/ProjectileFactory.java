@@ -3,7 +3,7 @@ package Entities.CollidableEntities.Projectiles;
 import java.awt.*;
 
 public class ProjectileFactory {
-    public static Projectile[] MakeProjectile(ProjectileType type, Point from, Point to, int damage, int numProjectiles, int critChance) {
+    public static Projectile[] MakeProjectile(ProjectileType type, Point from, Point to, long damage, int numProjectiles, int critChance) {
         Projectile[] ans = new Projectile[numProjectiles];
         double[] angles = new double[numProjectiles];
         double[] vx = new double[numProjectiles];

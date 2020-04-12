@@ -9,24 +9,25 @@ import java.awt.*;
 import java.util.Random;
 
 public abstract class Projectile extends CollidableEntity {
-
+    //size parameters
     public static final int PROJECTILE_WIDTH = 30;
     public static final int PROJECTILE_HEIGHT = 30;
+    //behaviour parameters
     public static final int CRIT_AMPLIFIER = 2;
     public static final int DEFAULT_VELOCITY = 20;
 
-    protected static final Random RNG = new Random();
+    protected static final Random RNG = new Random(System.currentTimeMillis());//for crit mechanics
 
     protected double xVelocity;
     protected double yVelocity;
     protected double angle;
     protected double fx;
     protected double fy;
-    protected int damage;
+    protected long damage;
     protected int critChance;
     protected boolean hasCrit = false;
 
-    public Projectile(int x, int y,double xVelocity, double yVelocity, double angle, int damage, int critChance) {
+    public Projectile(int x, int y,double xVelocity, double yVelocity, double angle, long damage, int critChance) {
         super(x, y, PROJECTILE_WIDTH, PROJECTILE_HEIGHT, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
         //doubles for precise position calculation
         fx = x;
@@ -60,7 +61,7 @@ public abstract class Projectile extends CollidableEntity {
         return ans;
     }
 
-    protected int GetCriticalDamage(int damage) {
+    protected long GetCriticalDamage(long damage) {
         return damage * CRIT_AMPLIFIER;
     }
 

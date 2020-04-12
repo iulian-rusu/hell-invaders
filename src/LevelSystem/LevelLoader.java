@@ -20,7 +20,7 @@ public class LevelLoader {
     public static final int LEVEL_PERIOD_LENGTH = 5;
     public static int GET_SECONDS_BETWEEN_WAVES(){return Game.DIFFICULTY == 3 ? 5 : 10;}
     public static final int X_DEVIATION = 500;
-    private static final Random RNG = new Random();
+    private static final Random RNG = new Random(System.currentTimeMillis());//for enemy spawn positions
 
     public static void InitLevel(ArrayList<Projectile> allProjectiles, ArrayList<Enemy> allEnemies, int level) {
         allProjectiles.clear();

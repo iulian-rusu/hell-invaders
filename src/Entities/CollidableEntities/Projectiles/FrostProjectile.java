@@ -10,7 +10,7 @@ public class FrostProjectile extends Projectile {
     public static final int SLOW_FRAME_COUNT = 120;
     public static final double SLOW_PERCENTAGE = 0.3;
 
-    public FrostProjectile(int x, int y, double xVelocity, double yVelocity, double angle, int damage, int critChance) {
+    public FrostProjectile(int x, int y, double xVelocity, double yVelocity, double angle, long damage, int critChance) {
         super(x, y, xVelocity, yVelocity, angle, damage, critChance);
         textureBox.width = PROJECTILE_WIDTH * 2;
         textureBox.height = PROJECTILE_HEIGHT * 3 / 4;

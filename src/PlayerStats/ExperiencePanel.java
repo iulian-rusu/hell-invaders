@@ -1,6 +1,5 @@
 package PlayerStats;
 
-import Assets.FontAssets;
 import Assets.GUIAssets;
 import Entities.Player;
 import EventSystem.Events.CombatEvent;
@@ -21,7 +20,7 @@ public class ExperiencePanel implements Observer {
     public static final int EXPERIENCE_PANEL_X = GameWindow.wndDimension.width - ReversibleState.BACK_BUTTON_X - EXPERIENCE_PANEL_WIDTH;
 
     private final GUITextPanel experiencePanel;
-    private final String[] units = {"", " K", " M", " G", " T"};
+    private final String[] units = {"", " K", " M", " G", " T", " P", " E"};
 
     public static ExperiencePanel GetInstance() {
         if (instance == null) {
@@ -35,7 +34,7 @@ public class ExperiencePanel implements Observer {
     }
 
     public void UpdateValue() {
-        int value = Player.GetInstance().GetExperience();
+        long value = Player.GetInstance().GetExperience();
         if (value >= 1000) {
             double fval = value;
             int i = 0;

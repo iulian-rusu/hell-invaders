@@ -9,7 +9,7 @@ public class ArcaneProjectile extends Projectile {
     //override base CRIT_AMPLIFIER
     public static final int CRIT_AMPLIFIER = 4;
 
-    public ArcaneProjectile(int x, int y, double xVelocity, double yVelocity, double angle, int damage, int critChance) {
+    public ArcaneProjectile(int x, int y, double xVelocity, double yVelocity, double angle, long damage, int critChance) {
         super(x, y, xVelocity, yVelocity, angle, damage, critChance);
     }
 
@@ -21,7 +21,7 @@ public class ArcaneProjectile extends Projectile {
     }
 
     @Override
-    protected int GetCriticalDamage(int damage) {
+    protected long GetCriticalDamage(long damage) {
         return damage * CRIT_AMPLIFIER;
     }
 

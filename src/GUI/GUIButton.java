@@ -78,6 +78,7 @@ public class GUIButton {
     }
 
     public void SetReleasedImage(BufferedImage released){
+        //used to change image of unblocked button
         imageReleased=released;
     }
 

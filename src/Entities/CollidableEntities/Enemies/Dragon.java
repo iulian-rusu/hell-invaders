@@ -16,12 +16,21 @@ import java.util.Arrays;
 
 public class Dragon extends Enemy {
     //projectile parameters
-    public static final Point to=new Point(Player.PLAYER_X+Player.PLAYER_W,Player.PLAYER_Y+Player.PLAYER_H/2);
-    public static int GET_DEFAULT_DAMAGE(){return 15 - 2 * Game.DIFFICULTY;}
+    public static final Point to = new Point(Player.PLAYER_X + Player.PLAYER_W, Player.PLAYER_Y + Player.PLAYER_H / 2);
+
+    public static int GET_DEFAULT_DAMAGE() {
+        return 15 - 2 * Game.DIFFICULTY;
+    }
+
     //health parameters
-    public static int GET_DEFAULT_HEALTH(){ return 25 * Game.DIFFICULTY;}
-    public static int GET_HEALTH_INCREMENT(){ return 3 * Game.DIFFICULTY;}
-    public static final double HEALTH_BASE = 1.12;
+    public static int GET_DEFAULT_HEALTH() {
+        return 25 * Game.DIFFICULTY;
+    }
+
+    public static int GET_HEALTH_INCREMENT() {
+        return 3 * Game.DIFFICULTY;
+    }
+
     //size parameters
     public static final int DEFAULT_HEIGHT = 100;
     public static final int DEFAULT_HITBOX_WIDTH = (int) (DEFAULT_WIDTH * 0.6);
@@ -35,32 +44,49 @@ public class Dragon extends Enemy {
     }
 
     @Override
+    public void TakeDamage(long damage) {
+        super.TakeDamage(damage);
+        //dragon doesn't immediately become inactive if there are projectiles flying
+        //isActive = true if health > 0, otherwise it's false if there are no projectiles flying
+        isActive = (health > 0 || (projectiles != null && projectiles.size() > 0));
+    }
+
+    @Override
     protected void InitHealth() {
-        this.health = GET_DEFAULT_HEALTH() + (int) (Math.pow(HEALTH_BASE,level-1) * GET_HEALTH_INCREMENT());
+        this.health = GET_DEFAULT_HEALTH() + (long) (Math.pow(HEALTH_BASE, level - 1) * GET_HEALTH_INCREMENT());
+        //test for overflow
+        if (this.health < 0) {
+            this.health = -this.health;
+        }
     }
 
     @Override
     public void Update() {
         super.Update();
-        if(projectiles!=null) {
+        if (projectiles != null) {
             projectiles.forEach(Projectile::Update);
             projectiles.removeIf(projectile -> !projectile.isActive);
+            //dragon becomes incative only when all projectiles have disappeared and health <= 0
+            if (health <= 0 && projectiles.size() == 0) {
+                isActive = false;
+            }
         }
     }
 
     @Override
     protected void Attack() {
-        if(framesSinceLastAttack>=FRAMES_BETWEEN_ATTACKS ){
-            framesSinceLastAttack=0;
-            if(projectiles==null){
-                projectiles=new ArrayList<>(1);
+        //only attack if it's alive and enough frames have passed since last attack
+        if (health > 0 && framesSinceLastAttack >= FRAMES_BETWEEN_ATTACKS) {
+            framesSinceLastAttack = 0;
+            if (projectiles == null) {
+                projectiles = new ArrayList<>(1);
             }
             //add new projectile
             NotifyAllObservers(AudioEvent.PLAY_DRAGON_SHOOT);
-            Point from=new Point(x,y+DEFAULT_HEIGHT/2);
+            Point from = new Point(x, y + DEFAULT_HEIGHT / 2);
             Projectile[] toBeAdded = ProjectileFactory.MakeProjectile(ProjectileType.ENEMY,
-                    from,to,GET_DEFAULT_DAMAGE(),Game.DIFFICULTY,0);
-            if(toBeAdded!=null) {
+                    from, to, GET_DEFAULT_DAMAGE(), Game.DIFFICULTY, 0);
+            if (toBeAdded != null) {
                 projectiles.addAll(Arrays.asList(toBeAdded));
             }
         }
@@ -71,10 +97,12 @@ public class Dragon extends Enemy {
         if (!isVisile) {
             return;
         }
-        BufferedImage currentFrame;
-        currentFrame = EnemyAssets.dragon_frames[(frameCount / 12) % 5];
-        g.drawImage(currentFrame, x, y, textureBox.width, textureBox.height, null);
-        if(projectiles!=null) {
+        if (health > 0) {
+            //only draw the dragon if it's alive
+            BufferedImage currentFrame = EnemyAssets.dragon_frames[(frameCount / 12) % 5];
+            g.drawImage(currentFrame, x, y, textureBox.width, textureBox.height, null);
+        }
+        if (projectiles != null) {
             for (Projectile p : projectiles) {
                 p.Draw(g);
             }

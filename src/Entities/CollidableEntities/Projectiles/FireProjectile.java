@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class FireProjectile extends Projectile {
 
-    public FireProjectile(int x, int y, double xVelocity, double yVelocity, double angle, int damage, int crithChance) {
+    public FireProjectile(int x, int y, double xVelocity, double yVelocity, double angle, long damage, int crithChance) {
         super(x, y, xVelocity, yVelocity, angle, damage, crithChance);
         textureBox.width = PROJECTILE_WIDTH * 2;
         textureBox.height = PROJECTILE_HEIGHT * 3 / 4;

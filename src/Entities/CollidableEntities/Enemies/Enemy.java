@@ -16,12 +16,13 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
     public static final int DEFAULT_WIDTH = 200;
     public static final int DEFAULT_HEIGHT = 240;
     public static final int DEFAULT_X_VELOCITY = -1;
-
     //damage parameters
     public static int GET_DEFAULT_DAMAGE() { return 10 + 5 * Game.DIFFICULTY; }
-    public static final int FRAMES_BETWEEN_ATTACKS = 120;
+    public static final int FRAMES_BETWEEN_ATTACKS = 10;
+    //healt multiplier per level
+    public static final double HEALTH_BASE = 1.12;
 
-    protected int health;
+    protected long health;
     protected int level;
     protected double xVelocity;
     protected double fx;
@@ -51,7 +52,7 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
         AddObserver(Player.GetInstance());
     }
 
-    public void TakeDamage(int damage) {
+    public void TakeDamage(long damage) {
         health -= damage;
         if (health <= 0) {
             isActive = false;
@@ -134,7 +135,7 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
         return DEFAULT_WIDTH;
     }
 
-    public static Integer ProvideHealthData(Enemy e) {
+    public static Long ProvideHealthData(Enemy e) {
         return e.health;
     }
 
