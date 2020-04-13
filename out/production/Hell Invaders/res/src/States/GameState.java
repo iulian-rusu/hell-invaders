@@ -4,24 +4,23 @@ import Entities.CollidableEntities.CollisionManager;
 import Entities.CollidableEntities.Enemies.Enemy;
 import Entities.Player;
 import Entities.CollidableEntities.Projectiles.Projectile;
-import EventSystem.Events.AudioEvent;
-import EventSystem.Events.CombatEvent;
-import EventSystem.Events.GameEvent;
+import GameSystems.EventSystem.Events.AudioEvent;
+import GameSystems.EventSystem.Events.CombatEvent;
+import GameSystems.EventSystem.Events.GameEvent;
 import GUI.GUIButton;
 import GUI.GUIText;
 import Game.Game;
 import Game.GameWindow;
-import Assets.BackgroundAssets;
-import LevelSystem.LevelLoader;
-import PlayerStats.ExperiencePanel;
+import Assets.Images.BackgroundAssets;
+import GameSystems.LevelSystem.LevelLoader;
+import GameSystems.UpgradeSystem.ExperiencePanel;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.util.*;
 
-public class GameState extends ReversibleState implements EventSystem.Observer{
-
+public class GameState extends ReversibleState implements GameSystems.EventSystem.Observer{
     public static final int BATTLEFIELD_Y = 180;
     public static final int BATTLEFIELD_HEIGHT = 250;
 
@@ -67,8 +66,8 @@ public class GameState extends ReversibleState implements EventSystem.Observer{
         infoText = new ArrayList<>(2);
         infoText.add(new GUIText("EASY", GameWindow.wndDimension.width - 270,
                 Player.MANABAR_Y+Player.HEALTHBAR_HEIGHT, infoTextSize));
-        infoText.add(new GUIText("LEVEL 1", GameWindow.wndDimension.width / 2 - 100,
-                BACK_BUTTON_Y + BUTTON_H, infoTextSize));
+        infoText.add(new GUIText("DAY 1", GameWindow.wndDimension.width / 2 - 100,
+                BACK_BUTTON_Y + BUTTON_H - 10, infoTextSize));
 
         //clickable field to fire projectiles
         Dimension screenSize = GameWindow.wndDimension;

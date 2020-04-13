@@ -1,11 +1,11 @@
 package States;
 
-import Assets.BackgroundAssets;
+import Assets.Images.BackgroundAssets;
 
 import Assets.FontAssets;
-import Assets.GUIAssets;
+import Assets.Images.GUIAssets;
 import Entities.Player;
-import EventSystem.Events.AudioEvent;
+import GameSystems.EventSystem.Events.AudioEvent;
 import GUI.GUIButton;
 import GUI.GUIText;
 import Game.GameWindow;
@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 
 public class WinState extends State {
-
     public static final int WIN_BACKGROUND_TRANSITION = 2;
     public static final int WIN_TEXT_TRANSITION = WIN_BACKGROUND_TRANSITION + 2;
     public static final int BACK_BUTTON_TRANSITION = WIN_TEXT_TRANSITION + 3;

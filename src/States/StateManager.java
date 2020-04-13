@@ -1,9 +1,9 @@
 package States;
 
 
-import Audio.BackgroundMusic;
-import Audio.AudioManager;
-import Audio.BackgroundMusicAssets;
+import Assets.Audio.BackgroundMusic;
+import Assets.Audio.AudioManager;
+import Assets.Audio.BackgroundMusicAssets;
 import Game.GameWindow;
 
 public class StateManager {

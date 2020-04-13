@@ -1,6 +1,6 @@
 package Entities.CollidableEntities.Enemies;
 
-import Assets.EnemyAssets;
+import Assets.Images.EnemyAssets;
 import Entities.Player;
 import Game.Game;
 
@@ -11,6 +11,14 @@ public class Monster extends Enemy {
     //health parameters
     public static int GET_DEFAULT_HEALTH() { return 40 * Game.DIFFICULTY; }
     public static int GET_HEALTH_INCREMENT() { return 4 * Game.DIFFICULTY; }
+    public static long GET_ACTUAL_HEALTH(int level){
+        long ans = GET_DEFAULT_HEALTH() + (long) (Math.pow(HEALTH_BASE, level - 1) * GET_HEALTH_INCREMENT());
+        //test for overflow
+        if (ans < 0) {
+            ans=-ans;
+        }
+        return ans;
+    }
     //size parameters
     public static final int DEFAULT_HITBOX_WIDTH = (int) (DEFAULT_WIDTH * 0.5);
     public static final int DEFAULT_HITBOX_HEIGHT = (int) (DEFAULT_HEIGHT * 0.6);
@@ -30,11 +38,7 @@ public class Monster extends Enemy {
 
     @Override
     protected void InitHealth() {
-        this.health = GET_DEFAULT_HEALTH() + (long) (Math.pow(HEALTH_BASE, level-1) * GET_HEALTH_INCREMENT());
-        //test for overflow
-        if(this.health<0){
-            this.health=-this.health;
-        }
+        this.health = GET_ACTUAL_HEALTH(this.level);
     }
 
     @Override

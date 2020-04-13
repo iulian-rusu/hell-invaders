@@ -1,18 +1,18 @@
 package States;
 
 
-import EventSystem.Events.AudioEvent;
+import Assets.Images.BackgroundAssets;
+import Assets.Images.GUIAssets;
+import GameSystems.EventSystem.Events.AudioEvent;
 import GUI.GUIButton;
 import GUI.GUIText;
 import Game.GameWindow;
-import Assets.*;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
 public class MenuState extends State {
-
     private boolean logoColorflag = true;
     private final GUIText bottomText;
 

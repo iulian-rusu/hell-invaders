@@ -5,7 +5,6 @@ import java.awt.*;
 import Assets.FontAssets;
 
 public class GUIText {
-
     public boolean isActive = true;
 
     private int frameCount = -1;

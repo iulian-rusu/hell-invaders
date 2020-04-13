@@ -1,15 +1,14 @@
 package GUI;
 
 import Entities.Entity;
-import EventSystem.Events.CombatEvent;
-import EventSystem.Events.GameEvent;
-import EventSystem.Observer;
+import GameSystems.EventSystem.Events.CombatEvent;
+import GameSystems.EventSystem.Events.GameEvent;
+import GameSystems.EventSystem.Observer;
 
 import java.awt.*;
 import java.util.function.Function;
 
 public class GUIStatusBar<T extends Entity> implements Observer {
-
     public static final int DEFAULT_WIDTH = 70;
     public static final int DEFAULT_HEIGHT = 5;
     public static final int DEFAULT_Y_OFFSET = -20;//offset above target entity hitbox

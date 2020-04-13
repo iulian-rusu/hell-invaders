@@ -1,6 +1,6 @@
 package Entities.CollidableEntities.Projectiles;
 
-import EventSystem.Events.AudioEvent;
+import GameSystems.EventSystem.Events.AudioEvent;
 
 public enum ProjectileType {
     FIRE(AudioEvent.PLAY_FIRE_SHOOT),

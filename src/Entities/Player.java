@@ -1,18 +1,18 @@
 package Entities;
 
-import Assets.PlayerAssets;
-import Audio.AudioManager;
+import Assets.Images.PlayerAssets;
+import Assets.Audio.AudioManager;
 import Entities.CollidableEntities.Enemies.Enemy;
 import Entities.CollidableEntities.Projectiles.Projectile;
 import Entities.CollidableEntities.Projectiles.ProjectileFactory;
 import Entities.CollidableEntities.Projectiles.ProjectileType;
-import EventSystem.Events.AudioEvent;
-import EventSystem.Events.CombatEvent;
-import EventSystem.Events.GameEvent;
-import EventSystem.Observer;
+import GameSystems.EventSystem.Events.AudioEvent;
+import GameSystems.EventSystem.Events.CombatEvent;
+import GameSystems.EventSystem.Events.GameEvent;
+import GameSystems.EventSystem.Observer;
 import GUI.GUIStatusBar;
 import Game.Game;
-import PlayerStats.ExperiencePanel;
+import GameSystems.UpgradeSystem.ExperiencePanel;
 
 import java.awt.*;
 
@@ -92,10 +92,10 @@ public class Player extends Entity implements Observer {
     public void ResetAllStats() {
         //used when a new game is started, sets all stats to their base value
         numProjectiles = 1;
-        projectileDamage = 20;
+        projectileDamage = 20L;
         critChance = 0;
         currentProjetile = ProjectileType.FIRE;
-        experience = 0;
+        experience = 0L;
         level = 1;
     }
 

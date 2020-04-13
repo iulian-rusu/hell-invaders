@@ -1,11 +1,11 @@
 package Entities.CollidableEntities.Enemies;
 
-import Assets.EnemyAssets;
+import Assets.Images.EnemyAssets;
 import Entities.CollidableEntities.Projectiles.Projectile;
 import Entities.CollidableEntities.Projectiles.ProjectileFactory;
 import Entities.CollidableEntities.Projectiles.ProjectileType;
 import Entities.Player;
-import EventSystem.Events.AudioEvent;
+import GameSystems.EventSystem.Events.AudioEvent;
 import Game.Game;
 import Game.GameWindow;
 
@@ -21,6 +21,14 @@ public class Dragon extends Enemy {
     //health parameters
     public static int GET_DEFAULT_HEALTH() { return 25 * Game.DIFFICULTY; }
     public static int GET_HEALTH_INCREMENT() { return 3 * Game.DIFFICULTY; }
+    public static long GET_ACTUAL_HEALTH(int level){
+        long ans = GET_DEFAULT_HEALTH() + (long) (Math.pow(HEALTH_BASE, level - 1) * GET_HEALTH_INCREMENT());
+        //test for overflow
+        if (ans < 0) {
+            ans=-ans;
+        }
+        return ans;
+    }
     //size parameters
     public static final int DEFAULT_HEIGHT = 100;
     public static final int DEFAULT_HITBOX_WIDTH = (int) (DEFAULT_WIDTH * 0.6);
@@ -35,16 +43,12 @@ public class Dragon extends Enemy {
 
     @Override
     protected void InitHealth() {
-        this.health = GET_DEFAULT_HEALTH() + (long) (Math.pow(HEALTH_BASE, level - 1) * GET_HEALTH_INCREMENT());
-        //test for overflow
-        if (this.health < 0) {
-            this.health = -this.health;
-        }
+        this.health = GET_ACTUAL_HEALTH(this.level);
     }
 
     @Override
     public void Update() {
-        //it's active if it's alive of if threre are projectiles still flying
+        //it's active if it's alive of if there are projectiles still flying
         isActive = (health > 0 || (projectiles != null && projectiles.size() > 0));
         super.Update();
         if (projectiles != null) {

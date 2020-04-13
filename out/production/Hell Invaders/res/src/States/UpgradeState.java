@@ -1,18 +1,18 @@
 package States;
 
-import Assets.GUIAssets;
-import EventSystem.Events.AudioEvent;
+import Assets.Images.GUIAssets;
+import GameSystems.EventSystem.Events.AudioEvent;
 import GUI.GUIButton;
 import Game.GameWindow;
-import Assets.BackgroundAssets;
-import PlayerStats.ExperiencePanel;
+import Assets.Images.BackgroundAssets;
+import GameSystems.UpgradeSystem.ExperiencePanel;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class UpgradeState extends ReversibleState {
-
     ExperiencePanel experiencePanel;
+    
     public UpgradeState() {
         //back button events
         allButtons.get(0).AddActionListener(actionEvent -> {

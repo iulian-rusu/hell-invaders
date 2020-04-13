@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameWindow {
-
     private JFrame wndFrame;
     private final String wndTitle;
     private final int wndWidth;

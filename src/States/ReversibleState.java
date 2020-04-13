@@ -1,6 +1,6 @@
 package States;
 
-import Assets.GUIAssets;
+import Assets.Images.GUIAssets;
 import GUI.GUIButton;
 
 import java.util.ArrayList;
@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public abstract class ReversibleState extends State {
     public static final int BACK_BUTTON_X = 25;
     public static final int BACK_BUTTON_Y = 25;
+
     public ReversibleState(){
         allButtons= new ArrayList<>(1);
         //all reversible states have a back button in the top left corner

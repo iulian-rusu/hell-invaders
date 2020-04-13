@@ -1,11 +1,10 @@
 package Entities;
 
-import EventSystem.Observable;
+import GameSystems.EventSystem.Observable;
 
 import java.awt.*;
 
 public abstract class Entity extends Observable{
-
     protected int frameCount=-1;
     
     public void Update() {

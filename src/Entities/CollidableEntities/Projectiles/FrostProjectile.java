@@ -1,12 +1,12 @@
 package Entities.CollidableEntities.Projectiles;
 
-import Assets.ProjectileAssets;
+import Assets.Images.ProjectileAssets;
 import Entities.CollidableEntities.Enemies.Enemy;
 
 import java.awt.*;
 
 public class FrostProjectile extends Projectile {
-
+    //bonus effect parameters
     public static final int SLOW_FRAME_COUNT = 120;
     public static final double SLOW_PERCENTAGE = 0.3;
 

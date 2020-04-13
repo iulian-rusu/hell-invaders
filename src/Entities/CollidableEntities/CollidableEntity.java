@@ -1,6 +1,6 @@
 package Entities.CollidableEntities;
 
-import Audio.AudioManager;
+import Assets.Audio.AudioManager;
 import Entities.Entity;
 
 import java.awt.*;

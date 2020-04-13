@@ -1,7 +1,7 @@
 package Game;
 
-import Audio.AudioManager;
-import Assets.AssetInitializer;
+import Assets.Audio.AudioManager;
+import Assets.Images.ImageLoader;
 import States.StateManager;
 
 import java.awt.*;
@@ -15,7 +15,7 @@ public class Game extends MouseAdapter implements Runnable {
     //TODO: implement player stats (max level/total enemies killed/max single spell hit)
     //class that implements the main game loop
 
-    public static int DIFFICULTY = 2;
+    public static int DIFFICULTY = 1;
 
     private GameWindow wnd;
     private boolean runState;
@@ -29,7 +29,7 @@ public class Game extends MouseAdapter implements Runnable {
         wnd = new GameWindow("Hell Invaders");
         wnd.BuildGameWindow();
         //load assets
-        AssetInitializer.Init();
+        ImageLoader.Init();
         //load audio
         AudioManager.GetInstance();
         //load all game states

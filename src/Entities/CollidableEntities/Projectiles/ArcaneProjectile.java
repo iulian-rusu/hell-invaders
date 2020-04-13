@@ -1,6 +1,6 @@
 package Entities.CollidableEntities.Projectiles;
 
-import Assets.ProjectileAssets;
+import Assets.Images.ProjectileAssets;
 import GUI.GUIText;
 
 import java.awt.*;

@@ -2,7 +2,7 @@ package States;
 
 import GUI.GUIButton;
 import Game.GameWindow;
-import Assets.BackgroundAssets;
+import Assets.Images.BackgroundAssets;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;

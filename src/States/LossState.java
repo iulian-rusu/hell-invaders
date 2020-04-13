@@ -1,9 +1,9 @@
 package States;
 
-import Assets.BackgroundAssets;
+import Assets.Images.BackgroundAssets;
 import Assets.FontAssets;
-import Assets.GUIAssets;
-import EventSystem.Events.AudioEvent;
+import Assets.Images.GUIAssets;
+import GameSystems.EventSystem.Events.AudioEvent;
 import GUI.GUIButton;
 import GUI.GUIText;
 import Game.GameWindow;
@@ -13,8 +13,8 @@ import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
 public class LossState extends State {
-
     private final GUIText gameOverText;
+
     public LossState(){
         allButtons=new ArrayList<>();
         //back button

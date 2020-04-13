@@ -3,8 +3,8 @@ package Entities.CollidableEntities.Enemies;
 import Entities.CollidableEntities.CollidableEntity;
 import Entities.CollidableEntities.Projectiles.FrostProjectile;
 import Entities.Player;
-import EventSystem.Events.CombatEvent;
-import EventSystem.Events.AudioEvent;
+import GameSystems.EventSystem.Events.CombatEvent;
+import GameSystems.EventSystem.Events.AudioEvent;
 import GUI.GUIStatusBar;
 import Game.Game;
 import Game.GameWindow;
@@ -92,7 +92,7 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
                 isMoving = false;
                 xVelocity = 0;
             }
-        } else if (health >0 ) {
+        } else if (health > 0 ) {
             Attack();
         }
 

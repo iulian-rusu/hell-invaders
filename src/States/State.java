@@ -1,6 +1,6 @@
 package States;
 
-import EventSystem.Observable;
+import GameSystems.EventSystem.Observable;
 import GUI.GUIButton;
 import Game.GameWindow;
 
