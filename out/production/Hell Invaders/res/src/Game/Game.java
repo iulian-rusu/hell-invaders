@@ -1,6 +1,7 @@
 package Game;
 
 import Assets.Audio.AudioManager;
+import Assets.Images.GUIAssets;
 import Assets.Images.ImageLoader;
 import States.StateManager;
 
@@ -18,6 +19,7 @@ public class Game extends MouseAdapter implements Runnable {
     public static int DIFFICULTY = 1;
 
     private GameWindow wnd;
+    Cursor targetCursor;
     private boolean runState;
     private StateManager stateManager;
 
@@ -40,6 +42,8 @@ public class Game extends MouseAdapter implements Runnable {
         Canvas wndCanvas = wnd.GetCanvas();
         wndCanvas.addMouseListener(this);
         wndCanvas.addMouseMotionListener(this);
+        //set custom cursor
+        targetCursor = Toolkit.getDefaultToolkit().createCustomCursor(GUIAssets.cursor, new Point(15,15), "custom");
     }
 
     @Override
@@ -69,6 +73,15 @@ public class Game extends MouseAdapter implements Runnable {
 
     private void Update() {
         stateManager.Update();
+        //handle cursor change
+        Canvas canvas=wnd.GetCanvas();
+        if(stateManager.GetCurrentStateIndex() == StateManager.StateIndex.GAME_STATE){
+            if(canvas.getCursor()!=targetCursor) {
+                canvas.setCursor(targetCursor);
+            }
+        }else if(canvas.getCursor()==targetCursor){
+            canvas.setCursor(Cursor.getDefaultCursor());
+        }
     }
 
     private void Draw() {

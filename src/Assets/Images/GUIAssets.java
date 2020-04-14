@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class GUIAssets {
     public static void Init() {
+        cursor=ImageLoader.LoadImage("/others/cursor.png");
         LoadMenuAssets();
         LoadOpionsAssets();
         LoadUpgradeAssets();
@@ -41,13 +42,13 @@ public class GUIAssets {
         crit = ImageLoader.LoadImage("/others/crit.png");
         projectiles = ImageLoader.LoadImage("/others/projectiles.png");
         upgrade_frost = ImageLoader.LoadImage("/others/upgrade_frost.png");
-        upgrade_aecane = ImageLoader.LoadImage("/others/upgrade_arcane.png");
+        upgrade_arcane = ImageLoader.LoadImage("/others/upgrade_arcane.png");
         buy_button = ImageLoader.LoadImage("/buttons/buy_button.png");
         buy_button_hovered = ImageLoader.LoadImage("/buttons/buy_button_hovered.png");
         play_button = ImageLoader.LoadImage("/buttons/play_button.png");
         play_button_hovered = ImageLoader.LoadImage("/buttons/play_button_hovered.png");
     }
-
+    public static BufferedImage cursor;
     //main menu buttons
     public static BufferedImage new_game_button;
     public static BufferedImage new_game_button_hovered;
@@ -76,7 +77,7 @@ public class GUIAssets {
     public static BufferedImage crit;
     public static BufferedImage projectiles;
     public static BufferedImage upgrade_frost;
-    public static BufferedImage upgrade_aecane;
+    public static BufferedImage upgrade_arcane;
     //upgrade buttons
     public static BufferedImage buy_button;
     public static BufferedImage buy_button_hovered;

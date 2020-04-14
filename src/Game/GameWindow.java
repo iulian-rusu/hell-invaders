@@ -1,5 +1,8 @@
 package Game;
 
+import Assets.Images.GUIAssets;
+import GUI.GUIStatusBar;
+
 import javax.swing.*;
 import java.awt.*;
 

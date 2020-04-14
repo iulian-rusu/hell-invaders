@@ -12,7 +12,7 @@ public class GUITextPanel extends GUIText {
     private final BufferedImage image;
 
     public GUITextPanel(String text, BufferedImage image, int x, int y, int w, int h) {
-        super(text, x + 30, y - h / 2 + 80, DEFAULT_FONT_SIZE, DEFAULT_YELLOW_COLOR);
+        super(text, x + 30, y - h / 2 + 70, DEFAULT_FONT_SIZE, DEFAULT_YELLOW_COLOR);
         this.image = image;
         this.box = new Rectangle(x, y, w, h);
     }

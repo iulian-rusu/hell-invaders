@@ -12,7 +12,7 @@ import java.awt.image.BufferStrategy;
 
 public class UpgradeState extends ReversibleState {
     ExperiencePanel experiencePanel;
-    
+
     public UpgradeState() {
         //back button events
         allButtons.get(0).AddActionListener(actionEvent -> {
