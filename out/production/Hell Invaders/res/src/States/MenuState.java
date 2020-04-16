@@ -51,7 +51,7 @@ public class MenuState extends State {
             System.exit(0);
         });
         bottomText = new GUIText("COPYRIGHT © 2020 IULIAN RUSU. ALL RIGHTS RESERVED.",
-                5, GameWindow.wndDimension.height - 5, 25f);
+                GameWindow.wndDimension.width / 2 - 200, GameWindow.wndDimension.height - 5, 25f);
         bottomText.SetColor(Color.GRAY);
     }
 

@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class GUIAssets {
     public static void Init() {
-        cursor=ImageLoader.LoadImage("/others/cursor.png");
+        target_cursor =ImageLoader.LoadImage("/others/target_cursor.png");
         LoadMenuAssets();
         LoadOpionsAssets();
         LoadUpgradeAssets();
@@ -48,7 +48,8 @@ public class GUIAssets {
         play_button = ImageLoader.LoadImage("/buttons/play_button.png");
         play_button_hovered = ImageLoader.LoadImage("/buttons/play_button_hovered.png");
     }
-    public static BufferedImage cursor;
+    //cursor
+    public static BufferedImage target_cursor;
     //main menu buttons
     public static BufferedImage new_game_button;
     public static BufferedImage new_game_button_hovered;

@@ -19,7 +19,7 @@ public class Game extends MouseAdapter implements Runnable {
     public static int DIFFICULTY = 1;
 
     private GameWindow wnd;
-    Cursor targetCursor;
+    Cursor targetCursor, baseCursor;
     private boolean runState;
     private StateManager stateManager;
 
@@ -30,6 +30,10 @@ public class Game extends MouseAdapter implements Runnable {
     private void InitGame() {
         wnd = new GameWindow("Hell Invaders");
         wnd.BuildGameWindow();
+        //start loading thread
+        LoadingScreen load=new LoadingScreen(wnd);
+        Thread loadThread=new Thread(load);
+        loadThread.start();
         //load assets
         ImageLoader.Init();
         //load audio
@@ -42,8 +46,9 @@ public class Game extends MouseAdapter implements Runnable {
         Canvas wndCanvas = wnd.GetCanvas();
         wndCanvas.addMouseListener(this);
         wndCanvas.addMouseMotionListener(this);
-        //set custom cursor
-        targetCursor = Toolkit.getDefaultToolkit().createCustomCursor(GUIAssets.cursor, new Point(15,15), "custom");
+        //init cursors
+        targetCursor = Toolkit.getDefaultToolkit().createCustomCursor(GUIAssets.target_cursor, new Point(15,15), "target");
+        load.Stop();
     }
 
     @Override

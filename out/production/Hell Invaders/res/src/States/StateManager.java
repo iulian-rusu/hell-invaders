@@ -6,6 +6,8 @@ import Assets.Audio.AudioManager;
 import Assets.Audio.BackgroundMusicAssets;
 import Game.GameWindow;
 
+import java.awt.*;
+
 public class StateManager {
     //singleton class that holds all states and manages them
     public static StateManager GetInstance() {
@@ -19,9 +21,7 @@ public class StateManager {
         allStates[currentStateIndex.value].Update();
     }
 
-    public void Draw(GameWindow wnd) {
-        allStates[currentStateIndex.value].Draw(wnd);
-    }
+    public void Draw(GameWindow wnd) { allStates[currentStateIndex.value].Draw(wnd); }
 
     public void SetCurrentState(StateIndex newStateIndex) {
         currentStateIndex = newStateIndex;

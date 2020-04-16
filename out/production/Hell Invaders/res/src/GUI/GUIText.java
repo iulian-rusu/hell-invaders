@@ -38,7 +38,7 @@ public class GUIText {
     }
 
     protected void Tick() {
-        if (lifetime > 0 && lifetime < ++frameCount) {
+        if (lifetime >= 0 && lifetime <= ++frameCount) {
             isActive = false;
         }
     }
