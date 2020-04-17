@@ -12,7 +12,7 @@ public class Monster extends Enemy {
     public static int GET_DEFAULT_HEALTH() { return 40 * Game.DIFFICULTY; }
     public static int GET_HEALTH_INCREMENT() { return 4 * Game.DIFFICULTY; }
     public static long GET_ACTUAL_HEALTH(int level){
-        long ans = GET_DEFAULT_HEALTH() + (long) (Math.pow(HEALTH_BASE, level - 1) * GET_HEALTH_INCREMENT());
+        long ans = GET_DEFAULT_HEALTH() + (long) (Math.pow(HEALTH_INCREMENT, level - 1) * GET_HEALTH_INCREMENT());
         //test for overflow
         if (ans < 0) {
             ans=-ans;

@@ -16,13 +16,13 @@ import java.util.Arrays;
 
 public class Dragon extends Enemy {
     //projectile parameters
-    public static final Point to = new Point(Player.PLAYER_X + Player.PLAYER_W, Player.PLAYER_Y + Player.PLAYER_H / 2);
+    public static final Point DEFAULT_TARGET_POINT = new Point(Player.PLAYER_X + Player.PLAYER_W, Player.PLAYER_Y + Player.PLAYER_H / 2);
     public static int GET_DEFAULT_DAMAGE() { return 15 - 2 * Game.DIFFICULTY; }
     //health parameters
     public static int GET_DEFAULT_HEALTH() { return 25 * Game.DIFFICULTY; }
     public static int GET_HEALTH_INCREMENT() { return 3 * Game.DIFFICULTY; }
     public static long GET_ACTUAL_HEALTH(int level){
-        long ans = GET_DEFAULT_HEALTH() + (long) (Math.pow(HEALTH_BASE, level - 1) * GET_HEALTH_INCREMENT());
+        long ans = GET_DEFAULT_HEALTH() + (long) (Math.pow(HEALTH_INCREMENT, level - 1) * GET_HEALTH_INCREMENT());
         //test for overflow
         if (ans < 0) {
             ans=-ans;
@@ -68,6 +68,8 @@ public class Dragon extends Enemy {
             //add new projectile
             NotifyAllObservers(AudioEvent.PLAY_DRAGON_SHOOT);
             Point from = new Point(x, y + DEFAULT_HEIGHT / 2);
+            Point to=new Point(DEFAULT_TARGET_POINT);
+            to.y= Math.max(from.y, 315);
             Projectile[] toBeAdded = ProjectileFactory.MakeProjectile(ProjectileType.ENEMY,
                     from, to, GET_DEFAULT_DAMAGE(), Game.DIFFICULTY, 0);
             if (toBeAdded != null) {

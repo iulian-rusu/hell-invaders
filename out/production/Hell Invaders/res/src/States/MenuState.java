@@ -18,16 +18,21 @@ public class MenuState extends State {
 
     public MenuState() {
         final int menuY = GameWindow.wndDimension.height / 2-20;
-        final int menuX =( GameWindow.wndDimension.width - BUTTON_W) / 2;
+        final int menuX =( GameWindow.wndDimension.width - GUIButton.BUTTON_W) / 2;
         final int buttonSpacing = 75;
 
         allButtons = new ArrayList<>(5);
-        allButtons.add(new GUIButton(GUIAssets.new_game_button, GUIAssets.new_game_button_hovered, menuX, menuY, BUTTON_W, BUTTON_H));
-        allButtons.add(new GUIButton(GUIAssets.resume_button_blocked, GUIAssets.resume_button_hovered, menuX, menuY + buttonSpacing, BUTTON_W, BUTTON_H));
-        allButtons.add(new GUIButton(GUIAssets.options_button, GUIAssets.options_button_hovered, menuX, menuY + 2 * buttonSpacing, BUTTON_W, BUTTON_H));
-        allButtons.add(new GUIButton(GUIAssets.stats_button, GUIAssets.stats_button_hovered, menuX, menuY + 3 * buttonSpacing, BUTTON_W, BUTTON_H));
-        allButtons.add(new GUIButton(GUIAssets.quit_button, GUIAssets.quit_button_hovered, menuX, menuY + 4 * buttonSpacing, BUTTON_W, BUTTON_H));
-        allButtons.get(1).Block();
+        allButtons.add(new GUIButton(GUIAssets.new_game_button, GUIAssets.new_game_button_hovered,
+                menuX, menuY, GUIButton.BUTTON_W, GUIButton.BUTTON_H));
+        allButtons.add(new GUIButton(GUIAssets.resume_button, GUIAssets.resume_button_hovered,
+                menuX, menuY + buttonSpacing, GUIButton.BUTTON_W, GUIButton.BUTTON_H));
+        allButtons.add(new GUIButton(GUIAssets.options_button, GUIAssets.options_button_hovered,
+                menuX, menuY + 2 * buttonSpacing, GUIButton.BUTTON_W, GUIButton.BUTTON_H));
+        allButtons.add(new GUIButton(GUIAssets.stats_button, GUIAssets.stats_button_hovered,
+                menuX, menuY + 3 * buttonSpacing, GUIButton.BUTTON_W, GUIButton.BUTTON_H));
+        allButtons.add(new GUIButton(GUIAssets.quit_button, GUIAssets.quit_button_hovered,
+                menuX, menuY + 4 * buttonSpacing, GUIButton.BUTTON_W, GUIButton.BUTTON_H));
+        allButtons.get(1).Block(GUIAssets.resume_button_blocked);
         //state transition events
         //play
         allButtons.get(0).AddActionListener(actionEvent -> {
@@ -59,7 +64,6 @@ public class MenuState extends State {
     public void Init() {
         super.Init();
         NotifyAllObservers(AudioEvent.PLAY_CURRENT_STATE_MUSIC);
-        allButtons.get(1).Block();
         logoColorflag = true;
     }
 

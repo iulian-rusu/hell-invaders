@@ -38,10 +38,12 @@ public class Player extends Entity implements Observer {
     public static final int MANA_REGEN_PERIOD = 30; //how many frames between mana regens
     public static final int MANABAR_Y = HEALTHBAR_Y + HEALTHBAR_HEIGHT + 10;
     //experience parameters
-    public static final double EXPERIENCE_BASE = 1.1;
+    public static final double EXPERIENCE_INCREMENT = 1.11;
     public static int GET_DEFAULT_EXPERIENCE_GAIN() {
         return (10 * Game.DIFFICULTY);
     }
+    //combat parameters
+    public static final long DEFAULT_DAMAGE=20L;
 
     private static Player instance = null;
 
@@ -148,7 +150,7 @@ public class Player extends Entity implements Observer {
         }
         switch ((CombatEvent) e) {
             case ENEMY_DEATH:
-                experience += (long) (GET_DEFAULT_EXPERIENCE_GAIN() * (Math.pow(EXPERIENCE_BASE, level - 1)));
+                experience += (long) (GET_DEFAULT_EXPERIENCE_GAIN() * (Math.pow(EXPERIENCE_INCREMENT, level - 1)));
                 //pass the notification to the experience panel
                 NotifyAllObservers(CombatEvent.ENEMY_DEATH);
                 break;
@@ -157,7 +159,7 @@ public class Player extends Entity implements Observer {
         }
     }
 
-    public void SetProjectileDamage(int d) {
+    public void SetProjectileDamage(long d) {
         projectileDamage = d;
     }
 
@@ -165,7 +167,7 @@ public class Player extends Entity implements Observer {
         numProjectiles = d;
     }
 
-    public void SetCritChange(int d) {
+    public void SetCritChance(int d) {
         critChance = d;
     }
 
@@ -173,9 +175,9 @@ public class Player extends Entity implements Observer {
         currentProjetile = t;
     }
 
-    public int GetLevel() {
-        return level;
-    }
+    public void SetExperience(long exp){ experience=exp;}
+
+    public int GetLevel() { return level; }
 
     public void SetLevel(int l) {
         level = l;

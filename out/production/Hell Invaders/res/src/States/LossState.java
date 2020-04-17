@@ -38,7 +38,7 @@ public class LossState extends State {
     public void Update(){
         super.Update();
         if(secondCount==5 && frameCount==0) {
-            allButtons.get(0).Unblock();
+            allButtons.get(0).Unblock(GUIAssets.back_button);
         }
     }
 
@@ -46,7 +46,7 @@ public class LossState extends State {
     public void Init() {
         super.Init();
         NotifyAllObservers(AudioEvent.PLAY_CURRENT_STATE_MUSIC);
-        allButtons.get(0).Block();
+        allButtons.get(0).Block(GUIAssets.back_button);
     }
 
     @Override

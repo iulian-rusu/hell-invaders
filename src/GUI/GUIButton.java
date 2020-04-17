@@ -7,6 +7,9 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class GUIButton {
+    //size parameters
+    public static final int BUTTON_W = 230;
+    public static final int BUTTON_H = 60;
 
     private GUIButtonState currentState;
     private final Rectangle clickBox;
@@ -23,7 +26,9 @@ public class GUIButton {
     }
 
     public void Init() {
-        currentState = GUIButtonState.RELEASED;
+        if(currentState!=GUIButtonState.BLOCKED) {
+            currentState = GUIButtonState.RELEASED;
+        }
     }
 
     public void Draw(Graphics g) {
@@ -65,21 +70,18 @@ public class GUIButton {
         }
     }
 
-    public void Block() {
+    public void Block(BufferedImage blockedIcon) {
         if (currentState != GUIButtonState.BLOCKED) {
             currentState = GUIButtonState.BLOCKED;
+            this.imageReleased=blockedIcon;
         }
     }
 
-    public void Unblock() {
+    public void Unblock(BufferedImage unblockedIcon) {
         if (currentState == GUIButtonState.BLOCKED) {
             currentState = GUIButtonState.RELEASED;
+            this.imageReleased=unblockedIcon;
         }
-    }
-
-    public void SetReleasedImage(BufferedImage released){
-        //used to change image of unblocked button
-        imageReleased=released;
     }
 
     private enum GUIButtonState {

@@ -45,6 +45,7 @@ public class GUIAssets {
         upgrade_arcane = ImageLoader.LoadImage("/others/upgrade_arcane.png");
         buy_button = ImageLoader.LoadImage("/buttons/buy_button.png");
         buy_button_hovered = ImageLoader.LoadImage("/buttons/buy_button_hovered.png");
+        buy_button_blocked = ImageLoader.LoadImage("/buttons/buy_button_blocked.png");
         play_button = ImageLoader.LoadImage("/buttons/play_button.png");
         play_button_hovered = ImageLoader.LoadImage("/buttons/play_button_hovered.png");
     }
@@ -82,6 +83,7 @@ public class GUIAssets {
     //upgrade buttons
     public static BufferedImage buy_button;
     public static BufferedImage buy_button_hovered;
+    public static BufferedImage buy_button_blocked;
     public static BufferedImage play_button;
     public static BufferedImage play_button_hovered;
 }

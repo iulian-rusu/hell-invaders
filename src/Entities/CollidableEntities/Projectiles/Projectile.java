@@ -4,6 +4,7 @@ import Assets.FontAssets;
 import Entities.CollidableEntities.CollidableEntity;
 import Entities.CollidableEntities.Enemies.Enemy;
 import GUI.GUIText;
+import GameSystems.StatsSystem.LargeNumberHandler;
 
 import java.awt.*;
 import java.util.Random;
@@ -50,7 +51,8 @@ public abstract class Projectile extends CollidableEntity {
     }
 
     public GUIText GetCombatText() {
-        String val = String.valueOf(hasCrit ? GetCriticalDamage(damage) : damage);
+        long dmg=hasCrit ? GetCriticalDamage(damage) : damage;
+        String val = LargeNumberHandler.ParseLongInt(dmg);
         int textX = hitBox.x + RNG.nextInt() % 15;
         int textY = hitBox.y + RNG.nextInt() % 15;
         int size = hasCrit ? 60 : 50;

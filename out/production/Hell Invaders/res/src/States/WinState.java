@@ -53,14 +53,14 @@ public class WinState extends State {
             NotifyAllObservers(AudioEvent.PLAY_CURRENT_STATE_MUSIC);
         }
         if (secondCount == BACK_BUTTON_TRANSITION && frameCount == 0) {
-            allButtons.get(0).Unblock();
+            allButtons.get(0).Unblock(GUIAssets.back_button);
         }
     }
 
     @Override
     public void Init() {
         super.Init();
-        allButtons.get(0).Block();
+        allButtons.get(0).Block(GUIAssets.back_button);
     }
 
     @Override

@@ -12,6 +12,7 @@ public abstract class ReversibleState extends State {
     public ReversibleState(){
         allButtons= new ArrayList<>(1);
         //all reversible states have a back button in the top left corner
-        allButtons.add(new GUIButton(GUIAssets.back_button,GUIAssets.back_button_hovered, BACK_BUTTON_X, BACK_BUTTON_Y, BUTTON_W, BUTTON_H));
+        allButtons.add(new GUIButton(GUIAssets.back_button,GUIAssets.back_button_hovered,
+                BACK_BUTTON_X, BACK_BUTTON_Y, GUIButton.BUTTON_W, GUIButton.BUTTON_H));
     }
 }
