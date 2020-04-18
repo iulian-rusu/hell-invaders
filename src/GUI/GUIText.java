@@ -43,13 +43,8 @@ public class GUIText {
         }
     }
 
-    public void SetText(String t){
-        text=t;
-    }
-
-    public void SetPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public void SetText(String t) {
+        text = t;
     }
 
     public void SetDuration(int frames) {
@@ -67,6 +62,22 @@ public class GUIText {
     public void SetFont(Font f) {
         float fontSize = font.getSize();
         font = f.deriveFont(fontSize);
+    }
+
+    public void SedX(int x) {
+        this.x = x;
+    }
+
+    public void SedY(int y) {
+        this.y = y;
+    }
+
+    public void AddY(int offset){
+        this.y+=offset;
+    }
+
+    public void AddX(int offset){
+        this.x+=offset;
     }
 
     public int GetX() {

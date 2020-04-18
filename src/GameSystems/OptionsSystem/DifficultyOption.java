@@ -95,14 +95,14 @@ public class DifficultyOption {
     }
 
     private void Update() {
-        difficultyDescription.get(2).SetText(Monster.GET_DEFAULT_HEALTH() + "  HEALTH  *  " + Enemy.HEALTH_INCREMENT + "  PER LEVEL");
+        difficultyDescription.get(2).SetText(Monster.GET_DEFAULT_HEALTH() + "  HEALTH  x  " + Enemy.HEALTH_INCREMENT + "  PER LEVEL");
         difficultyDescription.get(4).SetText(Enemy.GET_DEFAULT_DAMAGE() + "  DAMAGE");
-        difficultyDescription.get(6).SetText(Dragon.GET_DEFAULT_HEALTH() + "  HEALTH  *  " + Enemy.HEALTH_INCREMENT + "  PER LEVEL");
-        difficultyDescription.get(8).SetText(Dragon.GET_DEFAULT_DAMAGE() + "  DAMAGE  *  " + Game.DIFFICULTY +
+        difficultyDescription.get(6).SetText(Dragon.GET_DEFAULT_HEALTH() + "  HEALTH  x  " + Enemy.HEALTH_INCREMENT + "  PER LEVEL");
+        difficultyDescription.get(8).SetText(Dragon.GET_DEFAULT_DAMAGE() + "  DAMAGE  x  " + Game.DIFFICULTY +
                 ((Game.DIFFICULTY > 1) ? "  PROJECTILES" : "  PROJECTILE"));
         difficultyDescription.get(10).SetText(Player.GET_DEFAULT_HEALTH() + "  HEALTH");
         difficultyDescription.get(12).SetText(Player.GET_DEFAULT_MANA() + "  MANA");
-        difficultyDescription.get(14).SetText(Player.GET_DEFAULT_EXPERIENCE_GAIN() + "  XP  *  " + Player.EXPERIENCE_INCREMENT + "  PER LEVEL");
+        difficultyDescription.get(14).SetText(Player.GET_DEFAULT_EXPERIENCE_GAIN() + "  XP  x  " + Player.EXPERIENCE_INCREMENT + "  PER LEVEL");
     }
 
     public void Draw(Graphics g) {

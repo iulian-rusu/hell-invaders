@@ -17,8 +17,8 @@ import java.util.ArrayList;
 
 public class WinState extends State {
     public static final int WIN_BACKGROUND_TRANSITION = 2;
-    public static final int WIN_TEXT_TRANSITION = WIN_BACKGROUND_TRANSITION + 2;
-    public static final int BACK_BUTTON_TRANSITION = WIN_TEXT_TRANSITION + 3;
+    public static final int WIN_TEXT_TRANSITION = WIN_BACKGROUND_TRANSITION + 1;
+    public static final int BACK_BUTTON_TRANSITION = WIN_TEXT_TRANSITION + 2;
 
     private final GUIText winText;
     private final Player p;

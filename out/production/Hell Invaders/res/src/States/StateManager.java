@@ -37,7 +37,7 @@ public class StateManager {
                 new OptionsState(),
                 new AboutState(),
                 new UpgradeState(),
-                new GameState(),
+                new PlayState(),
                 new LossState(),
                 new WinState()
         };

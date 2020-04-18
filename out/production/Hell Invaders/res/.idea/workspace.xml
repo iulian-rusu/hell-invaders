@@ -2,61 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d28048e-94e2-4db0-bf3a-f45dd18af9c3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/res/buttons/about_button.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/buttons/about_button_hovered.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIButton$GUIButtonState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIButton$GUIButtonState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIButton.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/GameState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/MenuState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/MenuState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/OptionsState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/OptionsState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/StateManager$StateIndex.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/StateManager$StateIndex.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/others/_target_cursor.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/GameState.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/StateManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/StateManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/StatsState.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/UpgradeState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/UpgradeState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/buttons/hard_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/buttons/hard_button.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/buttons/hard_button_hovered.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/buttons/hard_button_hovered.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/buttons/stats_button.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/buttons/stats_button_hovered.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/others/upgrade_frost.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/others/upgrade_frost.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/WinState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/WinState.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/buttons/hard_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/buttons/hard_button.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/buttons/hard_button_hovered.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/buttons/hard_button_hovered.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/buttons/stats_button.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/buttons/stats_button_hovered.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/upgrade_frost.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/upgrade_frost.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/GUI/GUIButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/GUI/GUIButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/GameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/MenuState.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/MenuState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/OptionsState.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/OptionsState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/sounds/win_music.wav" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/sounds/win_music.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/GameState.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/StateManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/StateManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/StatsState.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/UpgradeState.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/UpgradeState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/buttons/hard_button.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/buttons/hard_button.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/buttons/hard_button_hovered.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/buttons/hard_button_hovered.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/buttons/stats_button.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/buttons/stats_button_hovered.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/levels/level3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/levels/level3.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/levels/level4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/levels/level4.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/levels/level5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/levels/level5.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/moving objects/projectiles/fire_sprites.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/moving objects/projectiles/fire_sprites.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/others/upgrade_frost.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/others/upgrade_frost.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Assets/Images/GUIAssets.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Assets/Images/GUIAssets.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/Projectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/Projectile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/GUIButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUIButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/WinState.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/WinState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/sounds/win_music.wav" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/sounds/win_music.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/others/target_cursor.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/others/target_cursor.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/sounds/win_music.wav" beforeDir="false" afterPath="$PROJECT_DIR$/res/sounds/win_music.wav" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameSystems/LevelSystem/LevelLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameSystems/LevelSystem/LevelLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameSystems/StatsSystem/LargeNumberHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameSystems/NumberSystem/LargeNumberHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameSystems/OptionsSystem/DifficultyOption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameSystems/OptionsSystem/DifficultyOption.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/CritUpgrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/CritUpgrade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/DamageUpgrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/DamageUpgrade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/ExperiencePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/ExperiencePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/ProjectileNumberUpgrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/ProjectileNumberUpgrade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/SpellUpgrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/SpellUpgrade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/Upgrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/Upgrade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/States/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/GameState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/States/MenuState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/MenuState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/States/OptionsState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/OptionsState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/States/AboutState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/AboutState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/States/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/PlayState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/States/StateManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/StateManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/States/StatsState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/AboutState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/States/UpgradeState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/UpgradeState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/States/WinState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/WinState.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -281,7 +252,14 @@
       <option name="project" value="LOCAL" />
       <updated>1587152510498</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Added &quot;About&quot; and &quot;Options&quot; state.">
+      <created>1587219062568</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1587219062568</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -307,17 +285,18 @@
     <MESSAGE value="Modified some assets, added custom cursor." />
     <MESSAGE value="Added loading thread." />
     <MESSAGE value="Added upgrade system." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added upgrade system." />
+    <MESSAGE value="Added &quot;About&quot; and &quot;Options&quot; state." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added &quot;About&quot; and &quot;Options&quot; state." />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584525283738">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1584525283738" />
-    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser" timestamp="1587203366632">
+    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser" timestamp="1587223010765">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1587203366632" />
+    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1587223010765" />
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1586620582484">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -338,30 +317,30 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1584800079770" />
-    <state x="424" y="108" key="CommitChangelistDialog2" timestamp="1587152506869">
+    <state x="424" y="108" key="CommitChangelistDialog2" timestamp="1587219051623">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="424" y="108" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587152506869" />
+    <state x="424" y="108" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587219051623" />
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1587200106094">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1587200106094" />
-    <state width="1493" height="117" key="GridCell.Tab.0.bottom" timestamp="1587212677012">
+    <state width="1493" height="161" key="GridCell.Tab.0.bottom" timestamp="1587229105819">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="117" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587212677012" />
-    <state width="1493" height="117" key="GridCell.Tab.0.center" timestamp="1587212677012">
+    <state width="1493" height="161" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587229105819" />
+    <state width="1493" height="161" key="GridCell.Tab.0.center" timestamp="1587229105819">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="117" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587212677012" />
-    <state width="1493" height="117" key="GridCell.Tab.0.left" timestamp="1587212677012">
+    <state width="1493" height="161" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587229105819" />
+    <state width="1493" height="161" key="GridCell.Tab.0.left" timestamp="1587229105819">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="117" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587212677012" />
-    <state width="1493" height="117" key="GridCell.Tab.0.right" timestamp="1587212677012">
+    <state width="1493" height="161" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587229105819" />
+    <state width="1493" height="161" key="GridCell.Tab.0.right" timestamp="1587229105819">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="117" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587212677012" />
+    <state width="1493" height="161" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587229105819" />
     <state width="1493" height="185" key="GridCell.Tab.1.bottom" timestamp="1586878809781">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -390,10 +369,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup/0.0.1536.824@0.0.1536.824" timestamp="1585923519118" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1587152538721">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1587219057351">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1587152538721" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1587219057351" />
     <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1586620018874">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -430,9 +409,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1585832128379" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1586102747903">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1587214506706">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1586102747903" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1587214506706" />
   </component>
 </project>

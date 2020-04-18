@@ -22,7 +22,7 @@ public class CritUpgrade extends Upgrade {
         icon = GUIAssets.crit;
         //init prices
         this.price=DEFAULT_PRICE;
-        this.upgradeName.SetText("GET MORE CRITICAL HITS");
+        this.upgradeName.SetText("CRITICAL CHANCE");
         //set action listener for buy button
         this.buyButton.AddActionListener(actionEvent -> Buy());
         //update description
@@ -32,7 +32,7 @@ public class CritUpgrade extends Upgrade {
 
     private void UpdateDescription(){
         if(critChance>100){
-            buyButton.Block(GUIAssets.buy_button_blocked);
+            isMaxed=true;
             this.priceText.SetText(MAX_TEXT);
             description.get(0).SetText(MAX_TEXT);
         }else {
@@ -56,6 +56,5 @@ public class CritUpgrade extends Upgrade {
         this.price=GET_PRICE(this.level);
         UpdateDescription();
         NotifyAllObservers(UpgradeEvent.CRIT_UPGRADE_BOUGHT);
-        CheckIfBlocked();
     }
 }

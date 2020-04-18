@@ -11,15 +11,21 @@ import Assets.Images.BackgroundAssets;
 import GameSystems.UpgradeSystem.*;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
 public class UpgradeState extends ReversibleState {
-    //public static because it's shared with GameState class
+    public static final int UPGRADE_LEFT_X = 135;
+    public static final int UPGRADE_RIGHT_X = GameWindow.wndDimension.width - UPGRADE_LEFT_X - Upgrade.PANEL_WIDTH - Upgrade.ICON_WITDH;
+    public static final int UPGRADE_TOP_Y = 170;
+    public static final int UPGRADE_Y_OFFSET = Upgrade.ICON_HEIGHT + 150;
+    //public static because it's shared with PlayState class
     public static ArrayList<GUIText> infoText;
 
     private final ExperiencePanel experiencePanel;
     private final ArrayList<Upgrade> allUpgrades;
+
     public UpgradeState() {
         //back button events
         allButtons.get(0).AddActionListener(actionEvent -> {
@@ -36,22 +42,21 @@ public class UpgradeState extends ReversibleState {
             StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.GAME_STATE);
         });
         //upgrade and experience system
-        experiencePanel=ExperiencePanel.GetInstance();
-        allUpgrades=new ArrayList<>(4);
-        allUpgrades.add(new DamageUpgrade(85,150));
-        allUpgrades.add(new ProjectileNumberUpgrade(GameWindow.wndDimension.width-85-Upgrade.PANEL_WIDTH-Upgrade.ICON_WITDH,150));
-        allUpgrades.add(new CritUpgrade(85,150+Upgrade.ICON_HEIGHT+150));
-        allUpgrades.add(new SpellUpgrade(GameWindow.wndDimension.width-85-Upgrade.PANEL_WIDTH-Upgrade.ICON_WITDH,
-                150+Upgrade.ICON_HEIGHT+150));
+        experiencePanel = ExperiencePanel.GetInstance();
+        allUpgrades = new ArrayList<>(4);
+        allUpgrades.add(new DamageUpgrade(UPGRADE_LEFT_X, UPGRADE_TOP_Y));
+        allUpgrades.add(new ProjectileNumberUpgrade(UPGRADE_RIGHT_X, UPGRADE_TOP_Y));
+        allUpgrades.add(new CritUpgrade(UPGRADE_LEFT_X, UPGRADE_TOP_Y + UPGRADE_Y_OFFSET));
+        allUpgrades.add(new SpellUpgrade(UPGRADE_RIGHT_X,UPGRADE_TOP_Y + UPGRADE_Y_OFFSET));
         //add upgrade buttons to all buttons list
-        for(Upgrade u:allUpgrades){
+        for (Upgrade u : allUpgrades) {
             allButtons.add(u.GetButtonHandle());
         }
         //various text for player info
         int infoTextSize = 100;
         infoText = new ArrayList<>(2);
         infoText.add(new GUIText("EASY", GameWindow.wndDimension.width - 270,
-                Player.MANABAR_Y+Player.HEALTHBAR_HEIGHT, infoTextSize));
+                Player.MANABAR_Y + Player.HEALTHBAR_HEIGHT, infoTextSize));
         infoText.add(new GUIText("DAY 1", GameWindow.wndDimension.width / 2 - 100,
                 BACK_BUTTON_Y + GUIButton.BUTTON_H - 10, infoTextSize));
     }
@@ -59,7 +64,7 @@ public class UpgradeState extends ReversibleState {
     @Override
     public void Init() {
         super.Init();
-        for(Upgrade upgrade:allUpgrades){
+        for (Upgrade upgrade : allUpgrades) {
             upgrade.CheckIfBlocked();
         }
         ExperiencePanel.GetInstance().UpdateValue();
@@ -91,6 +96,15 @@ public class UpgradeState extends ReversibleState {
     }
 
     @Override
+    public void mousePressed(MouseEvent mouseEvent) {
+        super.mousePressed(mouseEvent);
+        //in case an upgrade was just bought
+        for (Upgrade upgrade : allUpgrades) {
+            upgrade.CheckIfBlocked();
+        }
+    }
+
+    @Override
     public void Draw(GameWindow wnd) {
         BufferStrategy bs = wnd.GetCanvas().getBufferStrategy();
         Graphics g = bs.getDrawGraphics();
@@ -99,10 +113,10 @@ public class UpgradeState extends ReversibleState {
         for (GUIButton b : allButtons) {
             b.Draw(g);
         }
-        for(Upgrade u:allUpgrades){
+        for (Upgrade u : allUpgrades) {
             u.Draw(g);
         }
-        for(GUIText t:infoText){
+        for (GUIText t : infoText) {
             t.Draw(g);
         }
         experiencePanel.Draw(g);

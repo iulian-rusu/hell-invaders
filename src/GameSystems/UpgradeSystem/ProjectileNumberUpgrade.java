@@ -20,7 +20,7 @@ public class ProjectileNumberUpgrade extends Upgrade{
         icon = GUIAssets.projectiles;
         //init prices
         this.price=DEFAULT_PRICE;
-        this.upgradeName.SetText("GET MORE PROJECTILES");
+        this.upgradeName.SetText("PROJECTILES");
         //set action listener for buy button
         this.buyButton.AddActionListener(actionEvent -> Buy());
         //update description
@@ -49,7 +49,6 @@ public class ProjectileNumberUpgrade extends Upgrade{
         this.price= GET_PRICE(this.level);
         UpdateDescription();
         NotifyAllObservers(UpgradeEvent.PROJECTILE_UPGRADE_BOUGHT);
-        CheckIfBlocked();
     }
 
 }

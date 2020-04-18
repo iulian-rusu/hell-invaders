@@ -35,6 +35,7 @@ public abstract class Upgrade extends Observable {
     protected int level;
     protected int x;
     protected int y;
+    protected boolean isMaxed=false;
 
     public Upgrade(int x, int y) {
         this.x = x;
@@ -61,10 +62,10 @@ public abstract class Upgrade extends Observable {
     }
 
     public void CheckIfBlocked() {
-        if(Player.GetInstance().GetExperience()<this.price){
+        if(isMaxed || Player.GetInstance().GetExperience()<this.price){
             this.buyButton.Block(GUIAssets.buy_button_blocked);
         }
-        else{
+        else if (!isMaxed){
             this.buyButton.Unblock(GUIAssets.buy_button);
         }
     }

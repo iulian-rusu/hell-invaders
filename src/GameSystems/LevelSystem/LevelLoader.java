@@ -6,7 +6,7 @@ import Entities.CollidableEntities.Enemies.Monster;
 import Entities.CollidableEntities.Projectiles.Projectile;
 import Game.Game;
 import Game.GameWindow;
-import States.GameState;
+import States.PlayState;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -52,12 +52,12 @@ public class LevelLoader {
         int y;
         for (int i = 0; i < monsters; ++i) {
             int xOffset = (i > 0) ? x + Math.abs(RNG.nextInt()) % X_DEVIATION : x;
-            y = GameState.BATTLEFIELD_Y + Math.abs(RNG.nextInt()) % (GameState.BATTLEFIELD_HEIGHT);
+            y = PlayState.BATTLEFIELD_Y + Math.abs(RNG.nextInt()) % (PlayState.BATTLEFIELD_HEIGHT);
             allEnemies.add(new Monster(xOffset, y, level));
         }
         for (int i = 0; i < dragons; ++i) {
             int xOffset = (i > 0) ? x + Math.abs(RNG.nextInt()) % X_DEVIATION : x;
-            y = GameState.BATTLEFIELD_Y + Math.abs(RNG.nextInt()) % (GameState.BATTLEFIELD_HEIGHT);
+            y = PlayState.BATTLEFIELD_Y + Math.abs(RNG.nextInt()) % (PlayState.BATTLEFIELD_HEIGHT);
             allEnemies.add(new Dragon(xOffset, y, level));
         }
     }

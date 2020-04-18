@@ -8,6 +8,7 @@ import States.StateManager;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferStrategy;
 
 public class Game extends MouseAdapter implements Runnable {
@@ -47,6 +48,7 @@ public class Game extends MouseAdapter implements Runnable {
         Canvas wndCanvas = wnd.GetCanvas();
         wndCanvas.addMouseListener(this);
         wndCanvas.addMouseMotionListener(this);
+        wndCanvas.addMouseWheelListener(this);
         //init cursors
         targetCursor = Toolkit.getDefaultToolkit().createCustomCursor(GUIAssets.target_cursor, new Point(15,15), "target");
     }
@@ -114,5 +116,7 @@ public class Game extends MouseAdapter implements Runnable {
         stateManager.GetCurrentState().mouseMoved(mouseEvent);
     }
 
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) { stateManager.GetCurrentState().mouseWheelMoved(e); }
 }
 

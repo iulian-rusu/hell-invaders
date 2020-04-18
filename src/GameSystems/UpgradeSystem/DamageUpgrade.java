@@ -14,7 +14,7 @@ public class DamageUpgrade extends Upgrade{
     public static final double PRICE_INCREMENT=1.23;
     public static long GET_PRICE(int level){return (long)(DEFAULT_PRICE*Math.pow(PRICE_INCREMENT,level-1));}
     //damage parameters
-    public static final double DAMAGE_INCREMENT=1.17;
+    public static final double DAMAGE_INCREMENT=1.2;
     public static long GET_DAMAGE(int level){ return (long)(Player.DEFAULT_DAMAGE*Math.pow(DAMAGE_INCREMENT,level)); }
 
     private long damage;
@@ -25,7 +25,7 @@ public class DamageUpgrade extends Upgrade{
         //init prices and damage
         this.price=DEFAULT_PRICE;
         this.damage= GET_DAMAGE(level);
-        this.upgradeName.SetText("GET MORE DAMAGE");
+        this.upgradeName.SetText("SPELL DAMAGE");
         //set action listener for buy button
         this.buyButton.AddActionListener(actionEvent -> Buy());
         //update description
@@ -53,6 +53,5 @@ public class DamageUpgrade extends Upgrade{
         this.price= GET_PRICE(this.level);
         UpdateDescription();
         NotifyAllObservers(UpgradeEvent.DAMAGE_UPGRADE_BOUGHT);
-        CheckIfBlocked();
     }
 }

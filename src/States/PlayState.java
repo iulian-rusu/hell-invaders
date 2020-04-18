@@ -9,7 +9,6 @@ import GameSystems.EventSystem.Events.CombatEvent;
 import GameSystems.EventSystem.Events.GameEvent;
 import GUI.GUIButton;
 import GUI.GUIText;
-import Game.Game;
 import Game.GameWindow;
 import Assets.Images.BackgroundAssets;
 import GameSystems.LevelSystem.LevelLoader;
@@ -20,7 +19,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.util.*;
 
-public class GameState extends ReversibleState implements GameSystems.EventSystem.Observer{
+public class PlayState extends ReversibleState implements GameSystems.EventSystem.Observer{
     public static final int BATTLEFIELD_Y = 180;
     public static final int BATTLEFIELD_HEIGHT = 250;
 
@@ -33,7 +32,7 @@ public class GameState extends ReversibleState implements GameSystems.EventSyste
     private final Rectangle clickBox;
     private boolean isWon;
 
-    public GameState() {
+    public PlayState() {
         //back button
         allButtons.get(0).AddActionListener(actionEvent -> {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
