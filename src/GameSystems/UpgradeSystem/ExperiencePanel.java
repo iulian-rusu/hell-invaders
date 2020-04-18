@@ -10,7 +10,7 @@ import GameSystems.EventSystem.Observer;
 import GUI.GUITextPanel;
 import Game.GameWindow;
 import States.ReversibleState;
-import GameSystems.StatsSystem.LargeNumberHandler;
+import GameSystems.NumberSystem.LargeNumberHandler;
 
 import java.awt.*;
 
@@ -20,7 +20,6 @@ public class ExperiencePanel implements Observer {
     public static final int EXPERIENCE_PANEL_X = GameWindow.wndDimension.width - ReversibleState.BACK_BUTTON_X - EXPERIENCE_PANEL_WIDTH;
 
     private final GUITextPanel experiencePanel;
-    private final String[] units = {"", " K", " M", " G", " T", " P", " E"};
 
     public static ExperiencePanel GetInstance() {
         if (instance == null) {
@@ -35,7 +34,7 @@ public class ExperiencePanel implements Observer {
 
     public void UpdateValue() {
         long value = Player.GetInstance().GetExperience();
-        experiencePanel.SetText(LargeNumberHandler.ParseLongInt(value));
+        experiencePanel.SetText(LargeNumberHandler.ParseLongInt(value)+" XP");
     }
 
     @Override
@@ -47,7 +46,7 @@ public class ExperiencePanel implements Observer {
     }
 
     private ExperiencePanel() {
-        experiencePanel = new GUITextPanel("0",
+        experiencePanel = new GUITextPanel("0 XP",
                 GUIAssets.green_button,
                 EXPERIENCE_PANEL_X,
                 ReversibleState.BACK_BUTTON_Y,

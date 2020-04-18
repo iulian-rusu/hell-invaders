@@ -18,8 +18,8 @@ public class GUIAssets {
         resume_button_blocked = ImageLoader.LoadImage("/buttons/resume_button_blocked.png");
         options_button = ImageLoader.LoadImage("/buttons/options_button.png");
         options_button_hovered = ImageLoader.LoadImage("/buttons/options_button_hovered.png");
-        stats_button = ImageLoader.LoadImage("/buttons/stats_button.png");
-        stats_button_hovered = ImageLoader.LoadImage("/buttons/stats_button_hovered.png");
+        about_button = ImageLoader.LoadImage("/buttons/about_button.png");
+        about_button_hovered = ImageLoader.LoadImage("/buttons/about_button_hovered.png");
         quit_button = ImageLoader.LoadImage("/buttons/quit_button.png");
         quit_button_hovered = ImageLoader.LoadImage("/buttons/quit_button_hovered.png");
     }
@@ -59,8 +59,8 @@ public class GUIAssets {
     public static BufferedImage resume_button_blocked;
     public static BufferedImage options_button;
     public static BufferedImage options_button_hovered;
-    public static BufferedImage stats_button;
-    public static BufferedImage stats_button_hovered;
+    public static BufferedImage about_button;
+    public static BufferedImage about_button_hovered;
     public static BufferedImage quit_button;
     public static BufferedImage quit_button_hovered;
     //options buttons

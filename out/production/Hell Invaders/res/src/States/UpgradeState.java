@@ -1,6 +1,9 @@
 package States;
 
 import Assets.Images.GUIAssets;
+import Entities.Player;
+import GUI.GUIText;
+import Game.Game;
 import GameSystems.EventSystem.Events.AudioEvent;
 import GUI.GUIButton;
 import Game.GameWindow;
@@ -12,6 +15,9 @@ import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
 public class UpgradeState extends ReversibleState {
+    //public static because it's shared with GameState class
+    public static ArrayList<GUIText> infoText;
+
     private final ExperiencePanel experiencePanel;
     private final ArrayList<Upgrade> allUpgrades;
     public UpgradeState() {
@@ -41,13 +47,47 @@ public class UpgradeState extends ReversibleState {
         for(Upgrade u:allUpgrades){
             allButtons.add(u.GetButtonHandle());
         }
+        //various text for player info
+        int infoTextSize = 100;
+        infoText = new ArrayList<>(2);
+        infoText.add(new GUIText("EASY", GameWindow.wndDimension.width - 270,
+                Player.MANABAR_Y+Player.HEALTHBAR_HEIGHT, infoTextSize));
+        infoText.add(new GUIText("DAY 1", GameWindow.wndDimension.width / 2 - 100,
+                BACK_BUTTON_Y + GUIButton.BUTTON_H - 10, infoTextSize));
     }
 
     @Override
     public void Init() {
         super.Init();
+        for(Upgrade upgrade:allUpgrades){
+            upgrade.CheckIfBlocked();
+        }
         ExperiencePanel.GetInstance().UpdateValue();
         NotifyAllObservers(AudioEvent.PLAY_CURRENT_STATE_MUSIC);
+        //init info text
+        InitText();
+    }
+
+    void InitText() {
+        //init difficulty text
+        String d = "EASY";
+        Color c = Color.GREEN;
+        switch (Game.DIFFICULTY) {
+            case 1:
+                break;
+            case 2:
+                d = "MEDIUM";
+                c = Color.YELLOW;
+                break;
+            case 3:
+                d = "HARD";
+                c = Color.RED;
+                break;
+        }
+        infoText.get(0).SetText(d);
+        infoText.get(0).SetColor(c);
+        //init level text
+        infoText.get(1).SetText("DAY " + Player.GetInstance().GetLevel());
     }
 
     @Override
@@ -61,6 +101,9 @@ public class UpgradeState extends ReversibleState {
         }
         for(Upgrade u:allUpgrades){
             u.Draw(g);
+        }
+        for(GUIText t:infoText){
+            t.Draw(g);
         }
         experiencePanel.Draw(g);
         bs.show();

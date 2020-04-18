@@ -4,7 +4,7 @@ import Assets.Images.GUIAssets;
 import Entities.CollidableEntities.Projectiles.ProjectileType;
 import Entities.Player;
 import GameSystems.EventSystem.Events.UpgradeEvent;
-import GameSystems.StatsSystem.LargeNumberHandler;
+import GameSystems.NumberSystem.LargeNumberHandler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -27,16 +27,12 @@ public class SpellUpgrade extends Upgrade{
         spellMap.put(spellProgression[0],ProjectileType.FIRE);
         spellMap.put(spellProgression[1],ProjectileType.FROST);
         spellMap.put(spellProgression[2],ProjectileType.ARCANE);
-        //init prices and damage
+        //init prices
         this.price=DEFAULT_PRICE;
-        this.priceText.SetText("PRICE: "+ LargeNumberHandler.ParseLongInt(DEFAULT_PRICE)+" EXP");
-        this.valueText.SetText(this.spellProgression[this.spellIndex]);
+        this.upgradeName.SetText("GET A BETTER SPELL");
         //set action listener for buy button
-        this.buyButton.AddActionListener(actionEvent -> {
-            Buy();
-        });
+        this.buyButton.AddActionListener(actionEvent -> Buy());
         //update description
-        description.get(0).SetText("GET A BETTER SPELL");
         description.get(0).SetColor(Color.ORANGE);
         UpdateDescription();
     }
@@ -45,10 +41,10 @@ public class SpellUpgrade extends Upgrade{
         if(this.spellProgression[this.spellIndex].equals(MAX_TEXT)){
             buyButton.Block(GUIAssets.buy_button_blocked);
             this.priceText.SetText(MAX_TEXT);
-            this.valueText.SetText(MAX_TEXT);
+            description.get(0).SetText(MAX_TEXT);
         }else {
-            this.priceText.SetText("PRICE: " + LargeNumberHandler.ParseLongInt(this.price) + " EXP");
-            this.valueText.SetText(this.spellProgression[this.spellIndex]);
+            this.priceText.SetText(LargeNumberHandler.ParseLongInt(this.price) + " XP");
+            description.get(0).SetText("NEXT: "+this.spellProgression[this.spellIndex]+" SPELL");
         }
         description.get(1).SetText("CURRENT: "+this.spellProgression[this.spellIndex-1]);
         icon = spellIcons[spellIndex];
@@ -68,5 +64,6 @@ public class SpellUpgrade extends Upgrade{
         this.price= GET_PRICE(this.level);
         UpdateDescription();
         NotifyAllObservers(UpgradeEvent.SPELL_UPGRADE_BOUGHT);
+        CheckIfBlocked();
     }
 }

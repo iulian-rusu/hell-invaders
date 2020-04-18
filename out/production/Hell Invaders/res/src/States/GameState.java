@@ -30,7 +30,6 @@ public class GameState extends ReversibleState implements GameSystems.EventSyste
     private final ArrayList<Enemy> allEnemies;
     private final ArrayList<Projectile> allProjectiles;
     private final ArrayList<GUIText> combatText;
-    private final ArrayList<GUIText> infoText;
     private final Rectangle clickBox;
     private boolean isWon;
 
@@ -61,14 +60,6 @@ public class GameState extends ReversibleState implements GameSystems.EventSyste
         p.AddObserver(this);
         experiencePanel=ExperiencePanel.GetInstance();
 
-        //various text for player info
-        int infoTextSize = 100;
-        infoText = new ArrayList<>(2);
-        infoText.add(new GUIText("EASY", GameWindow.wndDimension.width - 270,
-                Player.MANABAR_Y+Player.HEALTHBAR_HEIGHT, infoTextSize));
-        infoText.add(new GUIText("DAY 1", GameWindow.wndDimension.width / 2 - 100,
-                BACK_BUTTON_Y + GUIButton.BUTTON_H - 10, infoTextSize));
-
         //clickable field to fire projectiles
         Dimension screenSize = GameWindow.wndDimension;
         clickBox = new Rectangle(200, 100, screenSize.width - 200, screenSize.height - 100);
@@ -80,33 +71,9 @@ public class GameState extends ReversibleState implements GameSystems.EventSyste
         NotifyAllObservers(AudioEvent.PLAY_CURRENT_STATE_MUSIC);
         isWon = false;
         p.Init();
-        //init info text
-        InitText();
         //load enemy waves
         LevelLoader.InitLevel(allProjectiles, allEnemies, p.GetLevel());
         combatText.clear();
-    }
-
-    void InitText() {
-        //init difficulty text
-        String d = "EASY";
-        Color c=Color.GREEN;
-        switch (Game.DIFFICULTY) {
-            case 1:
-                break;
-            case 2:
-                d = "MEDIUM";
-                c=Color.YELLOW;
-                break;
-            case 3:
-                d = "HARD";
-                c=Color.RED;
-                break;
-        }
-        infoText.get(0).SetText(d);
-        infoText.get(0).SetColor(c);
-        //init level text
-        infoText.get(1).SetText("DAY " + p.GetLevel());
     }
 
     @Override
@@ -176,7 +143,8 @@ public class GameState extends ReversibleState implements GameSystems.EventSyste
         for (GUIButton b : allButtons) {
             b.Draw(g);
         }
-        for (GUIText t : infoText) {
+        //draw the same info text as in upgrade state
+        for (GUIText t : UpgradeState.infoText) {
             t.Draw(g);
         }
         bs.show();

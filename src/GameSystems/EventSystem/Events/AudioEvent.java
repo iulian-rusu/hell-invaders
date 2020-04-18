@@ -47,6 +47,10 @@ public enum AudioEvent implements GameEvent {
         AudioManager.GetInstance().Play(SoundEffectAssets.oof);
         return null;
     }),
+    PLAY_BUTTON_PRESS(_void->{
+        AudioManager.GetInstance().Play(SoundEffectAssets.buttonPress);
+        return null;
+    }),
     STOP_ALL_SFX(_void -> {
         AudioManager.GetInstance().StopAllSFX();
         return null;

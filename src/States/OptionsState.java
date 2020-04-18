@@ -1,17 +1,25 @@
 package States;
 
+import Assets.Images.GUIAssets;
 import GUI.GUIButton;
+import GUI.GUIText;
+import Game.Game;
 import Game.GameWindow;
 import Assets.Images.BackgroundAssets;
+import GameSystems.OptionsSystem.DifficultyOption;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class OptionsState extends ReversibleState {
+    private final DifficultyOption difficultyOption;
 
     public OptionsState() {
         //back button
         allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE));
+        //add difficulty button
+        difficultyOption=new DifficultyOption();
+        allButtons.add(difficultyOption.GetButtonHandle());
     }
 
     @Override
@@ -23,6 +31,7 @@ public class OptionsState extends ReversibleState {
         for (GUIButton b : allButtons) {
             b.Draw(g);
         }
+        difficultyOption.Draw(g);
         bs.show();
         g.dispose();
     }

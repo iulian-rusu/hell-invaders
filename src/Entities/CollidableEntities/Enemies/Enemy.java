@@ -20,7 +20,7 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
     public static int GET_DEFAULT_DAMAGE() { return 10 + 5 * Game.DIFFICULTY; }
     public static final int FRAMES_BETWEEN_ATTACKS = 120;
     //healt multiplier per level
-    public static final double HEALTH_INCREMENT = 1.12;
+    public static final double HEALTH_INCREMENT = 1.1;
 
     protected long health;
     protected int level;

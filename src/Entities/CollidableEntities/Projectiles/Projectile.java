@@ -4,7 +4,7 @@ import Assets.FontAssets;
 import Entities.CollidableEntities.CollidableEntity;
 import Entities.CollidableEntities.Enemies.Enemy;
 import GUI.GUIText;
-import GameSystems.StatsSystem.LargeNumberHandler;
+import GameSystems.NumberSystem.LargeNumberHandler;
 
 import java.awt.*;
 import java.util.Random;

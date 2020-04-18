@@ -1,4 +1,4 @@
-package GameSystems.StatsSystem;
+package GameSystems.NumberSystem;
 
 public class LargeNumberHandler {
     /*
@@ -24,8 +24,8 @@ public class LargeNumberHandler {
             }
             ans = String.valueOf(fval);
             //cut string if too many digits
-            if (ans.length() > 6) {
-                ans = ans.substring(0, 6);
+            if (ans.length() > 5) {
+                ans = ans.substring(0, 5);
             }
             //add units in case the value > 1000
             ans += units[i];

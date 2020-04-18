@@ -6,8 +6,6 @@ import Assets.Audio.AudioManager;
 import Assets.Audio.BackgroundMusicAssets;
 import Game.GameWindow;
 
-import java.awt.*;
-
 public class StateManager {
     //singleton class that holds all states and manages them
     public static StateManager GetInstance() {
@@ -37,7 +35,7 @@ public class StateManager {
         allStates = new State[]{
                 new MenuState(),
                 new OptionsState(),
-                new StatsState(),
+                new AboutState(),
                 new UpgradeState(),
                 new GameState(),
                 new LossState(),
@@ -56,7 +54,7 @@ public class StateManager {
         //helper enum for more meaningful index names for the state vector
         MENU_STATE(0, BackgroundMusicAssets.menuMusic),
         OPTIONS_STATE(1, BackgroundMusicAssets.menuMusic),
-        STATS_STATE(2, BackgroundMusicAssets.menuMusic),
+        ABOUT_STATE(2, BackgroundMusicAssets.menuMusic),
         UPGRADE_STATE(3, BackgroundMusicAssets.upgradeMusic),
         GAME_STATE(4, BackgroundMusicAssets.gameMusic),
         LOSS_STATE(5, BackgroundMusicAssets.lossMusic),

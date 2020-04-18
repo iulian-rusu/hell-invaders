@@ -24,7 +24,7 @@ public class GUIStatusBar<T extends Entity> implements Observer {
     public GUIStatusBar(T target, Function<T, Long> getter) {
         this.target = target;
         this.getter = getter;
-        color = Color.red;
+        color = Color.RED;
         maxValue = getter.apply(target);
         currentValue = maxValue;
         bar = new Rectangle(0, 0, DEFAULT_WIDTH, DEFAULT_HEIGHT);

@@ -33,10 +33,14 @@ public class LevelLoader {
             File f = new File(path);
             Scanner in = new Scanner(f);
             int numWaves = in.nextInt();
-            for (int i = 0; i < numWaves; ++i) {
-                int m = in.nextInt();
-                int d = in.nextInt();
-                LoadWave(allEnemies, level, i, m, d);
+            for (int wave = 0; wave < numWaves; ++wave) {
+                int numMonsters = in.nextInt();
+                int numDragons = in.nextInt();
+                LoadWave(allEnemies, level, wave, numMonsters, numDragons);
+                if(level>5){
+                    //load double for level > 5
+                    LoadWave(allEnemies,level,wave,numMonsters,numDragons);
+                }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

@@ -6,6 +6,7 @@ import GUI.GUIButton;
 import GUI.GUIText;
 import GUI.GUITextPanel;
 import GameSystems.EventSystem.Observable;
+import States.AboutState;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -20,14 +21,14 @@ public abstract class Upgrade extends Observable {
     public static final int ICON_HEIGHT = 2 * PANEL_HEIGHT + OFFSET;
     public static final int ICON_WITDH = ICON_HEIGHT;
     //text parameters
-    public static final String MAX_TEXT="MAXED";
+    public static final String MAX_TEXT = "MAXED";
     public static final float FONT_SIZE = 55f;
     public static final int TEXT_OFFSET = 50;
-    public static final Color TEXT_COLOR = new Color(231, 232, 212);
+    public static final Color TEXT_COLOR = AboutState.TEXT_COLOR;
 
     protected GUIButton buyButton;
+    protected GUITextPanel upgradeName;
     protected GUITextPanel priceText;
-    protected GUITextPanel valueText;
     protected BufferedImage icon;
     protected ArrayList<GUIText> description;
     protected long price;
@@ -42,13 +43,14 @@ public abstract class Upgrade extends Observable {
         //init buttons and panels
         this.buyButton = new GUIButton(GUIAssets.buy_button, GUIAssets.buy_button_hovered,
                 x + ICON_WITDH + OFFSET, y + PANEL_HEIGHT + OFFSET, GUIButton.BUTTON_W, GUIButton.BUTTON_H);
-        this.priceText = new GUITextPanel("", GUIAssets.yellow_button,
+        this.upgradeName = new GUITextPanel("", GUIAssets.yellow_button,
                 x + ICON_WITDH + OFFSET, y, PANEL_WIDTH, PANEL_HEIGHT);
-        this.valueText = new GUITextPanel("", GUIAssets.yellow_button,
+        this.priceText = new GUITextPanel("", GUIAssets.green_button,
                 x + ICON_WITDH + GUIButton.BUTTON_W + 2 * OFFSET, y + PANEL_HEIGHT + OFFSET, GUIButton.BUTTON_W, GUIButton.BUTTON_H);
+        this.priceText.SetColor(GUITextPanel.DEFAULT_GREEN_COLOR);
         //init description
         this.description = new ArrayList<>();
-        this.description.add(new GUIText("NAME", x, y + ICON_HEIGHT + TEXT_OFFSET, FONT_SIZE));
+        this.description.add(new GUIText("NEXT VALUE", x, y + ICON_HEIGHT + TEXT_OFFSET, FONT_SIZE));
         this.description.add(new GUIText("CURRENT VALUE", x, y + ICON_HEIGHT + 2 * TEXT_OFFSET, FONT_SIZE));
         for (GUIText t : description) {
             t.SetColor(TEXT_COLOR);
@@ -56,6 +58,15 @@ public abstract class Upgrade extends Observable {
         description.get(0).SetFontSize(FONT_SIZE + 10);
         //experience panel will observe all upgrades
         AddObserver(ExperiencePanel.GetInstance());
+    }
+
+    public void CheckIfBlocked() {
+        if(Player.GetInstance().GetExperience()<this.price){
+            this.buyButton.Block(GUIAssets.buy_button_blocked);
+        }
+        else{
+            this.buyButton.Unblock(GUIAssets.buy_button);
+        }
     }
 
     public GUIButton GetButtonHandle() {
@@ -72,9 +83,8 @@ public abstract class Upgrade extends Observable {
 
     public void Draw(Graphics g) {
         g.drawImage(icon, x, y, ICON_WITDH, ICON_HEIGHT, null);
+        upgradeName.Draw(g);
         priceText.Draw(g);
-        valueText.Draw(g);
-        buyButton.Draw(g);
         for (GUIText t : description) {
             t.Draw(g);
         }

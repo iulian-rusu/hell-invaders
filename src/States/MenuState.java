@@ -28,7 +28,7 @@ public class MenuState extends State {
                 menuX, menuY + buttonSpacing, GUIButton.BUTTON_W, GUIButton.BUTTON_H));
         allButtons.add(new GUIButton(GUIAssets.options_button, GUIAssets.options_button_hovered,
                 menuX, menuY + 2 * buttonSpacing, GUIButton.BUTTON_W, GUIButton.BUTTON_H));
-        allButtons.add(new GUIButton(GUIAssets.stats_button, GUIAssets.stats_button_hovered,
+        allButtons.add(new GUIButton(GUIAssets.about_button, GUIAssets.about_button_hovered,
                 menuX, menuY + 3 * buttonSpacing, GUIButton.BUTTON_W, GUIButton.BUTTON_H));
         allButtons.add(new GUIButton(GUIAssets.quit_button, GUIAssets.quit_button_hovered,
                 menuX, menuY + 4 * buttonSpacing, GUIButton.BUTTON_W, GUIButton.BUTTON_H));
@@ -48,14 +48,14 @@ public class MenuState extends State {
         });
         //options
         allButtons.get(2).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.OPTIONS_STATE));
-        //stats
-        allButtons.get(3).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.STATS_STATE));
+        //about
+        allButtons.get(3).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.ABOUT_STATE));
         //quit
         allButtons.get(4).AddActionListener(actionEvent -> {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
             System.exit(0);
         });
-        bottomText = new GUIText("COPYRIGHT © 2020 IULIAN RUSU. ALL RIGHTS RESERVED.",
+        bottomText = new GUIText("COPYRIGHT © 2020 IULIAN RUSU.  ALL RIGHTS RESERVED.",
                 GameWindow.wndDimension.width / 2 - 200, GameWindow.wndDimension.height - 5, 25f);
         bottomText.SetColor(Color.GRAY);
     }
