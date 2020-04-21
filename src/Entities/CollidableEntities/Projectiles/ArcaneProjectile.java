@@ -16,7 +16,7 @@ public class ArcaneProjectile extends Projectile {
     @Override
     public GUIText GetCombatText() {
         GUIText ans = super.GetCombatText();
-        ans.SetColor(hasCrit ? new Color(219, 0, 255) : Color.WHITE);
+        ans.SetColor(hasCrit ? Color.MAGENTA : Color.WHITE);
         return ans;
     }
 

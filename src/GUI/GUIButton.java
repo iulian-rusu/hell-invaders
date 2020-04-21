@@ -77,6 +77,15 @@ public class GUIButton extends Observable {
         }
     }
 
+    public void Translate(int x, int y){
+        this.clickBox.x+=x;
+        this.clickBox.y+=y;
+    }
+
+    public void SetPosition(int x, int y){
+        this.clickBox.setLocation(x,y);
+    }
+
     public void SetImages(BufferedImage released, BufferedImage hovered){
         this.imageReleased=released;
         this.imageHovered=hovered;

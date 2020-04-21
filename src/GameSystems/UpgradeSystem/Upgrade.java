@@ -44,11 +44,11 @@ public abstract class Upgrade extends Observable {
         //init buttons and panels
         this.buyButton = new GUIButton(GUIAssets.buy_button, GUIAssets.buy_button_hovered,
                 x + ICON_WITDH + OFFSET, y + PANEL_HEIGHT + OFFSET, GUIButton.BUTTON_W, GUIButton.BUTTON_H);
-        this.upgradeName = new GUITextPanel("", GUIAssets.yellow_button,
+        this.upgradeName = new GUITextPanel("NAME", GUIAssets.yellow_button,
                 x + ICON_WITDH + OFFSET, y, PANEL_WIDTH, PANEL_HEIGHT);
-        this.priceText = new GUITextPanel("", GUIAssets.green_button,
-                x + ICON_WITDH + GUIButton.BUTTON_W + 2 * OFFSET, y + PANEL_HEIGHT + OFFSET, GUIButton.BUTTON_W, GUIButton.BUTTON_H);
-        this.priceText.SetColor(GUITextPanel.DEFAULT_GREEN_COLOR);
+        this.priceText = new GUITextPanel("PRICE", GUIAssets.green_button,
+                x + ICON_WITDH + GUIButton.BUTTON_W + 2 * OFFSET, y + PANEL_HEIGHT + OFFSET,
+                GUIButton.BUTTON_W, GUIButton.BUTTON_H,GUITextPanel.DEFAULT_GREEN_COLOR);
         //init description
         this.description = new ArrayList<>();
         this.description.add(new GUIText("NEXT VALUE", x, y + ICON_HEIGHT + TEXT_OFFSET, FONT_SIZE));

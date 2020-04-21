@@ -58,7 +58,7 @@ public class DifficultyOption {
         difficultyDescription.add(new GUIText("",
                 INFO_LEFT_X, DESCRIPTION_TOP_Y + 5 * LINE_SPACING, INFO_FONT_SIZE, AboutState.TEXT_COLOR));
         difficultyDescription.add(new GUIText("PLAYER HEALTH: ",
-                DESCRIPTION_LEFT_X, DESCRIPTION_TOP_Y + 6 * LINE_SPACING, INFO_FONT_SIZE, Color.RED));
+                DESCRIPTION_LEFT_X, DESCRIPTION_TOP_Y + 6 * LINE_SPACING, INFO_FONT_SIZE, new Color(253, 47, 47)));
         difficultyDescription.add(new GUIText("",
                 INFO_LEFT_X, DESCRIPTION_TOP_Y + 6 * LINE_SPACING, INFO_FONT_SIZE, AboutState.TEXT_COLOR));
         difficultyDescription.add(new GUIText("PLAYER MANA: ",

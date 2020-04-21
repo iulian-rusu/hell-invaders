@@ -1,11 +1,9 @@
 package States;
 
-
 import Assets.Images.BackgroundAssets;
 import Assets.Images.GUIAssets;
 import GameSystems.EventSystem.Events.AudioEvent;
 import GUI.GUIButton;
-import GUI.GUIText;
 import Game.GameWindow;
 
 import java.awt.*;
@@ -14,10 +12,9 @@ import java.util.ArrayList;
 
 public class MenuState extends State {
     private boolean logoColorflag = true;
-    private final GUIText bottomText;
 
     public MenuState() {
-        final int menuY = GameWindow.wndDimension.height / 2-20;
+        final int menuY = GameWindow.wndDimension.height / 2-10;
         final int menuX =( GameWindow.wndDimension.width - GUIButton.BUTTON_W) / 2;
         final int buttonSpacing = 75;
 
@@ -32,13 +29,11 @@ public class MenuState extends State {
                 menuX, menuY + 3 * buttonSpacing, GUIButton.BUTTON_W, GUIButton.BUTTON_H));
         allButtons.add(new GUIButton(GUIAssets.quit_button, GUIAssets.quit_button_hovered,
                 menuX, menuY + 4 * buttonSpacing, GUIButton.BUTTON_W, GUIButton.BUTTON_H));
-        allButtons.get(1).Block(GUIAssets.resume_button_blocked);
         //state transition events
         //play
         allButtons.get(0).AddActionListener(actionEvent -> {
-            NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
-            //this will also clear everything from the database before going to UPGRADE_STATE
-            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE);}
+            //this will go to an intermediate state that asks again if the player is sure
+            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.NEW_GAME_QUERY_STATE);}
         );
         //resume
         allButtons.get(1).AddActionListener(actionEvent ->{
@@ -55,9 +50,6 @@ public class MenuState extends State {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
             System.exit(0);
         });
-        bottomText = new GUIText("COPYRIGHT © 2020 IULIAN RUSU.  ALL RIGHTS RESERVED.",
-                GameWindow.wndDimension.width / 2 - 200, GameWindow.wndDimension.height - 5, 25f);
-        bottomText.SetColor(Color.GRAY);
     }
 
     @Override
@@ -65,6 +57,8 @@ public class MenuState extends State {
         super.Init();
         NotifyAllObservers(AudioEvent.PLAY_CURRENT_STATE_MUSIC);
         logoColorflag = true;
+        //TODO: if the databse is not empty -> unblock "resume" button
+        allButtons.get(1).Block(GUIAssets.resume_button_blocked);
     }
 
     @Override
@@ -82,7 +76,6 @@ public class MenuState extends State {
         }
         for (GUIButton b : allButtons)
             b.Draw(g);
-        bottomText.Draw(g);
         bs.show();
         g.dispose();
     }

@@ -64,20 +64,12 @@ public class GUIText {
         font = f.deriveFont(fontSize);
     }
 
-    public void SedX(int x) {
+    public void SetX(int x) {
         this.x = x;
     }
 
-    public void SedY(int y) {
+    public void SetY(int y) {
         this.y = y;
-    }
-
-    public void AddY(int offset){
-        this.y+=offset;
-    }
-
-    public void AddX(int offset){
-        this.x+=offset;
     }
 
     public int GetX() {

@@ -58,7 +58,7 @@ public abstract class Projectile extends CollidableEntity {
         int size = hasCrit ? 60 : 50;
         GUIText ans = new GUIText(val, textX, textY, size);
         ans.SetFont(FontAssets.mainFont_italic);
-        ans.SetColor(hasCrit ? Color.RED : Color.WHITE);
+        ans.SetColor(hasCrit ? Color.YELLOW : Color.WHITE);
         ans.SetDuration(30);
         return ans;
     }
@@ -72,8 +72,8 @@ public abstract class Projectile extends CollidableEntity {
         super.Update();
         fx += xVelocity;
         fy += yVelocity;
-        x = (int) fx;
-        y = (int) fy;
+        x = (int) Math.round(fx);
+        y = (int) Math.round(fy);
     }
 
     @Override

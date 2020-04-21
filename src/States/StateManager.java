@@ -39,7 +39,8 @@ public class StateManager {
                 new UpgradeState(),
                 new PlayState(),
                 new LossState(),
-                new WinState()
+                new WinState(),
+                new NewGameQueryState()
         };
         for(State s:allStates) {
             s.AddObserver(AudioManager.GetInstance());
@@ -58,7 +59,8 @@ public class StateManager {
         UPGRADE_STATE(3, BackgroundMusicAssets.upgradeMusic),
         GAME_STATE(4, BackgroundMusicAssets.gameMusic),
         LOSS_STATE(5, BackgroundMusicAssets.lossMusic),
-        WIN_STATE(6, BackgroundMusicAssets.winMusic);
+        WIN_STATE(6, BackgroundMusicAssets.winMusic),
+        NEW_GAME_QUERY_STATE(7,BackgroundMusicAssets.menuMusic);
 
         public int value;
         public BackgroundMusic bgMusic;

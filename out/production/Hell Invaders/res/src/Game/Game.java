@@ -8,19 +8,18 @@ import States.StateManager;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferStrategy;
 
 public class Game extends MouseAdapter implements Runnable {
-    //TODO: add upgrade buttons
-    //TODO: save player stats into SQL databse and unlock resume button
-    //TODO: implement player stats (max level/total enemies killed/max single spell hit)
+    //TODO: save player stats into SQL databse
     //class that implements the main game loop
 
     public static int DIFFICULTY = 1;
 
     private GameWindow wnd;
     private LoadingScreen load;
-    Cursor targetCursor, baseCursor;
+    Cursor targetCursor;
     private boolean runState;
     private StateManager stateManager;
 
@@ -47,6 +46,7 @@ public class Game extends MouseAdapter implements Runnable {
         Canvas wndCanvas = wnd.GetCanvas();
         wndCanvas.addMouseListener(this);
         wndCanvas.addMouseMotionListener(this);
+        wndCanvas.addMouseWheelListener(this);
         //init cursors
         targetCursor = Toolkit.getDefaultToolkit().createCustomCursor(GUIAssets.target_cursor, new Point(15,15), "target");
     }
@@ -114,5 +114,7 @@ public class Game extends MouseAdapter implements Runnable {
         stateManager.GetCurrentState().mouseMoved(mouseEvent);
     }
 
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) { stateManager.GetCurrentState().mouseWheelMoved(e); }
 }
 

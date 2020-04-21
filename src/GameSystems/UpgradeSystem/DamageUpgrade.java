@@ -14,7 +14,7 @@ public class DamageUpgrade extends Upgrade{
     public static final double PRICE_INCREMENT=1.23;
     public static long GET_PRICE(int level){return (long)(DEFAULT_PRICE*Math.pow(PRICE_INCREMENT,level-1));}
     //damage parameters
-    public static final double DAMAGE_INCREMENT=1.2;
+    public static final double DAMAGE_INCREMENT=1.19;
     public static long GET_DAMAGE(int level){ return (long)(Player.DEFAULT_DAMAGE*Math.pow(DAMAGE_INCREMENT,level)); }
 
     private long damage;

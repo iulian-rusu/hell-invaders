@@ -39,9 +39,7 @@ public class Player extends Entity implements Observer {
     public static final int MANABAR_Y = HEALTHBAR_Y + HEALTHBAR_HEIGHT + 10;
     //experience parameters
     public static final double EXPERIENCE_INCREMENT = 1.11;
-    public static int GET_DEFAULT_EXPERIENCE_GAIN() {
-        return (10 * Game.DIFFICULTY);
-    }
+    public static int GET_DEFAULT_EXPERIENCE_GAIN() { return (5 + 5 * Game.DIFFICULTY); }
     //combat parameters
     public static final long DEFAULT_DAMAGE=20L;
 
@@ -94,7 +92,7 @@ public class Player extends Entity implements Observer {
     public void ResetAllStats() {
         //used when a new game is started, sets all stats to their base value
         numProjectiles = 1;
-        projectileDamage = 20L;
+        projectileDamage = DEFAULT_DAMAGE;
         critChance = 0;
         currentProjetile = ProjectileType.FIRE;
         experience = 0L;

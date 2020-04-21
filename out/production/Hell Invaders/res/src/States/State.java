@@ -5,6 +5,7 @@ import GUI.GUIButton;
 import Game.GameWindow;
 
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 
 public abstract class State extends Observable {
@@ -45,5 +46,10 @@ public abstract class State extends Observable {
             }
         }
     }
+
+    public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent){
+
+    }
+
     public abstract void Draw(GameWindow wnd);
 }

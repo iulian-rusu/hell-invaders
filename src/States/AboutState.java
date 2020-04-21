@@ -15,14 +15,14 @@ public class AboutState extends ReversibleState {
     public static final int LINE_SPACING = 50;
     public static final int DESCRIPTION_FONT_SIZE = 75;
     public static final int INFO_FONT_SIZE = DESCRIPTION_FONT_SIZE - 10;
-    public static final int DESCRIPTION_LEFT_X = 150;
+    public static final int DESCRIPTION_LEFT_X = 160;
     public static final int DESCRIPTION_TOP_Y = 150;
-    public static final int INFO_RIGHT_X = DESCRIPTION_LEFT_X + 300;
-    public static final int INFO_LEFT_X = DESCRIPTION_LEFT_X + 80;
+    public static final int INFO_LEFT_X = DESCRIPTION_LEFT_X + 70;
+    public static final int INFO_RIGHT_X = INFO_LEFT_X + 220;
     public static final Color TEXT_COLOR = new Color(255, 252, 224);
     //scroll parameters
     public static final int MAX_SCROLL_OFFSET = 450;
-    public static final int SCROLL_SENSIBILITY = 8;
+    public static final int SCROLL_SENSIBILITY = 15;
 
     private final ArrayList<GUIText> desciption;
     private int scrollOffset;
@@ -56,10 +56,10 @@ public class AboutState extends ReversibleState {
                 INFO_LEFT_X, DESCRIPTION_TOP_Y + 8 * LINE_SPACING, INFO_FONT_SIZE, Color.ORANGE));
         desciption.add(new GUIText("FIRE",
                 INFO_RIGHT_X, DESCRIPTION_TOP_Y + 8 * LINE_SPACING, INFO_FONT_SIZE, new Color(255, 151, 28)));
-        desciption.add(new GUIText("  -  NO SPECIAL ABILITIES",
+        desciption.add(new GUIText("  -  NO SPECIAL ABILITIY",
                 INFO_RIGHT_X + 75, DESCRIPTION_TOP_Y + 8 * LINE_SPACING, INFO_FONT_SIZE, TEXT_COLOR));
         desciption.add(new GUIText("FROST",
-                INFO_RIGHT_X, DESCRIPTION_TOP_Y + 9 * LINE_SPACING, INFO_FONT_SIZE, new Color(0, 219, 255)));
+                INFO_RIGHT_X, DESCRIPTION_TOP_Y + 9 * LINE_SPACING, INFO_FONT_SIZE, new Color(0, 255, 247)));
         desciption.add(new GUIText("  -  HITS SLOW ENEMIES",
                 INFO_RIGHT_X + 115, DESCRIPTION_TOP_Y + 9 * LINE_SPACING, INFO_FONT_SIZE, TEXT_COLOR));
         desciption.add(new GUIText("ARCANE",
@@ -76,11 +76,11 @@ public class AboutState extends ReversibleState {
                 INFO_LEFT_X + 450, DESCRIPTION_TOP_Y + 14 * LINE_SPACING, INFO_FONT_SIZE, Color.ORANGE));
         desciption.add(new GUIText("GAME IDEA:",
                 INFO_LEFT_X, DESCRIPTION_TOP_Y + 15 * LINE_SPACING, 50, Color.ORANGE));
-        desciption.add(new GUIText("IULIAN RUSU ,  github.com/iulian-rusu ,  AC TUIASI 2020 ",
+        desciption.add(new GUIText("IULIAN RUSU ,  AC TUIASI 2020 ",
                 INFO_RIGHT_X, DESCRIPTION_TOP_Y + 15 * LINE_SPACING, 50, Color.LIGHT_GRAY));
         desciption.add(new GUIText("SOURCE CODE:",
                 INFO_LEFT_X, DESCRIPTION_TOP_Y + 16 * LINE_SPACING, 50, Color.ORANGE));
-        desciption.add(new GUIText("IULIAN RUSU ,  STACK OVERFLOW ",
+        desciption.add(new GUIText("IULIAN RUSU  -  https://github.com/iulian-rusu/Hell_Invaders",
                 INFO_RIGHT_X, DESCRIPTION_TOP_Y + 16 * LINE_SPACING, 50, Color.LIGHT_GRAY));
         desciption.add(new GUIText("TEXTURES:",
                 INFO_LEFT_X, DESCRIPTION_TOP_Y + 17 * LINE_SPACING, 50, Color.ORANGE));
@@ -98,13 +98,15 @@ public class AboutState extends ReversibleState {
                 INFO_RIGHT_X, DESCRIPTION_TOP_Y + 21 * LINE_SPACING, 50, Color.LIGHT_GRAY));
         desciption.add(new GUIText("SOUND EFFECTS FROM freesound.org",
                 INFO_RIGHT_X, DESCRIPTION_TOP_Y + 22 * LINE_SPACING, 50, Color.LIGHT_GRAY));
+        desciption.add(new GUIText("COPYRIGHT © 2020 IULIAN RUSU .  ALL RIGHTS RESERVED.",
+                INFO_RIGHT_X + 35, DESCRIPTION_TOP_Y + 23 * LINE_SPACING, 35, Color.LIGHT_GRAY));
     }
 
     @Override
     public void Init() {
         super.Init();
-        for (GUIText text : desciption) {
-            text.AddY(scrollOffset);
+        for(GUIButton button:allButtons){
+            button.Translate(0,scrollOffset);
         }
         scrollOffset = 0;
     }
@@ -115,9 +117,11 @@ public class AboutState extends ReversibleState {
         Graphics g = bs.getDrawGraphics();
         g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
         g.drawImage(BackgroundAssets.bg_game_dark, 0, 0, null);
+        g.translate(0,-scrollOffset);
         for (GUIText text : desciption) {
             text.Draw(g);
         }
+        g.translate(0,scrollOffset);
         for (GUIButton b : allButtons) {
             b.Draw(g);
         }
@@ -132,10 +136,11 @@ public class AboutState extends ReversibleState {
         //check bounds
         this.scrollOffset = Math.min(MAX_SCROLL_OFFSET, this.scrollOffset);
         this.scrollOffset = Math.max(0, this.scrollOffset);
-        //calculate how much to add
-        int scrollAmount = this.scrollOffset - before;
-        for (GUIText text : desciption) {
-            text.AddY(-scrollAmount);
+        //update button positions
+        int delta=scrollOffset-before;
+        for(GUIButton button:allButtons){
+            button.Translate(0,-delta);
+            button.mouseMoved(mouseWheelEvent);
         }
     }
 }
