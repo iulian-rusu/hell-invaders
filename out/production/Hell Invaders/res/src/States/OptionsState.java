@@ -1,9 +1,6 @@
 package States;
 
-import Assets.Images.GUIAssets;
 import GUI.GUIButton;
-import GUI.GUIText;
-import Game.Game;
 import Game.GameWindow;
 import Assets.Images.BackgroundAssets;
 import GameSystems.OptionsSystem.DifficultyOption;

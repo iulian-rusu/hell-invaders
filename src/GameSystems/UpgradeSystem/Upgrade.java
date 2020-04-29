@@ -3,8 +3,8 @@ package GameSystems.UpgradeSystem;
 import Assets.Images.GUIAssets;
 import Entities.Player;
 import GUI.GUIButton;
-import GUI.GUIText;
-import GUI.GUITextPanel;
+import GUI.Text.GUIText;
+import GUI.Text.GUITextPanel;
 import GameSystems.EventSystem.Observable;
 import States.AboutState;
 

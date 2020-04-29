@@ -1,14 +1,11 @@
-package GUI;
+package GUI.Text;
 
 import java.awt.*;
 
 import Assets.FontAssets;
 
-public class GUIText {
-    public boolean isActive = true;
-
-    private int frameCount = -1;
-    private int lifetime = -1;
+public class GUIText implements GUITextComponent{
+    protected boolean isActive=true;
     protected String text;
     protected Font font;
     protected Color color;
@@ -27,8 +24,8 @@ public class GUIText {
         color = c;
     }
 
+    @Override
     public void Draw(Graphics g) {
-        Tick();
         if (isActive) {
             Graphics2D g2d = (Graphics2D) g;
             g2d.setColor(color);
@@ -37,46 +34,34 @@ public class GUIText {
         }
     }
 
-    protected void Tick() {
-        if (lifetime >= 0 && lifetime <= ++frameCount) {
-            isActive = false;
-        }
-    }
-
+    @Override
     public void SetText(String t) {
         text = t;
     }
 
-    public void SetDuration(int frames) {
-        lifetime = frames;
-    }
-
+    @Override
     public void SetColor(Color c) {
         this.color = c;
     }
 
+    @Override
     public void SetFontSize(float newSize) {
         font = font.deriveFont(newSize);
     }
 
+    @Override
     public void SetFont(Font f) {
         float fontSize = font.getSize();
         font = f.deriveFont(fontSize);
     }
 
-    public void SetX(int x) {
-        this.x = x;
+    @Override
+    public boolean IsActive() {
+        return isActive;
     }
 
-    public void SetY(int y) {
-        this.y = y;
-    }
-
-    public int GetX() {
-        return x;
-    }
-
-    public int GetY() {
-        return y;
+    @Override
+    public void SetActive(boolean active) {
+        isActive=active;
     }
 }

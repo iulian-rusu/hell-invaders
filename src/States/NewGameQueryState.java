@@ -3,7 +3,7 @@ package States;
 import Assets.Images.BackgroundAssets;
 import Assets.Images.GUIAssets;
 import GUI.GUIButton;
-import GUI.GUIText;
+import GUI.Text.GUIText;
 import Game.GameWindow;
 import GameSystems.EventSystem.Events.AudioEvent;
 
@@ -14,8 +14,9 @@ public class NewGameQueryState extends ReversibleState {
     public static final int QUESTION_Y = 400;
     public static final int QUESTION_X = 270;
     public static final int OPTIONS_Y = QUESTION_Y + 50;
-    public static final int BACK_OPTION_X = 500;
-    public static final int NEW_GAME_OPTION_X = BACK_OPTION_X + GUIButton.BUTTON_W+20;
+    public static final int OPTION_X_OFFSET = 25;
+    public static final int BACK_OPTION_X = GameWindow.wndDimension.width / 2 - GUIButton.BUTTON_W - OPTION_X_OFFSET;
+    public static final int NEW_GAME_OPTION_X = GameWindow.wndDimension.width / 2 + OPTION_X_OFFSET;
 
     private final GUIText question;
 
@@ -36,7 +37,7 @@ public class NewGameQueryState extends ReversibleState {
         });
         allButtons.add(new_game);
         //question
-        question = new GUIText("ARE YOU SURE YOU WANT TO START A NEW GAME?", QUESTION_X,QUESTION_Y,75);
+        question = new GUIText("ARE YOU SURE YOU WANT TO START A NEW GAME?", QUESTION_X, QUESTION_Y, 75);
     }
 
     @Override

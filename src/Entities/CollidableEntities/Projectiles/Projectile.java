@@ -3,7 +3,9 @@ package Entities.CollidableEntities.Projectiles;
 import Assets.FontAssets;
 import Entities.CollidableEntities.CollidableEntity;
 import Entities.CollidableEntities.Enemies.Enemy;
-import GUI.GUIText;
+import GUI.Text.GUIText;
+import GUI.Text.GUITextComponent;
+import GUI.Text.GUITimedDecorator;
 import GameSystems.NumberSystem.LargeNumberHandler;
 
 import java.awt.*;
@@ -50,16 +52,16 @@ public abstract class Projectile extends CollidableEntity {
         }
     }
 
-    public GUIText GetCombatText() {
+    public GUITextComponent GetCombatText() {
         long dmg=hasCrit ? GetCriticalDamage(damage) : damage;
         String val = LargeNumberHandler.ParseLongInt(dmg);
         int textX = hitBox.x + RNG.nextInt() % 15;
         int textY = hitBox.y + RNG.nextInt() % 15;
         int size = hasCrit ? 60 : 50;
-        GUIText ans = new GUIText(val, textX, textY, size);
+        //using decorator design pattern to add a timer for the text
+        GUITextComponent ans = new GUITimedDecorator(new GUIText(val, textX, textY, size), 30);
         ans.SetFont(FontAssets.mainFont_italic);
         ans.SetColor(hasCrit ? Color.YELLOW : Color.WHITE);
-        ans.SetDuration(30);
         return ans;
     }
 

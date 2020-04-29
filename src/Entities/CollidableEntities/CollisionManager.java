@@ -2,7 +2,8 @@ package Entities.CollidableEntities;
 
 import Entities.CollidableEntities.Enemies.Enemy;
 import Entities.CollidableEntities.Projectiles.Projectile;
-import GUI.GUIText;
+import GUI.Text.GUIText;
+import GUI.Text.GUITextComponent;
 import Game.GameWindow;
 
 import java.util.ArrayList;
@@ -15,8 +16,8 @@ public class CollisionManager {
         return instance;
     }
 
-    public ArrayList<GUIText> Update(ArrayList<Enemy> allEnemies, ArrayList<Projectile> allProjectiles) {
-        ArrayList<GUIText> combatTexts = CheckCollisions(allEnemies, allProjectiles);
+    public ArrayList<GUITextComponent> Update(ArrayList<Enemy> allEnemies, ArrayList<Projectile> allProjectiles) {
+        ArrayList<GUITextComponent> combatTexts = CheckCollisions(allEnemies, allProjectiles);
         CheckVisibility(allProjectiles);
         Clean(allEnemies);
         Clean(allProjectiles);
@@ -28,8 +29,8 @@ public class CollisionManager {
         allEntities.removeIf(e -> !e.isActive);
     }
 
-    public ArrayList<GUIText> CheckCollisions(ArrayList<Enemy> allEnemies, ArrayList<Projectile> allProjectiles) {
-        ArrayList<GUIText> combatTexts =new ArrayList<>();
+    public ArrayList<GUITextComponent> CheckCollisions(ArrayList<Enemy> allEnemies, ArrayList<Projectile> allProjectiles) {
+        ArrayList<GUITextComponent> combatTexts =new ArrayList<>();
         for (Projectile p : allProjectiles) {
             for (Enemy e : allEnemies) {
                 if (p.CollidesWith(e)) {

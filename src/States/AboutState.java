@@ -1,7 +1,7 @@
 package States;
 
 import GUI.GUIButton;
-import GUI.GUIText;
+import GUI.Text.GUIText;
 import Game.GameWindow;
 import Assets.Images.BackgroundAssets;
 
@@ -19,7 +19,7 @@ public class AboutState extends ReversibleState {
     public static final int DESCRIPTION_TOP_Y = 150;
     public static final int INFO_LEFT_X = DESCRIPTION_LEFT_X + 70;
     public static final int INFO_RIGHT_X = INFO_LEFT_X + 220;
-    public static final Color TEXT_COLOR = new Color(255, 252, 224);
+    public static final Color TEXT_COLOR = new Color(255, 252, 241);
     //scroll parameters
     public static final int MAX_SCROLL_OFFSET = 450;
     public static final int SCROLL_SENSIBILITY = 15;
@@ -38,9 +38,9 @@ public class AboutState extends ReversibleState {
                 DESCRIPTION_LEFT_X + 385, DESCRIPTION_TOP_Y, DESCRIPTION_FONT_SIZE, TEXT_COLOR));
         desciption.add(new GUIText("OF DEMONS FROM HELL (IF THAT WASN'T OBVIOUS).",
                 DESCRIPTION_LEFT_X, DESCRIPTION_TOP_Y + LINE_SPACING, DESCRIPTION_FONT_SIZE, TEXT_COLOR));
-        desciption.add(new GUIText("EACH DAY,  STRONGER ENEMIES WILL COME. BE PREPARED.",
+        desciption.add(new GUIText("ENEMIES WILL BECOME STRONGER EACH DAY ,  BUT THEY WILL",
                 DESCRIPTION_LEFT_X, DESCRIPTION_TOP_Y + 2 * LINE_SPACING, DESCRIPTION_FONT_SIZE, TEXT_COLOR));
-        desciption.add(new GUIText("EACH DAY,  YOU WILL HAVE TO UPGRADE YOUR ABILITIES.",
+        desciption.add(new GUIText("ALSO DROP MORE EXPERIENCE FOR ABILITY UPGRADES. ",
                 DESCRIPTION_LEFT_X, DESCRIPTION_TOP_Y + 3 * LINE_SPACING, DESCRIPTION_FONT_SIZE, TEXT_COLOR));
         desciption.add(new GUIText("CONTROLS:",
                 INFO_LEFT_X, DESCRIPTION_TOP_Y + 5 * LINE_SPACING, INFO_FONT_SIZE, Color.ORANGE));

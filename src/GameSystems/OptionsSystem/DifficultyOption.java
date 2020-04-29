@@ -6,7 +6,7 @@ import Entities.CollidableEntities.Enemies.Enemy;
 import Entities.CollidableEntities.Enemies.Monster;
 import Entities.Player;
 import GUI.GUIButton;
-import GUI.GUIText;
+import GUI.Text.GUIText;
 import Game.Game;
 import Game.GameWindow;
 import States.AboutState;

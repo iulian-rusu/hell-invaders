@@ -2,47 +2,44 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4d28048e-94e2-4db0-bf3a-f45dd18af9c3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/States/NewGameQueryState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIButton$GUIButtonState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIButton$GUIButtonState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIButton.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIText.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIText.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/Text/GUITextComponent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/Text/GUITextDecorator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/Text/GUITimedDecorator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Hell Invaders.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Hell Invaders.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/GUI/GUIText.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/Game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/Game/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/MenuState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/MenuState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/State.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/State.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/others/crit.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/others/crit.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/others/damage.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/others/damage.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/others/projectiles.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/others/projectiles.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/others/upgrade_arcane.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/others/upgrade_arcane.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/others/upgrade_frost.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/others/upgrade_frost.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/LossState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/LossState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/OptionsState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/OptionsState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/StateManager$StateIndex.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/StateManager$StateIndex.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/StateManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/StateManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/UpgradeState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/UpgradeState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/States/WinState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/States/WinState.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/crit.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/crit.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/damage.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/damage.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/projectiles.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/projectiles.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/upgrade_arcane.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/upgrade_arcane.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/upgrade_frost.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/res/others/upgrade_frost.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/GUI/GUIButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/GUI/GUIButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/GUI/GUIText.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/GUI/GUIText.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/GUI/GUIText.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/Game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/LossState.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/LossState.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/MenuState.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/MenuState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/State.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/moving objects/projectiles/fire_sprites.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/moving objects/projectiles/fire_sprites.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/others/crit.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/others/crit.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/others/damage.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/others/damage.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/others/projectiles.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/others/projectiles.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/others/upgrade_arcane.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/others/upgrade_arcane.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/others/upgrade_frost.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/others/upgrade_frost.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/OptionsState.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/OptionsState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/StateManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/StateManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/UpgradeState.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/UpgradeState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/WinState.java" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hell Invaders/res/src/States/WinState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/CollisionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/CollisionManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/ArcaneProjectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/ArcaneProjectile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/Projectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/CollidableEntities/Projectiles/Projectile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entities/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entities/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/GUIButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUIButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/GUIText.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUIText.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/GUIStatusBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GUIStatusBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/GUIText.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Text/GUIText.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/GUITextPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/Text/GUITextPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameSystems/OptionsSystem/DifficultyOption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameSystems/OptionsSystem/DifficultyOption.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/DamageUpgrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/DamageUpgrade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/ExperiencePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/ExperiencePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/Upgrade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameSystems/UpgradeSystem/Upgrade.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/States/AboutState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/AboutState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/States/MenuState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/MenuState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/States/StateManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/StateManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/States/LossState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/LossState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/States/NewGameQueryState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/NewGameQueryState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/States/PlayState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/PlayState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/States/UpgradeState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/UpgradeState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/States/WinState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/States/WinState.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +78,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="full.screen.before.presentation.mode" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -282,7 +283,21 @@
       <option name="project" value="LOCAL" />
       <updated>1587234979517</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Added question before starting a new game.">
+      <created>1587501688451</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1587501688451</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Added question before starting a new game.">
+      <created>1587502344916</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1587502344916</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -310,17 +325,18 @@
     <MESSAGE value="Added upgrade system." />
     <MESSAGE value="Added &quot;About&quot; and &quot;Options&quot; state." />
     <MESSAGE value="Added mouse scroll events." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added mouse scroll events." />
+    <MESSAGE value="Added question before starting a new game." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added question before starting a new game." />
   </component>
   <component name="WindowStateProjectService">
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584525283738">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1584525283738" />
-    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser" timestamp="1587500920623">
+    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser" timestamp="1588179237462">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1587500920623" />
+    <state x="574" y="122" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1588179237462" />
     <state x="449" y="148" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1586620582484">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -341,30 +357,30 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1584800079770" />
-    <state x="424" y="108" key="CommitChangelistDialog2" timestamp="1587234975817">
+    <state x="424" y="108" key="CommitChangelistDialog2" timestamp="1587502343729">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="424" y="108" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587234975817" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1587478078150">
+    <state x="424" y="108" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1587502343729" />
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1587974363200">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1587478078150" />
-    <state width="1493" height="66" key="GridCell.Tab.0.bottom" timestamp="1587499853749">
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1587974363200" />
+    <state width="1493" height="80" key="GridCell.Tab.0.bottom" timestamp="1588179280743">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="66" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1587499853749" />
-    <state width="1493" height="66" key="GridCell.Tab.0.center" timestamp="1587499853749">
+    <state width="1493" height="80" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1588179280743" />
+    <state width="1493" height="80" key="GridCell.Tab.0.center" timestamp="1588179280743">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="66" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1587499853749" />
-    <state width="1493" height="66" key="GridCell.Tab.0.left" timestamp="1587499853749">
+    <state width="1493" height="80" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1588179280743" />
+    <state width="1493" height="80" key="GridCell.Tab.0.left" timestamp="1588179280742">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="66" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1587499853749" />
-    <state width="1493" height="66" key="GridCell.Tab.0.right" timestamp="1587499853749">
+    <state width="1493" height="80" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1588179280742" />
+    <state width="1493" height="80" key="GridCell.Tab.0.right" timestamp="1588179280743">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="66" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1587499853749" />
+    <state width="1493" height="80" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1588179280743" />
     <state width="1493" height="185" key="GridCell.Tab.1.bottom" timestamp="1587292875960">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -393,14 +409,18 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup/0.0.1536.824@0.0.1536.824" timestamp="1585923519118" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1587219057351">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1587501676567">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1587219057351" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1587501676567" />
     <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1586620018874">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1586620018874" />
+    <state x="498" y="304" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1588179879062">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="498" y="304" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1536.824@0.0.1536.824" timestamp="1588179879062" />
     <state x="578" y="329" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586186523432">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -421,10 +441,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="491" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1584950962749" />
-    <state x="209" y="33" key="new project wizard" timestamp="1586706500253">
+    <state x="209" y="33" key="new project wizard" timestamp="1587910591673">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="209" y="33" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1586706500253" />
+    <state x="209" y="33" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1587910591673" />
     <state x="562" y="160" key="refactoring.ChangeSignatureDialog" timestamp="1586634606300">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

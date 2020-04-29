@@ -57,7 +57,7 @@ public class MenuState extends State {
         super.Init();
         NotifyAllObservers(AudioEvent.PLAY_CURRENT_STATE_MUSIC);
         logoColorflag = true;
-        //TODO if the databse is not empty -> unblock "resume" button
+        //TODO: if the databse is not empty -> unblock "resume" button
         allButtons.get(1).Block(GUIAssets.resume_button_blocked);
     }
 

@@ -1,7 +1,8 @@
 package Entities.CollidableEntities.Projectiles;
 
 import Assets.Images.ProjectileAssets;
-import GUI.GUIText;
+import GUI.Text.GUIText;
+import GUI.Text.GUITextComponent;
 
 import java.awt.*;
 
@@ -14,8 +15,8 @@ public class ArcaneProjectile extends Projectile {
     }
 
     @Override
-    public GUIText GetCombatText() {
-        GUIText ans = super.GetCombatText();
+    public GUITextComponent GetCombatText() {
+        GUITextComponent ans = super.GetCombatText();
         ans.SetColor(hasCrit ? Color.MAGENTA : Color.WHITE);
         return ans;
     }

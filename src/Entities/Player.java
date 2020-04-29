@@ -95,7 +95,7 @@ public class Player extends Entity implements Observer {
         projectileDamage = DEFAULT_DAMAGE;
         critChance = 0;
         currentProjetile = ProjectileType.FIRE;
-        experience = 0L;
+        experience = 9999L;
         level = 1;
     }
 

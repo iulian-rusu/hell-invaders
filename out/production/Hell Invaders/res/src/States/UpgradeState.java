@@ -2,7 +2,7 @@ package States;
 
 import Assets.Images.GUIAssets;
 import Entities.Player;
-import GUI.GUIText;
+import GUI.Text.GUIText;
 import Game.Game;
 import GameSystems.EventSystem.Events.AudioEvent;
 import GUI.GUIButton;

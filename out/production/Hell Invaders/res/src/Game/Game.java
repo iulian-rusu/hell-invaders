@@ -40,7 +40,7 @@ public class Game extends MouseAdapter implements Runnable {
         AudioManager.GetInstance();
         //load all game states
         stateManager = StateManager.GetInstance();
-        //game starts in emnu state
+        //game starts in menu state
         stateManager.SetCurrentState(StateManager.StateIndex.MENU_STATE);
         //enable mouse events
         Canvas wndCanvas = wnd.GetCanvas();
@@ -49,6 +49,8 @@ public class Game extends MouseAdapter implements Runnable {
         wndCanvas.addMouseWheelListener(this);
         //init cursors
         targetCursor = Toolkit.getDefaultToolkit().createCustomCursor(GUIAssets.target_cursor, new Point(15,15), "target");
+        //stop loading thread
+        load.Stop();
     }
 
     @Override
@@ -58,8 +60,6 @@ public class Game extends MouseAdapter implements Runnable {
         long curentTime;
         final int framesPerSecond = 60;
         final double timeFrame = 1000000000.0 / framesPerSecond;
-        //stop loading thread
-        load.Stop();
         while (runState) {
             curentTime = System.nanoTime();
             if ((curentTime - oldTime) >= timeFrame) {

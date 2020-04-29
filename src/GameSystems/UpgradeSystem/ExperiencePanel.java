@@ -7,7 +7,7 @@ import GameSystems.EventSystem.Events.CombatEvent;
 import GameSystems.EventSystem.Events.GameEvent;
 import GameSystems.EventSystem.Observer;
 
-import GUI.GUITextPanel;
+import GUI.Text.GUITextPanel;
 import Game.GameWindow;
 import States.ReversibleState;
 import GameSystems.NumberSystem.LargeNumberHandler;

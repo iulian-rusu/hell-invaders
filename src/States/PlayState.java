@@ -4,11 +4,12 @@ import Entities.CollidableEntities.CollisionManager;
 import Entities.CollidableEntities.Enemies.Enemy;
 import Entities.Player;
 import Entities.CollidableEntities.Projectiles.Projectile;
+import GUI.Text.GUITextComponent;
 import GameSystems.EventSystem.Events.AudioEvent;
 import GameSystems.EventSystem.Events.CombatEvent;
 import GameSystems.EventSystem.Events.GameEvent;
 import GUI.GUIButton;
-import GUI.GUIText;
+import GUI.Text.GUIText;
 import Game.GameWindow;
 import Assets.Images.BackgroundAssets;
 import GameSystems.LevelSystem.LevelLoader;
@@ -28,7 +29,7 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
     //enemies and projectiles are separated for more efficient collision checking
     private final ArrayList<Enemy> allEnemies;
     private final ArrayList<Projectile> allProjectiles;
-    private final ArrayList<GUIText> combatText;
+    private final ArrayList<GUITextComponent> combatText;
     private final Rectangle clickBox;
     private boolean isWon;
 
@@ -115,7 +116,7 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
     }
 
     private void CleanCombatText() {
-        combatText.removeIf(text -> !text.isActive);
+        combatText.removeIf(text -> !text.IsActive());
     }
 
     @Override
@@ -131,7 +132,7 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
             for (Projectile p : allProjectiles) {
                 p.Draw(g);
             }
-            for (GUIText t : combatText) {
+            for (GUITextComponent t : combatText) {
                 t.Draw(g);
             }
         } catch (ConcurrentModificationException e) {

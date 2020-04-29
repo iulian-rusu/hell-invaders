@@ -7,7 +7,7 @@ import Assets.Images.GUIAssets;
 import Entities.Player;
 import GameSystems.EventSystem.Events.AudioEvent;
 import GUI.GUIButton;
-import GUI.GUIText;
+import GUI.Text.GUIText;
 import Game.GameWindow;
 
 import java.awt.*;
