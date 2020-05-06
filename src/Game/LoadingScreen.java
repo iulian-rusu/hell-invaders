@@ -7,9 +7,9 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 public class LoadingScreen implements Runnable {
-    private boolean isLoading = true;
+    private volatile boolean isLoading = true;
     private final GameWindow wnd;
-    private final BufferedImage bg_load=ImageLoader.LoadImage("/backgrounds/bg_load.png");
+    private final BufferedImage bgLoad =ImageLoader.LoadImage("/backgrounds/bg_load.png");
 
     public LoadingScreen(GameWindow target) {
         wnd = target;
@@ -47,7 +47,7 @@ public class LoadingScreen implements Runnable {
         assert bs != null;
         Graphics g = bs.getDrawGraphics();
         g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
-        g.drawImage(bg_load,0,0,wnd.GetWndWidth(), wnd.GetWndHeight(),null);
+        g.drawImage(bgLoad,0,0,wnd.GetWndWidth(), wnd.GetWndHeight(),null);
         bs.show();
         g.dispose();
     }

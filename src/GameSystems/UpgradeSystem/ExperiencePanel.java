@@ -1,10 +1,11 @@
 package GameSystems.UpgradeSystem;
 
 import Assets.Images.GUIAssets;
-import Entities.Player;
 import GUI.GUIButton;
+import Game.GlobalReferences;
 import GameSystems.EventSystem.Events.CombatEvent;
 import GameSystems.EventSystem.Events.GameEvent;
+import GameSystems.EventSystem.Events.UpgradeEvent;
 import GameSystems.EventSystem.Observer;
 
 import GUI.Text.GUITextPanel;
@@ -17,7 +18,7 @@ import java.awt.*;
 public class ExperiencePanel implements Observer {
     //singleton class that manages player experience
     public static final int EXPERIENCE_PANEL_WIDTH = GUIButton.BUTTON_W;
-    public static final int EXPERIENCE_PANEL_X = GameWindow.wndDimension.width - ReversibleState.BACK_BUTTON_X - EXPERIENCE_PANEL_WIDTH;
+    public static final int EXPERIENCE_PANEL_X = GameWindow.screenDimension.width - ReversibleState.BACK_BUTTON_X - EXPERIENCE_PANEL_WIDTH;
 
     private final GUITextPanel experiencePanel;
 
@@ -33,14 +34,14 @@ public class ExperiencePanel implements Observer {
     }
 
     public void UpdateValue() {
-        long value = Player.GetInstance().GetExperience();
+        long value = GlobalReferences.player.GetExperience();
         experiencePanel.SetText(LargeNumberHandler.ParseLongInt(value)+" XP");
     }
 
     @Override
     public void OnNotify(GameEvent e) {
         //experience bar updated in case of monster death or upgrade event
-        if (e == CombatEvent.ENEMY_DEATH || e.GetType() == GameEvent.GameEventType.UpgradeEvent) {
+        if (e == CombatEvent.ENEMY_DEATH || e instanceof UpgradeEvent) {
             UpdateValue();
         }
     }

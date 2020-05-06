@@ -1,43 +1,48 @@
 package States;
 
-import Assets.Images.BackgroundAssets;
 import Assets.FontAssets;
+import Assets.Images.BackgroundAssets;
 import Assets.Images.GUIAssets;
-import GameSystems.EventSystem.Events.AudioEvent;
 import GUI.GUIButton;
 import GUI.Text.GUIText;
 import Game.GameWindow;
+import GameSystems.EventSystem.Events.AudioEvent;
 
 import java.awt.*;
-import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
+/*! \class LossState
+    \brief Implements the loss mechanic of the game.
+ */
 public class LossState extends State {
-    private final GUIText gameOverText;
+    private final GUIText gameOverText;///< Text that tells the player they lost.
 
-    public LossState(){
-        allButtons=new ArrayList<>();
-        //back button
-        int backW = 400;
-        int backX = GameWindow.wndDimension.width / 2 - backW / 2;
-        int backH = 110;
-        allButtons.add(new GUIButton(GUIAssets.back_button,GUIAssets.back_button_hovered, backX,725, backW, backH));
+    /*! \fn public LossState()
+        \brief Constructor without parameters.
+     */
+    public LossState() {
+        allButtons = new ArrayList<>();
+         // Back button positioning
+        int backButtonW = 400;
+        int backButtonH = 110;
+        int backButtonX = GameWindow.screenDimension.width / 2 - backButtonW / 2;
+        allButtons.add(new GUIButton(GUIAssets.back_button, GUIAssets.back_button_hovered, backButtonX, 725, backButtonW, backButtonH));
         allButtons.get(0).AddActionListener(actionEvent -> {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
             StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE);
         });
-        //level failure text
-        int textX = backX-200;
+        // Game over text positioning
+        int textX = backButtonX - 200;
         int textY = 550;
-        gameOverText =new GUIText("YOU DIED.",textX,textY,300);
-        gameOverText.SetFont(FontAssets.mainFont_bold);
+        gameOverText = new GUIText("YOU DIED.", textX, textY, 300);
+        gameOverText.SetFont(FontAssets.mainFontBold);
         gameOverText.SetColor(Color.RED);
     }
 
     @Override
-    public void Update(){
+    public void Update() {
         super.Update();
-        if(secondCount==5 && frameCount==0) {
+        if (secondCount == 5 && frameCount == 0) {
             allButtons.get(0).Unblock(GUIAssets.back_button);
         }
     }
@@ -50,19 +55,14 @@ public class LossState extends State {
     }
 
     @Override
-    public void Draw(GameWindow wnd) {
-        BufferStrategy bs = wnd.GetCanvas().getBufferStrategy();
-        Graphics g = bs.getDrawGraphics();
-        g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
-        g.drawImage(BackgroundAssets.bg_game_over, 0, 0, null);
-        if(secondCount>1){
-            gameOverText.Draw(g);
+    public void Draw(Graphics2D g2d) {
+        g2d.drawImage(BackgroundAssets.bgLoss, 0, 0, null);
+        if (secondCount > 1) {
+            gameOverText.Draw(g2d);
         }
-        if(secondCount>5) {
-            allButtons.get(0).Draw(g);
+        if (secondCount > 5) {
+            allButtons.get(0).Draw(g2d);
         }
-        bs.show();
-        g.dispose();
     }
 
 }

@@ -58,7 +58,7 @@ public class GUIStatusBar<T extends Entity> implements Observer {
 
     @Override
     public void OnNotify(GameEvent e) {
-        if (!(e.GetType() == GameEvent.GameEventType.CombatEvent))
+        if (!(e instanceof CombatEvent))
             return;
         switch ((CombatEvent) e) {
             case STATUS_BAR_RESET:

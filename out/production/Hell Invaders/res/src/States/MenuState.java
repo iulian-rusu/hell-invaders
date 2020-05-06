@@ -7,15 +7,14 @@ import GUI.GUIButton;
 import Game.GameWindow;
 
 import java.awt.*;
-import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
 public class MenuState extends State {
     private boolean logoColorflag = true;
 
     public MenuState() {
-        final int menuY = GameWindow.wndDimension.height / 2-10;
-        final int menuX =( GameWindow.wndDimension.width - GUIButton.BUTTON_W) / 2;
+        final int menuY = GameWindow.screenDimension.height / 2-10;
+        final int menuX =( GameWindow.screenDimension.width - GUIButton.BUTTON_W) / 2;
         final int buttonSpacing = 75;
 
         allButtons = new ArrayList<>(5);
@@ -62,21 +61,16 @@ public class MenuState extends State {
     }
 
     @Override
-    public void Draw(GameWindow wnd) {
-        BufferStrategy bs = wnd.GetCanvas().getBufferStrategy();
-        Graphics g = bs.getDrawGraphics();
-        g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
+    public void Draw(Graphics2D g2d) {
         if (frameCount == 59) {
             logoColorflag = !logoColorflag;
         }
         if (logoColorflag) {
-            g.drawImage(BackgroundAssets.bg_menu0, 0, 0, null);
+            g2d.drawImage(BackgroundAssets.bgMenuFirst, 0, 0, null);
         } else {
-            g.drawImage(BackgroundAssets.bg_menu1, 0, 0, null);
+            g2d.drawImage(BackgroundAssets.bgMenuSecond, 0, 0, null);
         }
         for (GUIButton b : allButtons)
-            b.Draw(g);
-        bs.show();
-        g.dispose();
+            b.Draw(g2d);
     }
 }

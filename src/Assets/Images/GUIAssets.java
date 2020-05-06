@@ -4,40 +4,54 @@ import java.awt.image.BufferedImage;
 
 public class GUIAssets {
     public static void Init() {
-        target_cursor =ImageLoader.LoadImage("/others/target_cursor.png");
-        LoadMenuAssets();
-        LoadOpionsAssets();
-        LoadUpgradeAssets();
-    }
+        target_cursor = ImageLoader.LoadImage("/others/target_cursor.png");
 
-    private static void LoadMenuAssets() {
-        new_game_button = ImageLoader.LoadImage("/buttons/new_game_button.png");
-        new_game_button_hovered = ImageLoader.LoadImage("/buttons/new_game_button_hovered.png");
-        resume_button = ImageLoader.LoadImage("/buttons/resume_button.png");
-        resume_button_hovered = ImageLoader.LoadImage("/buttons/resume_button_hovered.png");
-        resume_button_blocked = ImageLoader.LoadImage("/buttons/resume_button_blocked.png");
-        options_button = ImageLoader.LoadImage("/buttons/options_button.png");
-        options_button_hovered = ImageLoader.LoadImage("/buttons/options_button_hovered.png");
-        about_button = ImageLoader.LoadImage("/buttons/about_button.png");
-        about_button_hovered = ImageLoader.LoadImage("/buttons/about_button_hovered.png");
-        quit_button = ImageLoader.LoadImage("/buttons/quit_button.png");
-        quit_button_hovered = ImageLoader.LoadImage("/buttons/quit_button_hovered.png");
-    }
+        int buttonW = 124;
+        int buttonH = 29;
+        BufferedImage spritesheet = ImageLoader.LoadImage("/buttons/button_sprites.png");
+        assert spritesheet != null;
 
-    private static void LoadOpionsAssets() {
-        easy_button = ImageLoader.LoadImage("/buttons/easy_button.png");
-        easy_button_hovered = ImageLoader.LoadImage("/buttons/easy_button_hovered.png");
-        medium_button = ImageLoader.LoadImage("/buttons/medium_button.png");
-        medium_button_hovered = ImageLoader.LoadImage("/buttons/medium_button_hovered.png");
-        hard_button = ImageLoader.LoadImage("/buttons/hard_button.png");
-        hard_button_hovered = ImageLoader.LoadImage("/buttons/hard_button_hovered.png");
-        yellow_button = ImageLoader.LoadImage("/buttons/yellow_button.png");
-        green_button = ImageLoader.LoadImage("/buttons/green_button.png");
-        back_button = ImageLoader.LoadImage("/buttons/back_button.png");
-        back_button_hovered = ImageLoader.LoadImage("/buttons/back_button_hovered.png");
-    }
+        new_game_button = GetSubimageAt(spritesheet,1, 6, buttonW, buttonH);
+        new_game_button_hovered = GetSubimageAt(spritesheet,0,7, buttonW, buttonH);
 
-    private static void LoadUpgradeAssets() {
+        resume_button = GetSubimageAt(spritesheet,2,5, buttonW, buttonH);
+        resume_button_hovered = GetSubimageAt(spritesheet,2,7, buttonW, buttonH);
+        resume_button_blocked = GetSubimageAt(spritesheet,2,6, buttonW, buttonH);
+
+        options_button = GetSubimageAt(spritesheet,1,7, buttonW, buttonH);
+        options_button_hovered = GetSubimageAt(spritesheet,2,0, buttonW, buttonH);
+
+        about_button = GetSubimageAt(spritesheet,0,0, buttonW, buttonH);
+        about_button_hovered = GetSubimageAt(spritesheet,0,1, buttonW, buttonH);
+
+        quit_button = GetSubimageAt(spritesheet,2,3, buttonW, buttonH);
+        quit_button_hovered = GetSubimageAt(spritesheet,2,4, buttonW, buttonH);
+
+        easy_button = GetSubimageAt(spritesheet,1, 0, buttonW, buttonH);
+        easy_button_hovered = GetSubimageAt(spritesheet,1,1, buttonW, buttonH);
+
+        medium_button = GetSubimageAt(spritesheet,1,5, buttonW, buttonH);
+        medium_button_hovered = GetSubimageAt(spritesheet,0,6, buttonW, buttonH);
+
+        hard_button = GetSubimageAt(spritesheet,1,4, buttonW, buttonH);
+        hard_button_hovered = GetSubimageAt(spritesheet,0,5, buttonW, buttonH);
+
+        yellow_button = GetSubimageAt(spritesheet,2,8, buttonW, buttonH);
+
+        green_button = GetSubimageAt(spritesheet,0,4, buttonW, buttonH);
+
+        back_button = GetSubimageAt(spritesheet,0,2, buttonW, buttonH);
+        back_button_hovered = GetSubimageAt(spritesheet,0,3, buttonW, buttonH);
+
+        play_button = GetSubimageAt(spritesheet,2,1, buttonW, buttonH);
+        play_button_hovered = GetSubimageAt(spritesheet,2,2, buttonW, buttonH);
+
+        full_screen_button = GetSubimageAt(spritesheet, 1,2, buttonW, buttonH);
+        full_screen_button_hovered = GetSubimageAt(spritesheet, 1,3, buttonW, buttonH);
+
+        windowed_button = GetSubimageAt(spritesheet, 0,8, buttonW, buttonH);
+        windowed_button_hovered = GetSubimageAt(spritesheet, 1,8, buttonW, buttonH);
+
         damage = ImageLoader.LoadImage("/others/damage.png");
         crit = ImageLoader.LoadImage("/others/crit.png");
         projectiles = ImageLoader.LoadImage("/others/projectiles.png");
@@ -46,9 +60,12 @@ public class GUIAssets {
         buy_button = ImageLoader.LoadImage("/buttons/buy_button.png");
         buy_button_hovered = ImageLoader.LoadImage("/buttons/buy_button_hovered.png");
         buy_button_blocked = ImageLoader.LoadImage("/buttons/buy_button_blocked.png");
-        play_button = ImageLoader.LoadImage("/buttons/play_button.png");
-        play_button_hovered = ImageLoader.LoadImage("/buttons/play_button_hovered.png");
     }
+
+    private static BufferedImage GetSubimageAt(BufferedImage spritesheet, int x, int y, int w, int h) {
+        return spritesheet.getSubimage(x * w, y * h, w, h);
+    }
+
     //cursor
     public static BufferedImage target_cursor;
     //main menu buttons
@@ -74,6 +91,10 @@ public class GUIAssets {
     public static BufferedImage green_button;
     public static BufferedImage back_button;
     public static BufferedImage back_button_hovered;
+    public static BufferedImage full_screen_button;
+    public static BufferedImage full_screen_button_hovered;
+    public static BufferedImage windowed_button;
+    public static BufferedImage windowed_button_hovered;
     //upgrade icons
     public static BufferedImage damage;
     public static BufferedImage crit;

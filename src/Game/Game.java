@@ -3,6 +3,7 @@ package Game;
 import Assets.Audio.AudioManager;
 import Assets.Images.GUIAssets;
 import Assets.Images.ImageLoader;
+import Entities.Player;
 import States.StateManager;
 
 import java.awt.*;
@@ -18,10 +19,10 @@ public class Game extends MouseAdapter implements Runnable {
     public static int DIFFICULTY = 1;
 
     private GameWindow wnd;
-    private LoadingScreen load;
     Cursor targetCursor;
-    private boolean runState;
+    private volatile boolean runState;
     private StateManager stateManager;
+    LoadingScreen loadingScreen;
 
     public Game() {
         runState = false;
@@ -31,16 +32,18 @@ public class Game extends MouseAdapter implements Runnable {
         wnd = new GameWindow("Hell Invaders");
         wnd.BuildGameWindow();
         //start loading thread
-        load=new LoadingScreen(wnd);
-        Thread loadThread=new Thread(load);
+        loadingScreen = new LoadingScreen(wnd);
+        Thread loadThread = new Thread(loadingScreen);
         loadThread.start();
         //load assets
         ImageLoader.Init();
         //load audio
-        AudioManager.GetInstance();
+        AudioManager.Init();
+        //create main player
+        GlobalReferences.player = new Player();
         //load all game states
         stateManager = StateManager.GetInstance();
-        //game starts in menu state
+        //set initial state
         stateManager.SetCurrentState(StateManager.StateIndex.MENU_STATE);
         //enable mouse events
         Canvas wndCanvas = wnd.GetCanvas();
@@ -48,9 +51,7 @@ public class Game extends MouseAdapter implements Runnable {
         wndCanvas.addMouseMotionListener(this);
         wndCanvas.addMouseWheelListener(this);
         //init cursors
-        targetCursor = Toolkit.getDefaultToolkit().createCustomCursor(GUIAssets.target_cursor, new Point(15,15), "target");
-        //stop loading thread
-        load.Stop();
+        targetCursor = Toolkit.getDefaultToolkit().createCustomCursor(GUIAssets.target_cursor, new Point(15, 15), "target");
     }
 
     @Override
@@ -60,6 +61,8 @@ public class Game extends MouseAdapter implements Runnable {
         long curentTime;
         final int framesPerSecond = 60;
         final double timeFrame = 1000000000.0 / framesPerSecond;
+        //stop loading thread
+        loadingScreen.Stop();
         while (runState) {
             curentTime = System.nanoTime();
             if ((curentTime - oldTime) >= timeFrame) {
@@ -81,12 +84,12 @@ public class Game extends MouseAdapter implements Runnable {
     private void Update() {
         stateManager.Update();
         //handle cursor change
-        Canvas canvas=wnd.GetCanvas();
-        if(stateManager.GetCurrentStateIndex() == StateManager.StateIndex.GAME_STATE){
-            if(canvas.getCursor()!=targetCursor) {
+        Canvas canvas = wnd.GetCanvas();
+        if (stateManager.GetCurrentStateIndex() == StateManager.StateIndex.GAME_STATE) {
+            if (canvas.getCursor() != targetCursor) {
                 canvas.setCursor(targetCursor);
             }
-        }else if(canvas.getCursor()==targetCursor){
+        } else if (canvas.getCursor() == targetCursor) {
             canvas.setCursor(Cursor.getDefaultCursor());
         }
     }
@@ -101,20 +104,40 @@ public class Game extends MouseAdapter implements Runnable {
                 e.printStackTrace();
             }
         }
-        stateManager.Draw(wnd);
+        assert bs != null;
+        Graphics2D g2d = (Graphics2D) bs.getDrawGraphics();
+        if (!wnd.isFullScreen) {
+            g2d.scale(1, 0.95);
+        }
+        g2d.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
+        //draw elements in the current state
+        stateManager.Draw(g2d);
+        bs.show();
+        g2d.dispose();
+
     }
 
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
-        stateManager.GetCurrentState().mousePressed(mouseEvent);
+        Point pressPoint = mouseEvent.getPoint();
+        if (!wnd.isFullScreen) {
+            pressPoint.y /= GameWindow.Y_SCALE_FACTOR;
+        }
+        stateManager.GetCurrentState().MousePressed(pressPoint);
     }
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
-        stateManager.GetCurrentState().mouseMoved(mouseEvent);
+        Point movePoint = mouseEvent.getPoint();
+        if (!wnd.isFullScreen) {
+            movePoint.y /= GameWindow.Y_SCALE_FACTOR;
+        }
+        stateManager.GetCurrentState().MouseMoved(movePoint);
     }
 
     @Override
-    public void mouseWheelMoved(MouseWheelEvent e) { stateManager.GetCurrentState().mouseWheelMoved(e); }
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        stateManager.GetCurrentState().MouseWheelMoved(e);
+    }
 }
 

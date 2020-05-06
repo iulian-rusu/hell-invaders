@@ -1,35 +1,45 @@
 package States;
 
 import GUI.GUIButton;
-import Game.GameWindow;
 import Assets.Images.BackgroundAssets;
 import GameSystems.OptionsSystem.DifficultyOption;
+import GameSystems.OptionsSystem.Option;
+import GameSystems.OptionsSystem.WindowModeOption;
 
 import java.awt.*;
-import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 
+/*! \class OptionsState
+    \brief Implements the options of the game.
+ */
 public class OptionsState extends ReversibleState {
-    private final DifficultyOption difficultyOption;
+    private final ArrayList<Option> allOptions;///< Holds all options.
 
+    /*! \fn public OptionsState()
+        \brief Constructor without parameters.
+     */
     public OptionsState() {
-        //back button
+        // Back button
         allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE));
-        //add difficulty button
-        difficultyOption=new DifficultyOption();
+        allOptions = new ArrayList<>(2);
+        // Add difficulty button
+        DifficultyOption difficultyOption=new DifficultyOption();
         allButtons.add(difficultyOption.GetButtonHandle());
+        allOptions.add(difficultyOption);
+        // Add window mode option
+        WindowModeOption windowModeOption = new WindowModeOption();
+        allButtons.add(windowModeOption.GetButtonHandle());
+        allOptions.add(windowModeOption);
     }
 
     @Override
-    public void Draw(GameWindow wnd) {
-        BufferStrategy bs = wnd.GetCanvas().getBufferStrategy();
-        Graphics g = bs.getDrawGraphics();
-        g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
-        g.drawImage(BackgroundAssets.bg_game_dark, 0, 0, null);
+    public void Draw(Graphics2D g2d) {
+        g2d.drawImage(BackgroundAssets.bgGameDark, 0, 0, null);
         for (GUIButton b : allButtons) {
-            b.Draw(g);
+            b.Draw(g2d);
         }
-        difficultyOption.Draw(g);
-        bs.show();
-        g.dispose();
+        for(Option option: allOptions){
+            option.Draw(g2d);
+        }
     }
 }

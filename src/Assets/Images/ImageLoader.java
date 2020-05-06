@@ -12,9 +12,9 @@ public class ImageLoader {
     public static void Init(){
         BackgroundAssets.Init();
         GUIAssets.Init();
-        PlayerAssets.InitFromSpriteSheet();
-        EnemyAssets.InitFromSpriteSheet();
-        ProjectileAssets.InitFromSpriteSheet();
+        PlayerAssets.Init();
+        EnemyAssets.Init();
+        ProjectileAssets.Init();
         FontAssets.Init();
     }
 

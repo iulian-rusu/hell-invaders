@@ -29,7 +29,7 @@ public class FrostProjectile extends Projectile {
         //change coordinates to account for g2d rotation
         int xTransform = (int) (hitBox.x * Math.cos(-angle) - (hitBox.y + textureBox.height * 0.5) * Math.sin(-angle)- textureBox.width * 0.5);
         int yTransform = (int) (hitBox.x * Math.sin(-angle) + (hitBox.y + textureBox.height * 0.5) * Math.cos(-angle) - textureBox.height * 0.25);
-        g2d.drawImage(ProjectileAssets.frost_projectiles[(frameCount / 20) % 3], xTransform, yTransform, textureBox.width, textureBox.height, null);
+        g2d.drawImage(ProjectileAssets.frostProjectiles[(frameCount / 20) % 3], xTransform, yTransform, textureBox.width, textureBox.height, null);
         g2d.rotate(-angle);
     }
 }

@@ -1,7 +1,7 @@
 package Entities.CollidableEntities.Enemies;
 
 import Assets.Images.EnemyAssets;
-import Entities.Player;
+import Game.GlobalReferences;
 import Game.Game;
 
 import java.awt.*;
@@ -44,7 +44,7 @@ public class Monster extends Enemy {
     protected void Attack() {
         if (framesSinceLastAttack >= FRAMES_BETWEEN_ATTACKS) {
             framesSinceLastAttack = 0;
-            Player.GetInstance().TakeDamage(GET_DEFAULT_DAMAGE());
+            GlobalReferences.player.TakeDamage(GET_DEFAULT_DAMAGE());
         }
     }
 
@@ -55,9 +55,9 @@ public class Monster extends Enemy {
         }
         BufferedImage currentFrame;
         if (isSlowed || !isMoving) {
-            currentFrame = EnemyAssets.monster_frames[(frameCount / 15) % 4];
+            currentFrame = EnemyAssets.monsterFrames[(frameCount / 15) % 4];
         } else {
-            currentFrame = EnemyAssets.monster_frames[(frameCount / 5) % 4];
+            currentFrame = EnemyAssets.monsterFrames[(frameCount / 5) % 4];
         }
         g.drawImage(currentFrame, x, y, textureBox.width, textureBox.height, null);
         super.Draw(g);

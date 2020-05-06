@@ -3,6 +3,7 @@ package GameSystems.UpgradeSystem;
 import Assets.Images.GUIAssets;
 import Entities.CollidableEntities.Projectiles.ProjectileType;
 import Entities.Player;
+import Game.GlobalReferences;
 import GameSystems.EventSystem.Events.UpgradeEvent;
 import GameSystems.NumberSystem.LargeNumberHandler;
 
@@ -31,25 +32,25 @@ public class SpellUpgrade extends Upgrade {
         spellMap.put(spellProgression[1], ProjectileType.FROST);
         spellMap.put(spellProgression[2], ProjectileType.ARCANE);
         //init prices
-        this.price = DEFAULT_PRICE;
-        this.upgradeName.SetText("SPELL TYPE");
+        price = GET_PRICE(level);
+        upgradeName.SetText("SPELL TYPE");
         //set action listener for buy button
-        this.buyButton.AddActionListener(actionEvent -> Buy());
+        buyButton.AddActionListener(actionEvent -> Buy());
         //update description
         description.get(0).SetColor(Color.ORANGE);
         UpdateDescription();
     }
 
     private void UpdateDescription() {
-        if (this.spellProgression[this.spellIndex].equals(MAX_TEXT)) {
-            isMaxed=true;
-            this.priceText.SetText(MAX_TEXT);
+        if (this.spellProgression[spellIndex].equals(MAX_TEXT)) {
+            isMaxed = true;
+            priceText.SetText(MAX_TEXT);
             description.get(0).SetText(MAX_TEXT);
         } else {
-            this.priceText.SetText(LargeNumberHandler.ParseLongInt(this.price) + " XP");
-            description.get(0).SetText("NEXT: " + this.spellProgression[this.spellIndex] + " SPELL");
+            priceText.SetText(LargeNumberHandler.ParseLongInt(price) + " XP");
+            description.get(0).SetText("NEXT: " + spellProgression[spellIndex] + " SPELL");
         }
-        description.get(1).SetText("CURRENT: " + this.spellProgression[this.spellIndex - 1] + " SPELL");
+        description.get(1).SetText("CURRENT: " + spellProgression[spellIndex - 1] + " SPELL");
         icon = spellIcons[spellIndex];
     }
 
@@ -59,13 +60,18 @@ public class SpellUpgrade extends Upgrade {
         if (playerXP < 0) {
             return;
         }
-        Player.GetInstance().SetExperience(playerXP);
-        Player.GetInstance().SetProjectileType(this.spellMap.get(this.spellProgression[this.spellIndex]));
+        GlobalReferences.player.SetExperience(playerXP);
+        GlobalReferences.player.SetProjectileType(spellMap.get(spellProgression[spellIndex]));
         //update values
-        this.level++;
-        this.spellIndex++;
-        this.price = GET_PRICE(this.level);
+        level++;
+        spellIndex++;
+        price = GET_PRICE(level);
         UpdateDescription();
         NotifyAllObservers(UpgradeEvent.SPELL_UPGRADE_BOUGHT);
+    }
+
+    @Override
+    protected void LoadDataFromDB() {
+
     }
 }

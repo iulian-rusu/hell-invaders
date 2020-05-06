@@ -2,7 +2,7 @@ package Entities.CollidableEntities.Enemies;
 
 import Entities.CollidableEntities.CollidableEntity;
 import Entities.CollidableEntities.Projectiles.FrostProjectile;
-import Entities.Player;
+import Game.GlobalReferences;
 import GameSystems.EventSystem.Events.CombatEvent;
 import GameSystems.EventSystem.Events.AudioEvent;
 import GUI.GUIStatusBar;
@@ -49,7 +49,7 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
         healthBar.SetPosition(healthBarX, healthBarY);
         AddObserver(healthBar);
         //add the player as an observer
-        AddObserver(Player.GetInstance());
+        AddObserver(GlobalReferences.player);
     }
 
     public void TakeDamage(long damage) {
@@ -97,7 +97,7 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
         }
 
         //make it visible if it's on screen
-        if (isMoving && !isVisile && x <= GameWindow.wndDimension.width) {
+        if (isMoving && !isVisile && x <= GameWindow.screenDimension.width) {
             NotifyAllObservers(AudioEvent.PLAY_ENEMY_SPAWN);
             isVisile = true;
         }

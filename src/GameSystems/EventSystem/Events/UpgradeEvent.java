@@ -5,9 +5,4 @@ public enum UpgradeEvent implements GameEvent {
     DAMAGE_UPGRADE_BOUGHT,
     CRIT_UPGRADE_BOUGHT,
     PROJECTILE_UPGRADE_BOUGHT;
-
-    @Override
-    public GameEventType GetType() {
-        return GameEventType.UpgradeEvent;
-    }
 }

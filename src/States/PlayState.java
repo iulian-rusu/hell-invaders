@@ -1,38 +1,45 @@
 package States;
 
+import Assets.Images.BackgroundAssets;
 import Entities.CollidableEntities.CollisionManager;
 import Entities.CollidableEntities.Enemies.Enemy;
-import Entities.Player;
 import Entities.CollidableEntities.Projectiles.Projectile;
+import Entities.Player;
+import GUI.GUIButton;
+import GUI.Text.GUIText;
 import GUI.Text.GUITextComponent;
+import Game.GameWindow;
+import Game.GlobalReferences;
 import GameSystems.EventSystem.Events.AudioEvent;
 import GameSystems.EventSystem.Events.CombatEvent;
 import GameSystems.EventSystem.Events.GameEvent;
-import GUI.GUIButton;
-import GUI.Text.GUIText;
-import Game.GameWindow;
-import Assets.Images.BackgroundAssets;
 import GameSystems.LevelSystem.LevelLoader;
 import GameSystems.UpgradeSystem.ExperiencePanel;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferStrategy;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.ConcurrentModificationException;
 
-public class PlayState extends ReversibleState implements GameSystems.EventSystem.Observer{
-    public static final int BATTLEFIELD_Y = 180;
-    public static final int BATTLEFIELD_HEIGHT = 250;
+/*! \class PlayState
+    \brief Implements the gameplay.
+ */
+public class PlayState extends ReversibleState implements GameSystems.EventSystem.Observer {
+    public static final int BATTLEFIELD_Y = 180;///< The y coordinate whenre the battlefield starts.
+    public static final int BATTLEFIELD_HEIGHT = 250;///< The height of the battlefield.
 
-    public Player p;
-    ExperiencePanel experiencePanel;
-    //enemies and projectiles are separated for more efficient collision checking
-    private final ArrayList<Enemy> allEnemies;
-    private final ArrayList<Projectile> allProjectiles;
-    private final ArrayList<GUITextComponent> combatText;
-    private final Rectangle clickBox;
-    private boolean isWon;
+    private final Player player;///< A reference to the player object.
+    private final ExperiencePanel experiencePanel;///< A reference to the experience panel.
+    private final ArrayList<Enemy> allEnemies;///< List that holds all active enemies.
+    private final ArrayList<Projectile> allProjectiles;///< List that holds all active projectiles.
+    private final ArrayList<GUITextComponent> allCombatText;///< List that holds all text spawned during combat.
+    private final Rectangle clickBox;///< Rectangle that defines the battlefield.
+    private boolean isLevelWon;///< Flag that indicates whether the player has won the level.
 
+    /*! \fn public PlayState()
+        \brief Constructor without parameters.
+     */
     public PlayState() {
         //back button
         allButtons.get(0).AddActionListener(actionEvent -> {
@@ -41,9 +48,9 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
             StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE);
 
         });
-        //create Enemy and Projectile lists
+        // Create Enemy and Projectile lists
         allEnemies = new ArrayList<>() {
-            //sort enemies by y coordinate
+            // Sort enemies by y coordinate
             public boolean add(Enemy newEnemy) {
                 int index = Collections.binarySearch(this, newEnemy);
                 if (index < 0)
@@ -53,15 +60,15 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
             }
         };
         allProjectiles = new ArrayList<>();
-        combatText = new ArrayList<>();
+        allCombatText = new ArrayList<>();
 
-        //create player
-        p = Player.GetInstance();
-        p.AddObserver(this);
-        experiencePanel=ExperiencePanel.GetInstance();
+        // Get player
+        player = GlobalReferences.player;
+        player.AddObserver(this);
+        experiencePanel = ExperiencePanel.GetInstance();
 
-        //clickable field to fire projectiles
-        Dimension screenSize = GameWindow.wndDimension;
+        // Clickable field to fire projectiles
+        Dimension screenSize = GameWindow.screenDimension;
         clickBox = new Rectangle(200, 100, screenSize.width - 200, screenSize.height - 100);
     }
 
@@ -69,11 +76,11 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
     public void Init() {
         super.Init();
         NotifyAllObservers(AudioEvent.PLAY_CURRENT_STATE_MUSIC);
-        isWon = false;
-        p.Init();
-        //load enemy waves
-        LevelLoader.InitLevel(allProjectiles, allEnemies, p.GetLevel());
-        combatText.clear();
+        isLevelWon = false;
+        player.Init();
+        // Load enemy waves
+        LevelLoader.InitLevel(allProjectiles, allEnemies, player.GetLevel());
+        allCombatText.clear();
     }
 
     @Override
@@ -82,81 +89,85 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
         try {
             allEnemies.forEach(Enemy::Update);
             allProjectiles.forEach(Projectile::Update);
-            p.Update();
-            //check for collisions and eventually delete inactive entities
+            player.Update();
+            // Check for collisions and eventually delete inactive entities
             CleanCombatText();
-            combatText.addAll(CollisionManager.GetInstance().Update(allEnemies, allProjectiles));
+            allCombatText.addAll(CollisionManager.Update(allEnemies, allProjectiles));
         } catch (ConcurrentModificationException e) {
             e.printStackTrace();
         }
         CheckIfFinished();
     }
 
+    /*! \fn private void CheckIfFinished()
+        \brief Checks if the current level has finished.
+        If there are no enemies active after the level has begun, it is considered finished.
+     */
     private void CheckIfFinished() {
-        //if no enemies and it's not the beginning of the level -> level ended
         if (secondCount > 0 && allEnemies.size() == 0) {
-           Finish();
+            Finish();
         }
     }
 
-    private void Finish(){
-        //checks if level was lost or won and goes to the respective state
-        isWon = p.GetHealth() > 0;
-        if(isWon){
+    /*! \fn private void Finish()
+        \brief Finalizes the current level.
+        The function checks if he level si won or lost and transitions the game to the correct state.
+     */
+    private void Finish() {
+        isLevelWon = player.GetHealth() > 0;
+        if (isLevelWon) {
             NotifyAllObservers(AudioEvent.PLAY_WIN_SFX);
         }
         NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
         NotifyAllObservers(AudioEvent.STOP_ALL_SFX);
-        if (isWon) {
-            p.SetLevel(p.GetLevel() + 1);
+        if (isLevelWon) {
+            player.SetLevel(player.GetLevel() + 1);
             StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.WIN_STATE);
         } else {
             StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.LOSS_STATE);
         }
     }
 
+   /*! \fn  private void CleanCombatText()
+        \brief Deletes text that is no longer active.
+     */
     private void CleanCombatText() {
-        combatText.removeIf(text -> !text.IsActive());
+        allCombatText.removeIf(text -> !text.IsActive());
     }
 
     @Override
-    public void Draw(GameWindow wnd) {
-        BufferStrategy bs = wnd.GetCanvas().getBufferStrategy();
-        Graphics g = bs.getDrawGraphics();
-        g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
-        g.drawImage(BackgroundAssets.bg_game, 0, 0, null);
+    public void Draw(Graphics2D g2d) {
+        g2d.drawImage(BackgroundAssets.bgGameNormal, 0, 0, null);
         try {
             for (Enemy e : allEnemies) {
-                e.Draw(g);
+                e.Draw(g2d);
             }
             for (Projectile p : allProjectiles) {
-                p.Draw(g);
+                p.Draw(g2d);
             }
-            for (GUITextComponent t : combatText) {
-                t.Draw(g);
+            for (GUITextComponent t : allCombatText) {
+                t.Draw(g2d);
             }
         } catch (ConcurrentModificationException e) {
             e.printStackTrace();
         }
-        p.Draw(g);
-        experiencePanel.Draw(g);
+        player.Draw(g2d);
+        experiencePanel.Draw(g2d);
         for (GUIButton b : allButtons) {
-            b.Draw(g);
+            b.Draw(g2d);
         }
-        //draw the same info text as in upgrade state
+        // Draw the same information as in UpgradeState
         for (GUIText t : UpgradeState.infoText) {
-            t.Draw(g);
+            t.Draw(g2d);
         }
-        bs.show();
-        g.dispose();
     }
 
     @Override
-    public void mousePressed(MouseEvent mouseEvent) {
-        super.mousePressed(mouseEvent);
-        if (clickBox.contains(mouseEvent.getPoint())) {
-            Projectile[] toBeAdded = p.ShootProjectile(mouseEvent.getPoint());
-            //check if player had enough mana to shoot
+    public void MousePressed(Point pressPoint) {
+        super.MousePressed(pressPoint);
+        if (clickBox.contains(pressPoint)) {
+            Projectile[] toBeAdded = player.ShootProjectile(pressPoint);
+            // Check if player had enough mana to shoot
             if (toBeAdded != null) {
                 allProjectiles.addAll(Arrays.asList(toBeAdded));
             }
@@ -165,12 +176,13 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
 
     @Override
     public void OnNotify(GameEvent e) {
-        if(e.GetType()!= GameEvent.GameEventType.CombatEvent)
+        if (!(e instanceof CombatEvent))
             return;
-        switch((CombatEvent)e){
+        switch ((CombatEvent) e) {
             case LEVEL_LOSS:
-            case LEVEL_WIN: Finish();
-            break;
+            case LEVEL_WIN:
+                Finish();
+                break;
         }
     }
 }

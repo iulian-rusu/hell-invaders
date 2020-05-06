@@ -14,12 +14,12 @@ import States.AboutState;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class DifficultyOption {
+public class DifficultyOption implements Option {
     //text parameters
-    public static final int DIFFICULTY_TEXT_X = (GameWindow.wndDimension.width - GUIButton.BUTTON_W) / 2 - 175;
+    public static final int DIFFICULTY_TEXT_X = (GameWindow.screenDimension.width - GUIButton.BUTTON_W) / 2 - 175;
     public static final int LINE_SPACING = 50;
     public static final int INFO_FONT_SIZE = AboutState.INFO_FONT_SIZE;
-    public static final int DESCRIPTION_FONT_SIZE = INFO_FONT_SIZE + 30;
+    public static final int BIGGER_INFO_FONT_SIZE = INFO_FONT_SIZE + 30;
     public static final int DESCRIPTION_LEFT_X = 300;
     public static final int DESCRIPTION_TOP_Y = 310;
     public static final int INFO_LEFT_X = DESCRIPTION_LEFT_X + 500;
@@ -36,7 +36,7 @@ public class DifficultyOption {
                 GUIButton.BUTTON_W, GUIButton.BUTTON_H);
         difficultyButton.AddActionListener(actionEvent -> NextDifficulty());
         difficultyText = new GUIText("  DIFFICULTY:",
-                DIFFICULTY_TEXT_X, DIFFICULTY_BUTTON_Y + 50, DESCRIPTION_FONT_SIZE, AboutState.TEXT_COLOR);
+                DIFFICULTY_TEXT_X, DIFFICULTY_BUTTON_Y + 50, BIGGER_INFO_FONT_SIZE, AboutState.TEXT_COLOR);
         //description
         difficultyDescription = new ArrayList<>();
         difficultyDescription.add(new GUIText("THINGS AFFECTED BY DIFFICULTY: ",
@@ -69,16 +69,19 @@ public class DifficultyOption {
                 DESCRIPTION_LEFT_X, DESCRIPTION_TOP_Y + 8 * LINE_SPACING, INFO_FONT_SIZE, Color.GREEN));
         difficultyDescription.add(new GUIText("",
                 INFO_LEFT_X, DESCRIPTION_TOP_Y + 8 * LINE_SPACING, INFO_FONT_SIZE, AboutState.TEXT_COLOR));
-        Update();
-    }
 
-    public GUIButton GetButtonHandle() {
-        return difficultyButton;
+        UpdateButtonImages();
+        UpdateDescription();
     }
 
     private void NextDifficulty() {
-        //update game difficulty (
+        //update game difficulty
         Game.DIFFICULTY = (Game.DIFFICULTY) % 3 + 1;
+        UpdateButtonImages();
+        UpdateDescription();
+    }
+
+    private void UpdateButtonImages() {
         switch (Game.DIFFICULTY) {
             case 1:
                 difficultyButton.SetImages(GUIAssets.easy_button, GUIAssets.easy_button_hovered);
@@ -90,11 +93,9 @@ public class DifficultyOption {
                 difficultyButton.SetImages(GUIAssets.hard_button, GUIAssets.hard_button_hovered);
                 break;
         }
-        //update description
-        Update();
     }
 
-    private void Update() {
+    private void UpdateDescription() {
         difficultyDescription.get(2).SetText(Monster.GET_DEFAULT_HEALTH() + "  HEALTH  x  " + Enemy.HEALTH_INCREMENT + "  PER LEVEL");
         difficultyDescription.get(4).SetText(Enemy.GET_DEFAULT_DAMAGE() + "  DAMAGE");
         difficultyDescription.get(6).SetText(Dragon.GET_DEFAULT_HEALTH() + "  HEALTH  x  " + Enemy.HEALTH_INCREMENT + "  PER LEVEL");
@@ -105,6 +106,12 @@ public class DifficultyOption {
         difficultyDescription.get(14).SetText(Player.GET_DEFAULT_EXPERIENCE_GAIN() + "  XP  x  " + Player.EXPERIENCE_INCREMENT + "  PER LEVEL");
     }
 
+    @Override
+    public GUIButton GetButtonHandle() {
+        return difficultyButton;
+    }
+
+    @Override
     public void Draw(Graphics g) {
         difficultyText.Draw(g);
         for (GUIText t : difficultyDescription) {

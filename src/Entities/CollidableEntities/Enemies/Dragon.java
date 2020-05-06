@@ -32,7 +32,7 @@ public class Dragon extends Enemy {
     public static final int DEFAULT_HEIGHT = 100;
     public static final int DEFAULT_HITBOX_WIDTH = (int) (DEFAULT_WIDTH * 0.6);
     public static final int DEFAULT_HITBOX_HEIGHT = (int) (DEFAULT_HEIGHT * 0.6);
-    public static final int DEFAULT_ATTACK_TRANSITION_X = GameWindow.wndDimension.width / 2;
+    public static final int DEFAULT_ATTACK_TRANSITION_X = GameWindow.screenDimension.width / 2;
 
     private ArrayList<Projectile> projectiles;
 
@@ -80,7 +80,7 @@ public class Dragon extends Enemy {
     @Override
     public void Draw(Graphics g) {
         if (isVisile) {
-            BufferedImage currentFrame = EnemyAssets.dragon_frames[(frameCount / 12) % 5];
+            BufferedImage currentFrame = EnemyAssets.dragonFrames[(frameCount / 12) % 5];
             g.drawImage(currentFrame, x, y, textureBox.width, textureBox.height, null);
         }
         if (projectiles != null) {

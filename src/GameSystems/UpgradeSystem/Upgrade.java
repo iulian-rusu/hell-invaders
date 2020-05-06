@@ -1,10 +1,10 @@
 package GameSystems.UpgradeSystem;
 
 import Assets.Images.GUIAssets;
-import Entities.Player;
 import GUI.GUIButton;
 import GUI.Text.GUIText;
 import GUI.Text.GUITextPanel;
+import Game.GlobalReferences;
 import GameSystems.EventSystem.Observable;
 import States.AboutState;
 
@@ -35,38 +35,40 @@ public abstract class Upgrade extends Observable {
     protected int level;
     protected int x;
     protected int y;
-    protected boolean isMaxed=false;
+    protected boolean isMaxed = false;
 
     public Upgrade(int x, int y) {
         this.x = x;
         this.y = y;
-        this.level = 1;
+        //TODO : don't set level explicitly here, load it from DB
+        level = 1;
         //init buttons and panels
-        this.buyButton = new GUIButton(GUIAssets.buy_button, GUIAssets.buy_button_hovered,
-                x + ICON_WITDH + OFFSET, y + PANEL_HEIGHT + OFFSET, GUIButton.BUTTON_W, GUIButton.BUTTON_H);
-        this.upgradeName = new GUITextPanel("NAME", GUIAssets.yellow_button,
-                x + ICON_WITDH + OFFSET, y, PANEL_WIDTH, PANEL_HEIGHT);
-        this.priceText = new GUITextPanel("PRICE", GUIAssets.green_button,
+        buyButton = new GUIButton(GUIAssets.buy_button, GUIAssets.buy_button_hovered,
+           x + ICON_WITDH + OFFSET, y + PANEL_HEIGHT + OFFSET, GUIButton.BUTTON_W, GUIButton.BUTTON_H);
+        upgradeName = new GUITextPanel("NAME", GUIAssets.yellow_button,
+           x + ICON_WITDH + OFFSET, y, PANEL_WIDTH, PANEL_HEIGHT);
+        priceText = new GUITextPanel("PRICE", GUIAssets.green_button,
                 x + ICON_WITDH + GUIButton.BUTTON_W + 2 * OFFSET, y + PANEL_HEIGHT + OFFSET,
-                GUIButton.BUTTON_W, GUIButton.BUTTON_H,GUITextPanel.DEFAULT_GREEN_COLOR);
+                GUIButton.BUTTON_W, GUIButton.BUTTON_H, GUITextPanel.DEFAULT_GREEN_COLOR);
         //init description
-        this.description = new ArrayList<>();
-        this.description.add(new GUIText("NEXT VALUE", x, y + ICON_HEIGHT + TEXT_OFFSET, FONT_SIZE));
-        this.description.add(new GUIText("CURRENT VALUE", x, y + ICON_HEIGHT + 2 * TEXT_OFFSET, FONT_SIZE));
+        description = new ArrayList<>();
+        description.add(new GUIText("NEXT VALUE", x, y + ICON_HEIGHT + TEXT_OFFSET, FONT_SIZE));
+        description.add(new GUIText("CURRENT VALUE", x, y + ICON_HEIGHT + 2 * TEXT_OFFSET, FONT_SIZE));
         for (GUIText t : description) {
             t.SetColor(TEXT_COLOR);
         }
         description.get(0).SetFontSize(FONT_SIZE + 10);
         //experience panel will observe all upgrades
         AddObserver(ExperiencePanel.GetInstance());
+
+        LoadDataFromDB();
     }
 
     public void CheckIfBlocked() {
-        if(isMaxed || Player.GetInstance().GetExperience()<this.price){
-            this.buyButton.Block(GUIAssets.buy_button_blocked);
-        }
-        else if (!isMaxed){
-            this.buyButton.Unblock(GUIAssets.buy_button);
+        if (isMaxed || GlobalReferences.player.GetExperience() < this.price) {
+            buyButton.Block(GUIAssets.buy_button_blocked);
+        } else if (!isMaxed) {
+            buyButton.Unblock(GUIAssets.buy_button);
         }
     }
 
@@ -74,28 +76,21 @@ public abstract class Upgrade extends Observable {
         return this.buyButton;
     }
 
-    public void mouseMoved(MouseEvent e) {
-        buyButton.mouseMoved(e);
-    }
-
-    public void mousePressed(MouseEvent e) {
-        buyButton.mousePressed(e);
-    }
-
     public void Draw(Graphics g) {
         g.drawImage(icon, x, y, ICON_WITDH, ICON_HEIGHT, null);
         upgradeName.Draw(g);
         priceText.Draw(g);
-        for (GUIText t : description) {
-            t.Draw(g);
+        for (GUIText text : description) {
+            text.Draw(g);
         }
     }
 
     protected long GetNewExperience() {
-        long playerXP = Player.GetInstance().GetExperience();
-        playerXP -= this.price;
+        long playerXP = GlobalReferences.player.GetExperience();
+        playerXP -= price;
         return playerXP;
     }
 
     protected abstract void Buy();
+    protected abstract void LoadDataFromDB();
 }

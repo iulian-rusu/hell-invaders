@@ -13,13 +13,19 @@ public class AudioManager implements Observer {
     //must be instanciated before state manager class
     public static AudioManager GetInstance() {
         if (instance == null) {
-            try {
-                instance = new AudioManager();
-            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-                e.printStackTrace();
-            }
+            instance = new AudioManager();
         }
         return instance;
+    }
+
+    public static void Init(){
+        try {
+            BackgroundMusicAssets.Init();
+            SoundEffectAssets.Init();
+        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void Play(Audio sound) {
@@ -44,15 +50,13 @@ public class AudioManager implements Observer {
 
     @Override
     public void OnNotify(GameEvent e) {
-        if (!(e.GetType() == GameEvent.GameEventType.AudioEvent))
+        if (!(e instanceof AudioEvent))
             return;
-        ((AudioEvent)e).performAction.apply(null);
+        ((AudioEvent)e).playAudio.run();
     }
 
-    private AudioManager() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        BackgroundMusicAssets.Init();
-        SoundEffectAssets.Init();
+    private AudioManager(){
+        Init();
     }
-
     private static AudioManager instance = null;
 }

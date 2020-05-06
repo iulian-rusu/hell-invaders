@@ -1,28 +1,30 @@
 package Assets.Images;
 
 import Game.GameWindow;
+import Game.GlobalReferences;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 public class BackgroundAssets {
 
-    public static BufferedImage bg_game;
-    public static BufferedImage bg_game_dark;
-    public static BufferedImage bg_menu0;
-    public static BufferedImage bg_menu1;
-    public static BufferedImage bg_win;
-    public static BufferedImage bg_game_over;
+    public static BufferedImage bgGameNormal;
+    public static BufferedImage bgGameDark;
+    public static BufferedImage bgMenuFirst;
+    public static BufferedImage bgMenuSecond;
+    public static BufferedImage bgWin;
+    public static BufferedImage bgLoss;
 
     public static void Init() {
-        int w=GameWindow.wndDimension.width;
-        int h=GameWindow.wndDimension.height;
+        int w = GameWindow.screenDimension.width;
+        int h = GameWindow.screenDimension.height;
 
-        bg_game = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage("/backgrounds/bg_game.png")),w,h);
-        bg_game_dark = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage("/backgrounds/bg_game_dark.png")),w,h);
-        bg_menu0 = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage("/backgrounds/bg_menu0.png")),w,h);
-        bg_menu1 = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage("/backgrounds/bg_menu1.png")),w,h);
-        bg_win = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage("/backgrounds/bg_win.png")),w,h);
-        bg_game_over = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage("/backgrounds/bg_game_over.png")),w,h);
+        bgGameNormal = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage("/backgrounds/bg_game_normal.png")),w,h);
+        bgGameDark = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage("/backgrounds/bg_game_dark.png")),w,h);
+        bgMenuFirst = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage("/backgrounds/bg_menu_first.png")),w,h);
+        bgMenuSecond = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage("/backgrounds/bg_menu_second.png")),w,h);
+        bgWin = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage("/backgrounds/bg_win.png")),w,h);
+        bgLoss = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage("/backgrounds/bg_loss.png")),w,h);
     }
 }

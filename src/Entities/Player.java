@@ -17,7 +17,6 @@ import GameSystems.UpgradeSystem.ExperiencePanel;
 import java.awt.*;
 
 public class Player extends Entity implements Observer {
-    //singleton class that implements a player controller
     //player position parameters
     public static final int PLAYER_H = 150;
     public static final int PLAYER_W = 125;
@@ -43,8 +42,6 @@ public class Player extends Entity implements Observer {
     //combat parameters
     public static final long DEFAULT_DAMAGE=20L;
 
-    private static Player instance = null;
-
     private final GUIStatusBar<Player> healthBar;
     private final GUIStatusBar<Player> manaBar;
     private int health = GET_DEFAULT_HEALTH();
@@ -56,14 +53,7 @@ public class Player extends Entity implements Observer {
     private long projectileDamage;
     private long experience;
 
-    public static Player GetInstance() {
-        if (instance == null) {
-            instance = new Player();
-        }
-        return instance;
-    }
-
-    private Player() {
+    public Player() {
         frameCount = -1;
         AddObserver(AudioManager.GetInstance());
         //create healthbar
@@ -95,7 +85,7 @@ public class Player extends Entity implements Observer {
         projectileDamage = DEFAULT_DAMAGE;
         critChance = 0;
         currentProjetile = ProjectileType.FIRE;
-        experience = 9999L;
+        experience = 0L;
         level = 1;
     }
 
@@ -115,7 +105,7 @@ public class Player extends Entity implements Observer {
 
     @Override
     public void Draw(Graphics g) {
-        g.drawImage(PlayerAssets.player_frames[(frameCount / 8) % 4], PLAYER_X, PLAYER_Y, PLAYER_W, PLAYER_H, null);
+        g.drawImage(PlayerAssets.playerFrames[(frameCount / 8) % 4], PLAYER_X, PLAYER_Y, PLAYER_W, PLAYER_H, null);
         healthBar.Draw(g);
         manaBar.Draw(g);
     }
@@ -135,7 +125,7 @@ public class Player extends Entity implements Observer {
         mana -= MANA_COST_PER_SHOOT;
         NotifyAllObservers(currentProjetile.sfxEvent);
         NotifyAllObservers(CombatEvent.STATUS_BAR_UPDATE);
-        //calculate coordinates of hitbox to center it at p -> subtract half widht and height from each coordinate
+        //calculate coordinates of hitbox to center it at p -> subtract half width and height from each coordinate
         Point to = new Point(p.x - Projectile.PROJECTILE_WIDTH / 2, p.y - Projectile.PROJECTILE_HEIGHT / 2);
         return ProjectileFactory.MakeProjectile(currentProjetile,
                 new Point(PLAYER_X + 100, PLAYER_Y + 10), to, projectileDamage, numProjectiles, critChance);
@@ -143,9 +133,8 @@ public class Player extends Entity implements Observer {
 
     @Override
     public void OnNotify(GameEvent e) {
-        if (e.GetType() != GameEvent.GameEventType.CombatEvent) {
+        if (!(e instanceof CombatEvent))
             return;
-        }
         switch ((CombatEvent) e) {
             case ENEMY_DEATH:
                 experience += (long) (GET_DEFAULT_EXPERIENCE_GAIN() * (Math.pow(EXPERIENCE_INCREMENT, level - 1)));

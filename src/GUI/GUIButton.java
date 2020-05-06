@@ -6,7 +6,6 @@ import GameSystems.EventSystem.Observable;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -54,22 +53,22 @@ public class GUIButton extends Observable {
         actionListeners.add(a);
     }
 
-    public void mouseMoved(MouseEvent e) {
+    public void MouseMoved(Point movePoint) {
         if (currentState == GUIButtonState.BLOCKED) {
             return;
         }
-        if (currentState == GUIButtonState.RELEASED && clickBox.contains(e.getPoint())) {
+        if (currentState == GUIButtonState.RELEASED && clickBox.contains(movePoint)) {
             currentState = GUIButtonState.HOVERED;
-        } else if (!clickBox.contains(e.getPoint())) {
+        } else if (!clickBox.contains(movePoint)) {
             currentState = GUIButtonState.RELEASED;
         }
     }
 
-    public void mousePressed(MouseEvent e) {
+    public void MousePressed(Point pressPoint) {
         if (currentState == GUIButtonState.BLOCKED) {
             return;
         }
-        if (clickBox.contains(e.getPoint())) {
+        if (clickBox.contains(pressPoint)) {
             currentState = GUIButtonState.PRESSED;
             NotifyAllObservers(AudioEvent.PLAY_BUTTON_PRESS);
             for (ActionListener a : actionListeners)

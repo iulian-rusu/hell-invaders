@@ -2,6 +2,7 @@ package Entities.CollidableEntities.Projectiles;
 
 import Assets.Images.ProjectileAssets;
 import Entities.Player;
+import Game.GlobalReferences;
 
 import java.awt.*;
 
@@ -16,7 +17,7 @@ public class EnemyProjectile extends Projectile {
         super.Update();
         if (x <= Player.PLAYER_X + Player.PLAYER_W + hitBox.width) {
             isActive = false;
-            Player.GetInstance().TakeDamage(damage);
+            GlobalReferences.player.TakeDamage(damage);
         }
     }
 
@@ -27,7 +28,7 @@ public class EnemyProjectile extends Projectile {
         //change coordinates to account for g2d rotation
         int xTransform = (int) ((x + textureBox.width * 0.5) * Math.cos(-angle) - (y + textureBox.height * 0.5) * Math.sin(-angle) - textureBox.width * 0.5);
         int yTransform = (int) ((x + textureBox.width * 0.5) * Math.sin(-angle) + (y + textureBox.height * 0.5) * Math.cos(-angle) - textureBox.height * 0.5);
-        g2d.drawImage(ProjectileAssets.enemy_projectiles[(frameCount / 15) % 2], xTransform, yTransform, textureBox.width, textureBox.height, null);
+        g2d.drawImage(ProjectileAssets.enemyProjectiles[(frameCount / 15) % 2], xTransform, yTransform, textureBox.width, textureBox.height, null);
         g2d.rotate(-angle);
     }
 }

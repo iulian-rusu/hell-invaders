@@ -1,37 +1,86 @@
 package States;
 
+import Assets.Images.BackgroundAssets;
 import GUI.GUIButton;
 import GUI.Text.GUIText;
-import Game.GameWindow;
-import Assets.Images.BackgroundAssets;
 
 import java.awt.*;
 import java.awt.event.MouseWheelEvent;
-import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
+/*! \class AboutState
+    \brief Implements the "About" page of the game.
+ */
 public class AboutState extends ReversibleState {
-    //text parameters
-    public static final int LINE_SPACING = 50;
-    public static final int DESCRIPTION_FONT_SIZE = 75;
-    public static final int INFO_FONT_SIZE = DESCRIPTION_FONT_SIZE - 10;
-    public static final int DESCRIPTION_LEFT_X = 160;
-    public static final int DESCRIPTION_TOP_Y = 150;
-    public static final int INFO_LEFT_X = DESCRIPTION_LEFT_X + 70;
-    public static final int INFO_RIGHT_X = INFO_LEFT_X + 220;
-    public static final Color TEXT_COLOR = new Color(255, 252, 241);
-    //scroll parameters
-    public static final int MAX_SCROLL_OFFSET = 450;
-    public static final int SCROLL_SENSIBILITY = 15;
+    public static final int LINE_SPACING = 50;///< Spacing between text lines.
+    public static final int DESCRIPTION_FONT_SIZE = 75;///< Font size of game description.
+    public static final int INFO_FONT_SIZE = DESCRIPTION_FONT_SIZE - 10;///< Smaller font size for other information.
+    public static final int DESCRIPTION_LEFT_X = 160;///< The x coordinatete of the left side of the description text.
+    public static final int DESCRIPTION_TOP_Y = 150;///< The y coordiante of the top of the description text.
+    public static final int INFO_LEFT_X = DESCRIPTION_LEFT_X + 70;///< The x coordinate of the left side of additional information.
+    public static final int INFO_RIGHT_X = INFO_LEFT_X + 220;///< The x coordinate of the right side of additional information.
+    public static final Color TEXT_COLOR = new Color(255, 252, 241);///< The default text color.
 
-    private final ArrayList<GUIText> desciption;
-    private int scrollOffset;
+    public static final int MAX_SCROLL_OFFSET = 450;///< The maximum amout the user can scroll down.
+    public static final int SCROLL_SENSIBILITY = 15;///< The speed at which the page scrolls.
 
+    private final ArrayList<GUIText> desciption;///< The game description.
+    private int scrollOffset;///< The current scroll amount of the page.
+
+    /*! \fn public AboutState()
+        \brief Constructor without parameters.
+     */
     public AboutState() {
         //back button
         allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE));
         //description contains all lines of the about text
         desciption = new ArrayList<>(30);
+        AddGameplayDescription();
+        AddMechanicsDescription();
+        AddCredits();
+    }
+
+    @Override
+    public void Init() {
+        super.Init();
+        for (GUIButton button : allButtons) {
+            button.Translate(0, scrollOffset);
+        }
+        scrollOffset = 0;
+    }
+
+    @Override
+    public void Draw(Graphics2D g2d) {
+        g2d.drawImage(BackgroundAssets.bgGameDark, 0, 0, null);
+        g2d.translate(0, -scrollOffset);
+        for (GUIText text : desciption) {
+            text.Draw(g2d);
+        }
+        g2d.translate(0, scrollOffset);
+        for (GUIButton b : allButtons) {
+            b.Draw(g2d);
+        }
+    }
+
+    @Override
+    public void MouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
+        int before = this.scrollOffset;
+        this.scrollOffset += SCROLL_SENSIBILITY * mouseWheelEvent.getWheelRotation();
+        //check bounds
+        this.scrollOffset = Math.min(MAX_SCROLL_OFFSET, this.scrollOffset);
+        this.scrollOffset = Math.max(0, this.scrollOffset);
+        //update button positions
+        int delta = scrollOffset - before;
+        for (GUIButton button : allButtons) {
+            button.Translate(0, -delta);
+            button.MouseMoved(mouseWheelEvent.getPoint());
+        }
+    }
+
+    /*! \fn private void AddGameplayDescription()
+        \brief Adds some gameplay desciprion to the "About" page.
+    */
+    private void AddGameplayDescription() {
         desciption.add(new GUIText("    'HELL INVADERS'",
                 DESCRIPTION_LEFT_X, DESCRIPTION_TOP_Y, DESCRIPTION_FONT_SIZE, Color.RED));
         desciption.add(new GUIText(" IS A GAME ABOUT SURVIVING AN INVASION",
@@ -42,6 +91,12 @@ public class AboutState extends ReversibleState {
                 DESCRIPTION_LEFT_X, DESCRIPTION_TOP_Y + 2 * LINE_SPACING, DESCRIPTION_FONT_SIZE, TEXT_COLOR));
         desciption.add(new GUIText("ALSO DROP MORE EXPERIENCE FOR ABILITY UPGRADES. ",
                 DESCRIPTION_LEFT_X, DESCRIPTION_TOP_Y + 3 * LINE_SPACING, DESCRIPTION_FONT_SIZE, TEXT_COLOR));
+    }
+
+    /*! \fn private void AddMechanicsDescription()
+        \brief Adds the description of the mechanics of the game.
+    */
+    private void AddMechanicsDescription() {
         desciption.add(new GUIText("CONTROLS:",
                 INFO_LEFT_X, DESCRIPTION_TOP_Y + 5 * LINE_SPACING, INFO_FONT_SIZE, Color.ORANGE));
         desciption.add(new GUIText("MOUSE ONLY  -  CLICK ON THE MAP TO SHOOT PROJECTILES",
@@ -72,6 +127,12 @@ public class AboutState extends ReversibleState {
                 INFO_RIGHT_X, DESCRIPTION_TOP_Y + 11 * LINE_SPACING, INFO_FONT_SIZE, TEXT_COLOR));
         desciption.add(new GUIText("EACH DAY CAN BE PLAYED ON 3 DIFFICULTIES",
                 INFO_RIGHT_X, DESCRIPTION_TOP_Y + 12 * LINE_SPACING, INFO_FONT_SIZE, TEXT_COLOR));
+    }
+
+    /*! \fn  private void AddCredits()
+        \brief Adds game credits.
+   */
+    private void AddCredits() {
         desciption.add(new GUIText("CREDITS: ",
                 INFO_LEFT_X + 450, DESCRIPTION_TOP_Y + 14 * LINE_SPACING, INFO_FONT_SIZE, Color.ORANGE));
         desciption.add(new GUIText("GAME IDEA:",
@@ -80,7 +141,7 @@ public class AboutState extends ReversibleState {
                 INFO_RIGHT_X, DESCRIPTION_TOP_Y + 15 * LINE_SPACING, 50, Color.LIGHT_GRAY));
         desciption.add(new GUIText("SOURCE CODE:",
                 INFO_LEFT_X, DESCRIPTION_TOP_Y + 16 * LINE_SPACING, 50, Color.ORANGE));
-        desciption.add(new GUIText("IULIAN RUSU  -  https://github.com/iulian-rusu/Hell_Invaders",
+        desciption.add(new GUIText("IULIAN RUSU  -  https://github.com/iulian-rusu/hell-invaders",
                 INFO_RIGHT_X, DESCRIPTION_TOP_Y + 16 * LINE_SPACING, 50, Color.LIGHT_GRAY));
         desciption.add(new GUIText("TEXTURES:",
                 INFO_LEFT_X, DESCRIPTION_TOP_Y + 17 * LINE_SPACING, 50, Color.ORANGE));
@@ -100,47 +161,5 @@ public class AboutState extends ReversibleState {
                 INFO_RIGHT_X, DESCRIPTION_TOP_Y + 22 * LINE_SPACING, 50, Color.LIGHT_GRAY));
         desciption.add(new GUIText("COPYRIGHT © 2020 IULIAN RUSU .  ALL RIGHTS RESERVED.",
                 INFO_RIGHT_X + 35, DESCRIPTION_TOP_Y + 23 * LINE_SPACING, 35, Color.LIGHT_GRAY));
-    }
-
-    @Override
-    public void Init() {
-        super.Init();
-        for(GUIButton button:allButtons){
-            button.Translate(0,scrollOffset);
-        }
-        scrollOffset = 0;
-    }
-
-    @Override
-    public void Draw(GameWindow wnd) {
-        BufferStrategy bs = wnd.GetCanvas().getBufferStrategy();
-        Graphics g = bs.getDrawGraphics();
-        g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
-        g.drawImage(BackgroundAssets.bg_game_dark, 0, 0, null);
-        g.translate(0,-scrollOffset);
-        for (GUIText text : desciption) {
-            text.Draw(g);
-        }
-        g.translate(0,scrollOffset);
-        for (GUIButton b : allButtons) {
-            b.Draw(g);
-        }
-        bs.show();
-        g.dispose();
-    }
-
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
-        int before = this.scrollOffset;
-        this.scrollOffset += SCROLL_SENSIBILITY * mouseWheelEvent.getWheelRotation();
-        //check bounds
-        this.scrollOffset = Math.min(MAX_SCROLL_OFFSET, this.scrollOffset);
-        this.scrollOffset = Math.max(0, this.scrollOffset);
-        //update button positions
-        int delta=scrollOffset-before;
-        for(GUIButton button:allButtons){
-            button.Translate(0,-delta);
-            button.mouseMoved(mouseWheelEvent);
-        }
     }
 }

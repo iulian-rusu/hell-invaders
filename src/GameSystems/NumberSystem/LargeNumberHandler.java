@@ -11,13 +11,14 @@ public class LargeNumberHandler {
 
     Long.MAX_VALUE = 9.223 E
     */
-    private final static String[] units = {"", " K", " M", " G", " T", " P", " E"};
+    private final static String[] units = {" K", " M", " G", " T", " P", " E"};
 
     public static String ParseLongInt(long value) {
         String ans;
         if (value >= 1000) {
             double fval = value;
             int i = 0;
+            fval /= 1000.0;
             while (fval >= 1000) {
                 fval /= 1000.0;
                 ++i;
@@ -27,10 +28,10 @@ public class LargeNumberHandler {
             if (ans.length() > 5) {
                 ans = ans.substring(0, 5);
             }
-            //add units in case the value > 1000
+            //add units
             ans += units[i];
-        }else{
-            ans=String.valueOf(value);
+        } else {
+            ans = String.valueOf(value);
         }
         return ans;
     }

@@ -7,15 +7,20 @@ import GUI.GUIButton;
 import Game.GameWindow;
 
 import java.awt.*;
-import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
+/*! \class MenuState
+    \brief Implements the main menu of the game.
+ */
 public class MenuState extends State {
-    private boolean logoColorflag = true;
+    private boolean logoColorflag = true;///< Flag to signal the color of the game logo. It alternates every second.
 
+    /*! \fn public MenuState()
+        \brief Constructor without parameters.
+     */
     public MenuState() {
-        final int menuY = GameWindow.wndDimension.height / 2-10;
-        final int menuX =( GameWindow.wndDimension.width - GUIButton.BUTTON_W) / 2;
+        final int menuY = GameWindow.screenDimension.height / 2-10;
+        final int menuX =( GameWindow.screenDimension.width - GUIButton.BUTTON_W) / 2;
         final int buttonSpacing = 75;
 
         allButtons = new ArrayList<>(5);
@@ -29,23 +34,23 @@ public class MenuState extends State {
                 menuX, menuY + 3 * buttonSpacing, GUIButton.BUTTON_W, GUIButton.BUTTON_H));
         allButtons.add(new GUIButton(GUIAssets.quit_button, GUIAssets.quit_button_hovered,
                 menuX, menuY + 4 * buttonSpacing, GUIButton.BUTTON_W, GUIButton.BUTTON_H));
-        //state transition events
-        //play
+        // State transition events
+        // Play button
         allButtons.get(0).AddActionListener(actionEvent -> {
             //this will go to an intermediate state that asks again if the player is sure
             StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.NEW_GAME_QUERY_STATE);}
         );
-        //resume
+        // Resume button
         allButtons.get(1).AddActionListener(actionEvent ->{
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
-            //this goes to UPGRADE_STATE without clearing player data
+            // This goes to UpgradeState without clearing player data
             StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE);
         });
-        //options
+        // Options button
         allButtons.get(2).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.OPTIONS_STATE));
-        //about
+        // About button
         allButtons.get(3).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.ABOUT_STATE));
-        //quit
+        // Quit button
         allButtons.get(4).AddActionListener(actionEvent -> {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
             System.exit(0);
@@ -62,21 +67,16 @@ public class MenuState extends State {
     }
 
     @Override
-    public void Draw(GameWindow wnd) {
-        BufferStrategy bs = wnd.GetCanvas().getBufferStrategy();
-        Graphics g = bs.getDrawGraphics();
-        g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
+    public void Draw(Graphics2D g2d) {
         if (frameCount == 59) {
             logoColorflag = !logoColorflag;
         }
         if (logoColorflag) {
-            g.drawImage(BackgroundAssets.bg_menu0, 0, 0, null);
+            g2d.drawImage(BackgroundAssets.bgMenuFirst, 0, 0, null);
         } else {
-            g.drawImage(BackgroundAssets.bg_menu1, 0, 0, null);
+            g2d.drawImage(BackgroundAssets.bgMenuSecond, 0, 0, null);
         }
         for (GUIButton b : allButtons)
-            b.Draw(g);
-        bs.show();
-        g.dispose();
+            b.Draw(g2d);
     }
 }
