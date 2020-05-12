@@ -22,8 +22,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
 
-/*! \class PlayState
-    \brief Implements the gameplay.
+/**
+ *  @brief Implements the gameplay.
  */
 public class PlayState extends ReversibleState implements GameSystems.EventSystem.Observer {
     public static final int BATTLEFIELD_Y = 180;///< The y coordinate whenre the battlefield starts.
@@ -37,15 +37,15 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
     private final Rectangle clickBox;///< Rectangle that defines the battlefield.
     private boolean isLevelWon;///< Flag that indicates whether the player has won the level.
 
-    /*! \fn public PlayState()
-        \brief Constructor without parameters.
+    /**
+     * Constructor without parameters.
      */
     public PlayState() {
-        //back button
+        // Back button
         allButtons.get(0).AddActionListener(actionEvent -> {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
             NotifyAllObservers(AudioEvent.STOP_ALL_SFX);
-            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE);
+            StateManager.GetInstance().SetCurrentState(StateIndex.UPGRADE_STATE);
 
         });
         // Create Enemy and Projectile lists
@@ -63,12 +63,12 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
         allCombatText = new ArrayList<>();
 
         // Get player
-        player = GlobalReferences.player;
+        player = GlobalReferences.GetPlayer();
         player.AddObserver(this);
-        experiencePanel = ExperiencePanel.GetInstance();
+        experiencePanel = GlobalReferences.GetExperiencePanel();
 
         // Clickable field to fire projectiles
-        Dimension screenSize = GameWindow.screenDimension;
+        Dimension screenSize = GameWindow.SCREEN_DIMENSION;
         clickBox = new Rectangle(200, 100, screenSize.width - 200, screenSize.height - 100);
     }
 
@@ -99,9 +99,8 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
         CheckIfFinished();
     }
 
-    /*! \fn private void CheckIfFinished()
-        \brief Checks if the current level has finished.
-        If there are no enemies active after the level has begun, it is considered finished.
+    /**
+     * Checks if the current level has finished.
      */
     private void CheckIfFinished() {
         if (secondCount > 0 && allEnemies.size() == 0) {
@@ -109,9 +108,8 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
         }
     }
 
-    /*! \fn private void Finish()
-        \brief Finalizes the current level.
-        The function checks if he level si won or lost and transitions the game to the correct state.
+    /**
+     * Finalizes the current level and transitions the game to the reuired state.
      */
     private void Finish() {
         isLevelWon = player.GetHealth() > 0;
@@ -122,14 +120,14 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
         NotifyAllObservers(AudioEvent.STOP_ALL_SFX);
         if (isLevelWon) {
             player.SetLevel(player.GetLevel() + 1);
-            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.WIN_STATE);
+            StateManager.GetInstance().SetCurrentState(StateIndex.WIN_STATE);
         } else {
-            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.LOSS_STATE);
+            StateManager.GetInstance().SetCurrentState(StateIndex.LOSS_STATE);
         }
     }
 
-   /*! \fn  private void CleanCombatText()
-        \brief Deletes text that is no longer active.
+    /**
+     * Deletes text that is no longer active.
      */
     private void CleanCombatText() {
         allCombatText.removeIf(text -> !text.IsActive());

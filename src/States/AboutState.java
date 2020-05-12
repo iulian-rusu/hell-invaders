@@ -8,8 +8,8 @@ import java.awt.*;
 import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 
-/*! \class AboutState
-    \brief Implements the "About" page of the game.
+/**
+ *  @brief Implements the "About" page of the game.
  */
 public class AboutState extends ReversibleState {
     public static final int LINE_SPACING = 50;///< Spacing between text lines.
@@ -21,19 +21,19 @@ public class AboutState extends ReversibleState {
     public static final int INFO_RIGHT_X = INFO_LEFT_X + 220;///< The x coordinate of the right side of additional information.
     public static final Color TEXT_COLOR = new Color(255, 252, 241);///< The default text color.
 
-    public static final int MAX_SCROLL_OFFSET = 450;///< The maximum amout the user can scroll down.
+    public static final int MAX_SCROLL_OFFSET = 470;///< The maximum amount the user can scroll down.
     public static final int SCROLL_SENSIBILITY = 15;///< The speed at which the page scrolls.
 
     private final ArrayList<GUIText> desciption;///< The game description.
     private int scrollOffset;///< The current scroll amount of the page.
 
-    /*! \fn public AboutState()
-        \brief Constructor without parameters.
+    /**
+     * Constructor without parameters.
      */
     public AboutState() {
-        //back button
-        allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.MENU_STATE));
-        //description contains all lines of the about text
+        // Back button
+        allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateIndex.MENU_STATE));
+        // Description contains all lines of the about text
         desciption = new ArrayList<>(30);
         AddGameplayDescription();
         AddMechanicsDescription();
@@ -66,10 +66,10 @@ public class AboutState extends ReversibleState {
     public void MouseWheelMoved(MouseWheelEvent mouseWheelEvent) {
         int before = this.scrollOffset;
         this.scrollOffset += SCROLL_SENSIBILITY * mouseWheelEvent.getWheelRotation();
-        //check bounds
+        // Check bounds
         this.scrollOffset = Math.min(MAX_SCROLL_OFFSET, this.scrollOffset);
         this.scrollOffset = Math.max(0, this.scrollOffset);
-        //update button positions
+        // Update button positions
         int delta = scrollOffset - before;
         for (GUIButton button : allButtons) {
             button.Translate(0, -delta);
@@ -77,9 +77,9 @@ public class AboutState extends ReversibleState {
         }
     }
 
-    /*! \fn private void AddGameplayDescription()
-        \brief Adds some gameplay desciprion to the "About" page.
-    */
+    /**
+     * Adds some gameplay desciprion to the "About" page.
+     */
     private void AddGameplayDescription() {
         desciption.add(new GUIText("    'HELL INVADERS'",
                 DESCRIPTION_LEFT_X, DESCRIPTION_TOP_Y, DESCRIPTION_FONT_SIZE, Color.RED));
@@ -93,9 +93,9 @@ public class AboutState extends ReversibleState {
                 DESCRIPTION_LEFT_X, DESCRIPTION_TOP_Y + 3 * LINE_SPACING, DESCRIPTION_FONT_SIZE, TEXT_COLOR));
     }
 
-    /*! \fn private void AddMechanicsDescription()
-        \brief Adds the description of the mechanics of the game.
-    */
+    /**
+     * Adds the description of the mechanics of the game.
+     */
     private void AddMechanicsDescription() {
         desciption.add(new GUIText("CONTROLS:",
                 INFO_LEFT_X, DESCRIPTION_TOP_Y + 5 * LINE_SPACING, INFO_FONT_SIZE, Color.ORANGE));
@@ -129,9 +129,9 @@ public class AboutState extends ReversibleState {
                 INFO_RIGHT_X, DESCRIPTION_TOP_Y + 12 * LINE_SPACING, INFO_FONT_SIZE, TEXT_COLOR));
     }
 
-    /*! \fn  private void AddCredits()
-        \brief Adds game credits.
-   */
+    /**
+     * Adds game credits.
+     */
     private void AddCredits() {
         desciption.add(new GUIText("CREDITS: ",
                 INFO_LEFT_X + 450, DESCRIPTION_TOP_Y + 14 * LINE_SPACING, INFO_FONT_SIZE, Color.ORANGE));

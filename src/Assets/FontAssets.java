@@ -4,11 +4,17 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * @brief Stores references to some fonts.
+ */
 public class FontAssets {
     public static Font mainFont;
     public static Font mainFontBold;
     public static Font mainFontItalic;
 
+    /**
+     * Loads fonts from the disk.
+     */
     public static void Init(){
         try{
             InputStream is = FontAssets.class.getResourceAsStream("/others/my_font.ttf");

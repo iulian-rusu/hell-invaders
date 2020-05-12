@@ -2,56 +2,81 @@ package Entities.CollidableEntities.Enemies;
 
 import Entities.CollidableEntities.CollidableEntity;
 import Entities.CollidableEntities.Projectiles.FrostProjectile;
-import Game.GlobalReferences;
-import GameSystems.EventSystem.Events.CombatEvent;
-import GameSystems.EventSystem.Events.AudioEvent;
 import GUI.GUIStatusBar;
 import Game.Game;
 import Game.GameWindow;
+import Game.GlobalReferences;
+import GameSystems.EventSystem.Events.AudioEvent;
+import GameSystems.EventSystem.Events.CombatEvent;
 
 import java.awt.*;
 
+/**
+ * @brief Class that implements enemies.
+ */
 public abstract class Enemy extends CollidableEntity implements Comparable<Enemy> {
-    //size and speed paramaters
-    public static final int DEFAULT_WIDTH = 200;
-    public static final int DEFAULT_HEIGHT = 240;
-    public static final int DEFAULT_X_VELOCITY = -1;
-    //damage parameters
-    public static int GET_DEFAULT_DAMAGE() { return 10 + 5 * Game.DIFFICULTY; }
-    public static final int FRAMES_BETWEEN_ATTACKS = 120;
-    //healt multiplier per level
-    public static final double HEALTH_INCREMENT = 1.1;
+    public static final int DEFAULT_WIDTH = 200;///< The default width of an enemy.
+    public static final int DEFAULT_HEIGHT = 240;///< The default height of an enemy.
+    public static final int DEFAULT_X_VELOCITY = -1;///< The default x velocity of an enemy.
 
-    protected long health;
-    protected int level;
-    protected double xVelocity;
-    protected double fx;
-    protected GUIStatusBar<Enemy> healthBar;
-    //flags for effects
-    protected boolean isMoving = true;
-    protected boolean isVisile = false;
-    protected boolean isSlowed = false;
-    private int slowedBegin = -1;//counts from when the enemy was slowed
-    protected int framesSinceLastAttack = FRAMES_BETWEEN_ATTACKS;//for delay between attacks
+    /**
+     * Returns the default damage dealt based on the game difficulty.
+     *
+     * @return An int representing the damage value.
+     */
+    public static int GET_DEFAULT_DAMAGE() {
+        return 10 + 5 * Game.difficulty;
+    }
 
+    public static final int FRAMES_BETWEEN_ATTACKS = 120;///< The default number of frames between consecutive attacks.
 
+    public static final double HEALTH_INCREMENT = 1.1;///< The increment in health each level.
+
+    protected long health;///< The current health of the enemy.
+    protected int level;///< The current level of the enemy.
+    protected double xVelocity;///< The double precision velocity on the x axis.
+    protected double fx;///< The double precision x coordinate.
+    protected GUIStatusBar<Enemy> healthBar;///< A GUIStatusBar object that tracks the health.
+
+    protected boolean isMoving = true;///< Indicates if the enemy is moving.
+    protected boolean isVisile = false;///< Indicates if the enemy is on the screen.
+    protected boolean isSlowed = false;///< Indicates if the enemy is slowed by a spell.
+    private int slowedBegin = -1;///< Counts when the slowed state begain
+    protected int framesSinceLastAttack = FRAMES_BETWEEN_ATTACKS;///< Counts the number of frames since the last attack.
+
+    /**
+     * Constructor with parameters.
+     *
+     * @param x        The x coordinate of the top-left corner of the hitbox.
+     * @param y        The y coordinate of the top-left corner of the hitbox.
+     * @param hiboxW   The witdh of the hitbox.
+     * @param hitboxH  The height of the hitbox.
+     * @param textureW The width of the texture box.
+     * @param textureH The height of the texture box.
+     * @param level    The level of the enemy.
+     */
     public Enemy(int x, int y, int hiboxW, int hitboxH, int textureW, int textureH, int level) {
         super(x, y, hiboxW, hitboxH, textureW, textureH);
         fx = x;
         this.xVelocity = DEFAULT_X_VELOCITY;
         this.level = level;
-        //health depends on enemy type -> InitHealth must be overrided for each derived class
+        // Health depends on enemy type, InitHealth() must be overriden for each derived class
         InitHealth();
-        //init healthbar
-        healthBar = new GUIStatusBar<>(this, Enemy::ProvideHealthData);
+        // Init healthbar
+        healthBar = new GUIStatusBar<>(this, enemy -> enemy.health);
         int healthBarX = hitBox.x + (hitBox.width - GUIStatusBar.DEFAULT_WIDTH) / 2;
         int healthBarY = hitBox.y + GUIStatusBar.DEFAULT_Y_OFFSET;
         healthBar.SetPosition(healthBarX, healthBarY);
         AddObserver(healthBar);
-        //add the player as an observer
-        AddObserver(GlobalReferences.player);
+        // Add the player as an observer
+        AddObserver(GlobalReferences.GetPlayer());
     }
 
+    /**
+     * Called when then enemy is damaged.
+     *
+     * @param damage The amount of damage to be taken.
+     */
     public void TakeDamage(long damage) {
         health -= damage;
         if (health <= 0) {
@@ -64,10 +89,19 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
         NotifyAllObservers(CombatEvent.STATUS_BAR_UPDATE);
     }
 
+    /**
+     * Initializes the health based on enemy type.
+     */
     protected abstract void InitHealth();
 
+    /**
+     * Called when the enemy attacks. Attacks might be ranged or melee depending on enemy type.
+     */
     protected abstract void Attack();
 
+    /**
+     * Called when the enemy is slowed by a spell.
+     */
     public void GetSlowed() {
         slowedBegin = 0;
         if (!isSlowed) {
@@ -79,12 +113,11 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
     @Override
     public void Update() {
         super.Update();
-        //move healthbar
+        // Update healthbar position
         int healthBarX = hitBox.x + (hitBox.width - GUIStatusBar.DEFAULT_WIDTH) / 2;
         int healthBarY = hitBox.y + GUIStatusBar.DEFAULT_Y_OFFSET;
         healthBar.SetPosition(healthBarX, healthBarY);
-
-        //update position
+        // Update enemy position
         if (isMoving) {
             fx += xVelocity;
             x = (int) fx;
@@ -92,17 +125,15 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
                 isMoving = false;
                 xVelocity = 0;
             }
-        } else if (health > 0 ) {
+        } else if (health > 0) {
             Attack();
         }
-
-        //make it visible if it's on screen
-        if (isMoving && !isVisile && x <= GameWindow.screenDimension.width) {
+        // Make it visible if it's on the screen
+        if (isMoving && !isVisile && x <= GameWindow.SCREEN_DIMENSION.width) {
             NotifyAllObservers(AudioEvent.PLAY_ENEMY_SPAWN);
             isVisile = true;
         }
-
-        //check slowed status
+        // Check if slowed
         if (isSlowed) {
             ++slowedBegin;
             if (slowedBegin > FrostProjectile.SLOW_FRAME_COUNT) {
@@ -111,8 +142,7 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
                 slowedBegin = -1;
             }
         }
-
-        //update frames since last attack
+        // Update the number of frames since last attack
         if (framesSinceLastAttack < FRAMES_BETWEEN_ATTACKS) {
             ++framesSinceLastAttack;
         }
@@ -120,7 +150,6 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
 
     @Override
     public void Draw(Graphics g) {
-        //g.drawRect(hitBox.x,hitBox.y,hitBox.width,hitBox.height);
         healthBar.Draw(g);
     }
 
@@ -129,17 +158,28 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
         return Integer.compare(this.y + GetHeight(), e.y + e.GetHeight());
     }
 
+    /**
+     * Returns the default height of the enemy.
+     *
+     * @return An int representing the height value.
+     */
     public int GetHeight() {
         return DEFAULT_HEIGHT;
     }
 
+    /**
+     * Returns the default width of the enemy.
+     *
+     * @return An int representing the width value.
+     */
     public int GetWidth() {
         return DEFAULT_WIDTH;
     }
 
-    public static Long ProvideHealthData(Enemy e) {
-        return e.health;
-    }
-
+    /**
+     * Returns the x cordinate at which the enemy goes into attack mode.
+     *
+     * @return An int representing the coordinate.
+     */
     protected abstract int GetAttackTransitionX();
 }

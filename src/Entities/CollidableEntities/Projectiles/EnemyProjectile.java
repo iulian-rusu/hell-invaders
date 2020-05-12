@@ -17,7 +17,7 @@ public class EnemyProjectile extends Projectile {
         super.Update();
         if (x <= Player.PLAYER_X + Player.PLAYER_W + hitBox.width) {
             isActive = false;
-            GlobalReferences.player.TakeDamage(damage);
+            GlobalReferences.GetPlayer().TakeDamage(damage);
         }
     }
 

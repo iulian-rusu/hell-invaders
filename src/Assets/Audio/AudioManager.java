@@ -8,9 +8,19 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
+/**
+ * @brief Class that manages audio events.
+ * <p>
+ * This is a singleton class.
+ * It must be instanciated before the StateManager class to avoid conflicts.
+ */
 public class AudioManager implements Observer {
-    //singleton audio manager class
-    //must be instanciated before state manager class
+
+    /**
+     * Used to access the instance of the class.
+     *
+     * @return An instance of AudioManager.
+     */
     public static AudioManager GetInstance() {
         if (instance == null) {
             instance = new AudioManager();
@@ -18,7 +28,10 @@ public class AudioManager implements Observer {
         return instance;
     }
 
-    public static void Init(){
+    /**
+     * Loads audio assets from the disk.
+     */
+    public static void Init() {
         try {
             BackgroundMusicAssets.Init();
             SoundEffectAssets.Init();
@@ -28,22 +41,39 @@ public class AudioManager implements Observer {
 
     }
 
+    /**
+     * Plays the specified sound.
+     *
+     * @param sound An Audio object to be played.
+     */
     public void Play(Audio sound) {
         sound.Play();
     }
 
+    /**
+     * Stops the specified sound.
+     *
+     * @param sound An Audio object to be stopped.
+     */
     public void Stop(Audio sound) {
         sound.Stop();
     }
 
+    /**
+     * Stops all currentlyplaying sound effects.
+     */
     public void StopAllSFX() {
-        //recursively stops all active sound effects from their respective lists
         SoundEffectAssets.enemySpawn.StopAllSFX();
         SoundEffectAssets.enemyHurt.StopAllSFX();
         SoundEffectAssets.dragonShoot.StopAllSFX();
         SoundEffectAssets.oof.StopAllSFX();
     }
 
+    /**
+     * Resumes the playing of a sound.
+     *
+     * @param sound An Audio object to be resumed.
+     */
     public void Resume(Audio sound) {
         sound.Resume();
     }
@@ -52,11 +82,15 @@ public class AudioManager implements Observer {
     public void OnNotify(GameEvent e) {
         if (!(e instanceof AudioEvent))
             return;
-        ((AudioEvent)e).playAudio.run();
+        ((AudioEvent) e).playAudio.run();
     }
 
-    private AudioManager(){
+    /**
+     * Private constructor without parameters.
+     */
+    private AudioManager() {
         Init();
     }
-    private static AudioManager instance = null;
+
+    private static AudioManager instance = null;///< The unique instance of the singleton.
 }

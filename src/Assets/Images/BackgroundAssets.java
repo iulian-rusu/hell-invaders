@@ -1,9 +1,7 @@
 package Assets.Images;
 
 import Game.GameWindow;
-import Game.GlobalReferences;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
@@ -17,8 +15,8 @@ public class BackgroundAssets {
     public static BufferedImage bgLoss;
 
     public static void Init() {
-        int w = GameWindow.screenDimension.width;
-        int h = GameWindow.screenDimension.height;
+        int w = GameWindow.SCREEN_DIMENSION.width;
+        int h = GameWindow.SCREEN_DIMENSION.height;
 
         bgGameNormal = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage("/backgrounds/bg_game_normal.png")),w,h);
         bgGameDark = ImageLoader.GetScaledImage(Objects.requireNonNull(ImageLoader.LoadImage("/backgrounds/bg_game_dark.png")),w,h);

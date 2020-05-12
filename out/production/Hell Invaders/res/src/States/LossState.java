@@ -9,24 +9,29 @@ import Game.GameWindow;
 import GameSystems.EventSystem.Events.AudioEvent;
 
 import java.awt.*;
-import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
+/**
+ *  @brief Implements the loss mechanic of the game.
+ */
 public class LossState extends State {
-    private final GUIText gameOverText;
+    private final GUIText gameOverText;///< Text that tells the player they lost.
 
+    /**
+     * Constructor without parameters.
+     */
     public LossState() {
         allButtons = new ArrayList<>();
-        //back button
+        // Back button positioning
         int backButtonW = 400;
         int backButtonH = 110;
-        int backButtonX = GameWindow.screenDimension.width / 2 - backButtonW / 2;
+        int backButtonX = GameWindow.SCREEN_DIMENSION.width / 2 - backButtonW / 2;
         allButtons.add(new GUIButton(GUIAssets.back_button, GUIAssets.back_button_hovered, backButtonX, 725, backButtonW, backButtonH));
         allButtons.get(0).AddActionListener(actionEvent -> {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
-            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE);
+            StateManager.GetInstance().SetCurrentState(StateIndex.UPGRADE_STATE);
         });
-        //level failure text
+        // Game over text positioning
         int textX = backButtonX - 200;
         int textY = 550;
         gameOverText = new GUIText("YOU DIED.", textX, textY, 300);

@@ -2,51 +2,32 @@ package GameSystems.UpgradeSystem;
 
 import Assets.Images.GUIAssets;
 import GUI.GUIButton;
+import GUI.Text.GUITextPanel;
+import Game.GameWindow;
 import Game.GlobalReferences;
 import GameSystems.EventSystem.Events.CombatEvent;
 import GameSystems.EventSystem.Events.GameEvent;
 import GameSystems.EventSystem.Events.UpgradeEvent;
 import GameSystems.EventSystem.Observer;
-
-import GUI.Text.GUITextPanel;
-import Game.GameWindow;
-import States.ReversibleState;
 import GameSystems.NumberSystem.LargeNumberHandler;
+import States.ReversibleState;
 
 import java.awt.*;
 
+/**
+ *  @brief Provides a container for the experience held by the player.
+ */
 public class ExperiencePanel implements Observer {
-    //singleton class that manages player experience
-    public static final int EXPERIENCE_PANEL_WIDTH = GUIButton.BUTTON_W;
-    public static final int EXPERIENCE_PANEL_X = GameWindow.screenDimension.width - ReversibleState.BACK_BUTTON_X - EXPERIENCE_PANEL_WIDTH;
+    public static final int EXPERIENCE_PANEL_WIDTH = GUIButton.BUTTON_W;///< The default widht of the panel.
+    public static final int EXPERIENCE_PANEL_X = GameWindow.SCREEN_DIMENSION.width -
+            ReversibleState.BACK_BUTTON_X - EXPERIENCE_PANEL_WIDTH;///< The default x coordinate of the top-left corner of the panel.
 
-    private final GUITextPanel experiencePanel;
+    private final GUITextPanel experiencePanel;///< A GUITextPanel object used to display the current experience.
 
-    public static ExperiencePanel GetInstance() {
-        if (instance == null) {
-            instance = new ExperiencePanel();
-        }
-        return instance;
-    }
-
-    public void Draw(Graphics g) {
-        experiencePanel.Draw(g);
-    }
-
-    public void UpdateValue() {
-        long value = GlobalReferences.player.GetExperience();
-        experiencePanel.SetText(LargeNumberHandler.ParseLongInt(value)+" XP");
-    }
-
-    @Override
-    public void OnNotify(GameEvent e) {
-        //experience bar updated in case of monster death or upgrade event
-        if (e == CombatEvent.ENEMY_DEATH || e instanceof UpgradeEvent) {
-            UpdateValue();
-        }
-    }
-
-    private ExperiencePanel() {
+    /**
+     * Constructor without parameters.
+     */
+    public ExperiencePanel() {
         experiencePanel = new GUITextPanel("0 XP",
                 GUIAssets.green_button,
                 EXPERIENCE_PANEL_X,
@@ -56,5 +37,28 @@ public class ExperiencePanel implements Observer {
         experiencePanel.SetColor(GUITextPanel.DEFAULT_GREEN_COLOR);
     }
 
-    private static ExperiencePanel instance = null;
+    /**
+     * Called each frame to draw the panel on the screen.
+     *
+     * @param g A java Graphics object.
+     */
+    public void Draw(Graphics g) {
+        experiencePanel.Draw(g);
+    }
+
+    /**
+     * Updates the current value of the experience.
+     */
+    public void UpdateValue() {
+        long value = GlobalReferences.GetPlayer().GetExperience();
+        experiencePanel.SetText(LargeNumberHandler.ParseLongInt(value) + " XP");
+    }
+
+    @Override
+    public void OnNotify(GameEvent e) {
+        // Experience bar updated in case of monster death or upgrade event
+        if (e == CombatEvent.ENEMY_DEATH || e instanceof UpgradeEvent) {
+            UpdateValue();
+        }
+    }
 }

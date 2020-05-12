@@ -1,88 +1,120 @@
 package Entities;
 
-import Assets.Images.PlayerAssets;
 import Assets.Audio.AudioManager;
+import Assets.Images.PlayerAssets;
 import Entities.CollidableEntities.Enemies.Enemy;
 import Entities.CollidableEntities.Projectiles.Projectile;
 import Entities.CollidableEntities.Projectiles.ProjectileFactory;
 import Entities.CollidableEntities.Projectiles.ProjectileType;
+import GUI.GUIStatusBar;
+import Game.Game;
+import Game.GlobalReferences;
 import GameSystems.EventSystem.Events.AudioEvent;
 import GameSystems.EventSystem.Events.CombatEvent;
 import GameSystems.EventSystem.Events.GameEvent;
 import GameSystems.EventSystem.Observer;
-import GUI.GUIStatusBar;
-import Game.Game;
-import GameSystems.UpgradeSystem.ExperiencePanel;
 
 import java.awt.*;
 
+/**
+ *  @brief Implements the main player of the game.
+ */
 public class Player extends Entity implements Observer {
-    //player position parameters
-    public static final int PLAYER_H = 150;
-    public static final int PLAYER_W = 125;
-    public static final int PLAYER_X = 35;
-    public static final int PLAYER_Y = 420;
-    //health and healthbar parameters
+    public static final int PLAYER_H = 150;///< The default height of the player.
+    public static final int PLAYER_W = 125;///< The default width of the player.
+    public static final int PLAYER_X = 35;///< The default x coordinate of the top-left corner of the player.
+    public static final int PLAYER_Y = 420;///< The default y coordinate of the top-left corner of the player.
+
+    /**
+     * Returns the default health based on the game difficulty.
+     *
+     * @return An int representing the health of the player.
+     */
     public static int GET_DEFAULT_HEALTH() {
-        return 100 + (4 - Game.DIFFICULTY) * 50;
+        return 100 + (4 - Game.difficulty) * 50;
     }
-    public static final int HEALTHBAR_HEIGHT = 20;
-    public static final int HEALTHBAR_WIDTH = 250;
-    public static final int HEALTHBAR_Y = 770;
-    public static final int HEALTHBAR_X = 70;
-    //mana parameters
-    public static int GET_DEFAULT_MANA() { return 100 + (3 - Game.DIFFICULTY) * 25; }
-    public static final int MANA_COST_PER_SHOOT = 10;
-    public static final int MANA_REGEN_CHUNK = 3;
-    public static final int MANA_REGEN_PERIOD = 30; //how many frames between mana regens
-    public static final int MANABAR_Y = HEALTHBAR_Y + HEALTHBAR_HEIGHT + 10;
-    //experience parameters
-    public static final double EXPERIENCE_INCREMENT = 1.11;
-    public static int GET_DEFAULT_EXPERIENCE_GAIN() { return (5 + 5 * Game.DIFFICULTY); }
-    //combat parameters
-    public static final long DEFAULT_DAMAGE=20L;
 
-    private final GUIStatusBar<Player> healthBar;
-    private final GUIStatusBar<Player> manaBar;
-    private int health = GET_DEFAULT_HEALTH();
-    private int mana = GET_DEFAULT_MANA();
-    private int level;//in the interval [1, 365]
-    private ProjectileType currentProjetile;
-    private int numProjectiles;
-    private int critChance;
-    private long projectileDamage;
-    private long experience;
+    public static final int HEALTHBAR_HEIGHT = 20;///< The default healthbar height.
+    public static final int HEALTHBAR_WIDTH = 250;///< The default healthbar width.
+    public static final int HEALTHBAR_Y = 770;///< The default y coordinate of the top-left corner of the healthbar.
+    public static final int HEALTHBAR_X = 70;///< The default x coordinate of the top-left corner of the healthbar.
 
+    /**
+     * Returns the default mana based on the game difficulty.
+     *
+     * @return An int representing the mana of the player.
+     */
+    public static int GET_DEFAULT_MANA() {
+        return 100 + (3 - Game.difficulty) * 25;
+    }
+
+    public static final int MANA_COST_PER_SHOOT = 10;///< The default mana spent on each spell cast.
+    public static final int MANA_REGEN_CHUNK = 3;///< The default amount of mana regenerated at once.
+    public static final int MANA_REGEN_PERIOD = 30; ///< The default delay between mana chunks that regenerate.
+    public static final int MANABAR_Y = HEALTHBAR_Y + HEALTHBAR_HEIGHT + 10;///< The default y coordinate of the top-left corner of the manabar.
+
+    public static final double EXPERIENCE_INCREMENT = 1.11;///< The increment in experience gain each level.
+
+    /**
+     * Returns the default experience gain based on the game difficulty.
+     *
+     * @return An int representing the experience gain of the player.
+     */
+    public static int GET_DEFAULT_EXPERIENCE_GAIN() {
+        return (5 + 5 * Game.difficulty);
+    }
+
+    public static final long DEFAULT_DAMAGE = 20L;///< The default damage of the player.
+
+    private final GUIStatusBar<Player> healthBar;///< The healthbar of the player.
+    private final GUIStatusBar<Player> manaBar;///< The manabar of the player.
+    private int health = GET_DEFAULT_HEALTH();///< The current health of the player.
+    private int mana = GET_DEFAULT_MANA();///< The current mana of the player.
+    private int level;///< The current level of the player. The game supports levels from 1 to 365 inclusive.
+    private ProjectileType currentProjetile;///< The current type of spell that the player casts.
+    private int numProjectiles;///< The current number of projectiles shot on each spell cast.
+    private int critChance;///< The critical hit chance of the player.
+    private long projectileDamage;///< The damage dealt by each projectile.
+    private int projectileDamageLevel;///< The level of the projectile damage upgrade.
+    private long experience;///< The current player experience.
+
+    /**
+     * Constructor without parameters.
+     */
     public Player() {
         frameCount = -1;
         AddObserver(AudioManager.GetInstance());
-        //create healthbar
-        healthBar = new GUIStatusBar<>(this, Player::ProvideHealthData);
+        // Create healthbar
+        healthBar = new GUIStatusBar<>(this, player -> (long) player.health);
         healthBar.SetPosition(HEALTHBAR_X, HEALTHBAR_Y);
         healthBar.SetSize(HEALTHBAR_WIDTH, HEALTHBAR_HEIGHT);
         AddObserver(healthBar);
-        //create mana bar
-        manaBar = new GUIStatusBar<>(this, Player::ProvideManaData);
+        // Create mana bar
+        manaBar = new GUIStatusBar<>(this, player -> (long) player.mana);
         manaBar.SetPosition(HEALTHBAR_X, MANABAR_Y);
         manaBar.SetSize(HEALTHBAR_WIDTH, HEALTHBAR_HEIGHT);
         manaBar.SetColor(Color.CYAN);
         AddObserver(manaBar);
-        //add experience observer
-        AddObserver(ExperiencePanel.GetInstance());
-
-        ResetAllStats();
+        // Add experience observer
+        AddObserver(GlobalReferences.GetExperiencePanel());
     }
 
+    /**
+     * Gets called when a new level is started.
+     */
     public void Init() {
         health = GET_DEFAULT_HEALTH();
         mana = GET_DEFAULT_MANA();
         NotifyAllObservers(CombatEvent.STATUS_BAR_RESET);
     }
 
+    /**
+     * Used to reset the player stats to their base values when a new game is started.
+     */
     public void ResetAllStats() {
-        //used when a new game is started, sets all stats to their base value
         numProjectiles = 1;
         projectileDamage = DEFAULT_DAMAGE;
+        projectileDamageLevel = 1;
         critChance = 0;
         currentProjetile = ProjectileType.FIRE;
         experience = 0L;
@@ -118,6 +150,12 @@ public class Player extends Entity implements Observer {
         }
     }
 
+    /**
+     * Called when the player casts a spell.
+     *
+     * @param p The point towards which the spell was cast.
+     * @return An array representing the projectiles that were shot.
+     */
     public Projectile[] ShootProjectile(Point p) {
         if (mana < MANA_COST_PER_SHOOT) {
             return null;
@@ -146,43 +184,151 @@ public class Player extends Entity implements Observer {
         }
     }
 
-    public void SetProjectileDamage(long d) {
+    /**
+     * Used to access the current projectile damage.
+     *
+     * @return A long representing the current projectile damage.
+     */
+    public long GetProjectileDamage() {
+        return projectileDamage;
+    }
+
+    /**
+     * Used to access the current projectile damage level.
+     *
+     * @return An int representing the current projectile damage level.
+     */
+    public int GetProjectileDamageLevel() {
+        return projectileDamageLevel;
+    }
+
+    /**
+     * Used to set the current projectile damage.
+     *
+     * @param d     A long representing the new projectile damage.
+     * @param level An int representing the new projectile damage level.
+     */
+    public void SetProjectileDamage(long d, int level) {
         projectileDamage = d;
+        projectileDamageLevel = level;
     }
 
-    public void SetNumProjectiles(int d) {
-        numProjectiles = d;
+    /**
+     * Used to access the current projectile number.
+     *
+     * @return An int representing the current projectile number.
+     */
+    public int GetNumProjectiles() {
+        return numProjectiles;
     }
 
-    public void SetCritChance(int d) {
-        critChance = d;
+
+    /**
+     * Used to set the current number of projectiles.
+     *
+     * @param num An int representing the new number of projectiles.
+     */
+    public void SetNumProjectiles(int num) {
+        numProjectiles = num;
     }
 
-    public void SetProjectileType(ProjectileType t) {
-        currentProjetile = t;
+
+    /**
+     * Used to access the current crtit chance.
+     *
+     * @return An int representing the current crit chance in percentages.
+     */
+    public int GetCritChance() {
+        return critChance;
     }
 
-    public void SetExperience(long exp){ experience=exp;}
 
-    public int GetLevel() { return level; }
-
-    public void SetLevel(int l) {
-        level = l;
+    /**
+     * Used to set the current crit chance.
+     *
+     * @param crit An int representing the new crit chance in percentages.
+     */
+    public void SetCritChance(int crit) {
+        critChance = crit;
     }
 
-    public int GetHealth() {
-        return health;
+    /**
+     * Used to get the current spell type.
+     *
+     * @return An int representing the current spell type: 1 for fire, 2 for frost and 3 for arcane.
+     */
+    public int GetProjectileType() {
+        switch (currentProjetile) {
+            case FROST:
+                return 2;
+            case ARCANE:
+                return 3;
+            default:
+                return 1;
+        }
     }
 
+    /**
+     * Used to set the current spell type.
+     *
+     * @param projectileType An int representing the new spell type: 1 for fire, 2 for frost and 3 for arcane.
+     */
+    public void SetProjectileType(int projectileType) {
+        switch (projectileType) {
+            case 2:
+                currentProjetile = ProjectileType.FROST;
+                break;
+            case 3:
+                currentProjetile = ProjectileType.ARCANE;
+                break;
+            default:
+                currentProjetile = ProjectileType.FIRE;
+                break;
+        }
+    }
+
+    /**
+     * Used to get the current experience value.
+     *
+     * @return A long representing the current experience value.
+     */
     public long GetExperience() {
         return experience;
     }
 
-    public static Long ProvideHealthData(Player p) {
-        return (long) p.health;
+    /**
+     * Used to set the current experience.
+     *
+     * @param exp A long representing the new experience value.
+     */
+    public void SetExperience(long exp) {
+        experience = exp;
     }
 
-    public static Long ProvideManaData(Player p) {
-        return (long) p.mana;
+    /**
+     * Used to get the current level value.
+     *
+     * @return An int representing the current level value.
+     */
+    public int GetLevel() {
+        return level;
+    }
+
+    /**
+     * Used to set the current level.
+     *
+     * @param l An int representing the new level value.
+     */
+    public void SetLevel(int l) {
+        level = l;
+    }
+
+    /**
+     * Used to get the current health value.
+     *
+     * @return An int representing the current health value.
+     */
+    public int GetHealth() {
+        return health;
     }
 }

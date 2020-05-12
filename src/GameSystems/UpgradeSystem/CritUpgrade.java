@@ -5,61 +5,77 @@ import Game.GlobalReferences;
 import GameSystems.EventSystem.Events.UpgradeEvent;
 import GameSystems.NumberSystem.LargeNumberHandler;
 
-import java.awt.*;
-
+/**
+ *  @brief Provide an upgrade mechanic for the player's critical hit chance.
+ */
 public class CritUpgrade extends Upgrade {
-    //price update parameters
-    public static final long DEFAULT_PRICE = 100;
-    public static final double PRICE_INCREMENT = 1.45;
-    public static long GET_PRICE(int level){return (long)(DEFAULT_PRICE*Math.pow(PRICE_INCREMENT,level-1));}
-    //crit update parameters
-    public static final int CRIT_INCREMENT = 5;
+    public static final long DEFAULT_PRICE = 100;///< The default price of the first purchase.
+    public static final double PRICE_INCREMENT = 1.45;///< The amount by which the next purchase increments.
 
-    private int critChance = 5;
-
-    public CritUpgrade(int x, int y){
-        super(x,y);
-        icon = GUIAssets.crit;
-        //init prices
-        price = GET_PRICE(level);
-        upgradeName.SetText("CRITICAL CHANCE");
-        //set action listener for buy button
-        buyButton.AddActionListener(actionEvent -> Buy());
-        //update description
-        description.get(0).SetColor(Color.ORANGE);
-        UpdateDescription();
+    /**
+     * Returns the current price of the upgrade corresponding to its level.
+     *
+     * @param level The current level of the upgrade.
+     * @return The price of the upgrade at the current level.
+     */
+    public static long GET_PRICE(int level) {
+        return (long) (DEFAULT_PRICE * Math.pow(PRICE_INCREMENT, level - 1));
     }
 
-    private void UpdateDescription(){
-        if(critChance>100){
-            isMaxed = true;
-            priceText.SetText(MAX_TEXT);
-            description.get(0).SetText(MAX_TEXT);
-        }else {
-            priceText.SetText(LargeNumberHandler.ParseLongInt(price) + " XP");
-            description.get(0).SetText("NEXT: "+ critChance +" %");
-        }
-        description.get(1).SetText("CURRENT: "+ (critChance - CRIT_INCREMENT) +" %");
+    public static final int CRIT_INCREMENT = 5;///< The increment in critical hit chance with each level.
+
+    private int critChance;///< The critical hit chance to be upgraded to.
+
+    /**
+     * Constructor with parameters.
+     *
+     * @param x The x coordinate of the top-left corner of the upgrade.
+     * @param y The y coordinate of the top-left corner of the upgrade.
+     */
+    public CritUpgrade(int x, int y) {
+        super(x, y);
+        icon = GUIAssets.crit;
+        // Init prices
+        price = GET_PRICE(level);
+        upgradeName.SetText("CRITICAL CHANCE");
+        // Set action listener for buy button
+        buyButton.AddActionListener(actionEvent -> Buy());
     }
 
     @Override
-    protected void Buy(){
+    protected void UpdateDescription() {
+        price = GET_PRICE(level);
+        if (critChance > 100) {
+            isMaxed = true;
+            priceText.SetText(MAX_TEXT);
+            description.get(0).SetText(MAX_TEXT);
+        } else {
+            priceText.SetText(LargeNumberHandler.ParseLongInt(price) + " XP");
+            description.get(0).SetText("NEXT: " + critChance + " %");
+        }
+        description.get(1).SetText("CURRENT: " + (critChance - CRIT_INCREMENT) + " %");
+    }
+
+    @Override
+    protected void Buy() {
         long playerXP = GetNewExperience();
-        if(playerXP < 0){
+        if (playerXP < 0) {
             return;
         }
-        GlobalReferences.player.SetExperience(playerXP);
-        GlobalReferences.player.SetCritChance(critChance);
-        //update values
+        GlobalReferences.GetPlayer().SetExperience(playerXP);
+        GlobalReferences.GetPlayer().SetCritChance(critChance);
+        // Update values
         level++;
-        critChance+=CRIT_INCREMENT;
-        price=GET_PRICE(level);
+        critChance += CRIT_INCREMENT;
         UpdateDescription();
         NotifyAllObservers(UpgradeEvent.CRIT_UPGRADE_BOUGHT);
     }
 
     @Override
-    protected void LoadDataFromDB() {
-
+    public void Init() {
+        int critChance = GlobalReferences.GetPlayer().GetCritChance();
+        level = critChance / CRIT_INCREMENT + 1;
+        this.critChance = critChance + CRIT_INCREMENT;
+        UpdateDescription();
     }
 }

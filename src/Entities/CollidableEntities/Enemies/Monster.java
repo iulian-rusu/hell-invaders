@@ -1,28 +1,50 @@
 package Entities.CollidableEntities.Enemies;
 
 import Assets.Images.EnemyAssets;
-import Game.GlobalReferences;
 import Game.Game;
+import Game.GlobalReferences;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * @brief Implements the Monster type of enemy - a close ranged attacker.
+ */
 public class Monster extends Enemy {
-    //health parameters
-    public static int GET_DEFAULT_HEALTH() { return 40 * Game.DIFFICULTY; }
-    public static long GET_ACTUAL_HEALTH(int level){
+    /**
+     * Returns the default health based on the game difficulty.
+     *
+     * @return An int representing the health value.
+     */
+    public static int GET_DEFAULT_HEALTH() {
+        return 40 * Game.difficulty;
+    }
+
+    /**
+     * Returns the health dealt based on the default health and level.
+     *
+     * @return An int representing the health value.
+     */
+    public static long GET_ACTUAL_HEALTH(int level) {
         long ans = (long) (Math.pow(HEALTH_INCREMENT, level - 1) * GET_DEFAULT_HEALTH());
-        //test for overflow
+        // Test for overflow
         if (ans < 0) {
-            ans=-ans;
+            ans = -ans;
         }
         return ans;
     }
-    //size parameters
-    public static final int DEFAULT_HITBOX_WIDTH = (int) (DEFAULT_WIDTH * 0.5);
-    public static final int DEFAULT_HITBOX_HEIGHT = (int) (DEFAULT_HEIGHT * 0.6);
-    public static final int DEFAULT_ATTACK_TRANSITION_X = 170;
 
+    public static final int DEFAULT_HITBOX_WIDTH = (int) (DEFAULT_WIDTH * 0.5);///< The width of the hitbox relative to the texture box.
+    public static final int DEFAULT_HITBOX_HEIGHT = (int) (DEFAULT_HEIGHT * 0.6);///< The height of the hitbox relative to the texture box.
+    public static final int DEFAULT_ATTACK_TRANSITION_X = 170;///< The default x coordinate for attack state trigger.
+
+    /**
+     * Constructor with parameters.
+     *
+     * @param x     The x coordinate of the top-left corner of the hitbox.
+     * @param y     The y coordinate of the top-left corner of the hitbox.
+     * @param level The level of the monster.
+     */
     public Monster(int x, int y, int level) {
         super(x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT, DEFAULT_WIDTH, DEFAULT_HEIGHT, level);
     }
@@ -30,8 +52,8 @@ public class Monster extends Enemy {
     @Override
     public void Update() {
         super.Update();
-        if(health<=0){
-            isActive=false;
+        if (health <= 0) {
+            isActive = false;
         }
     }
 
@@ -44,7 +66,7 @@ public class Monster extends Enemy {
     protected void Attack() {
         if (framesSinceLastAttack >= FRAMES_BETWEEN_ATTACKS) {
             framesSinceLastAttack = 0;
-            GlobalReferences.player.TakeDamage(GET_DEFAULT_DAMAGE());
+            GlobalReferences.GetPlayer().TakeDamage(GET_DEFAULT_DAMAGE());
         }
     }
 
@@ -65,7 +87,7 @@ public class Monster extends Enemy {
 
     @Override
     public int GetHitBoxYOffset() {
-        return +30;
+        return 30;
     }
 
     @Override

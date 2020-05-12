@@ -6,11 +6,19 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
+/**
+ *  @brief Displays a loading screen in a parallel thread while the main game thread is laoding data.
+ */
 public class LoadingScreen implements Runnable {
-    private volatile boolean isLoading = true;
-    private final GameWindow wnd;
-    private final BufferedImage bgLoad =ImageLoader.LoadImage("/backgrounds/bg_load.png");
+    private volatile boolean isLoading = true;///< Boolean flag that indicates if the game is still loading.
+    private final GameWindow wnd;///< Reference to the main game window.
+    private final BufferedImage bgLoad = ImageLoader.LoadImage("/backgrounds/bg_load.png");///< The image to be drawn as a loading screen.
 
+    /**
+     * Constructor with parameters.
+     *
+     * @param target A GameWindow object.
+     */
     public LoadingScreen(GameWindow target) {
         wnd = target;
     }
@@ -30,10 +38,16 @@ public class LoadingScreen implements Runnable {
         }
     }
 
-    public void Stop(){
-        isLoading=false;
+    /**
+     * Marks the isLoading member as false, stopping the loading thread.
+     */
+    public void Stop() {
+        isLoading = false;
     }
 
+    /**
+     * Draws on the screen while the game is loading.
+     */
     private void Draw() {
         BufferStrategy bs = wnd.GetCanvas().getBufferStrategy();
         if (bs == null) {
@@ -45,10 +59,13 @@ public class LoadingScreen implements Runnable {
             }
         }
         assert bs != null;
-        Graphics g = bs.getDrawGraphics();
-        g.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
-        g.drawImage(bgLoad,0,0,wnd.GetWndWidth(), wnd.GetWndHeight(),null);
+        Graphics2D g2d = (Graphics2D) bs.getDrawGraphics();
+        if (!wnd.isFullscreen) {
+            g2d.scale(1, 0.95);
+        }
+        g2d.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
+        g2d.drawImage(bgLoad, 0, 0, wnd.GetWndWidth(), wnd.GetWndHeight(), null);
         bs.show();
-        g.dispose();
+        g2d.dispose();
     }
 }

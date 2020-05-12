@@ -1,29 +1,42 @@
 package Game;
 
+import SQL.DatabaseManager;
+
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ *  @brief Container for the main window of the game.
+ */
 public class GameWindow {
-    //windowed mode scaling factor
-    public static final double Y_SCALE_FACTOR = 0.95;
+    public static final double Y_SCALE_FACTOR = 0.95;///< Scaling factor to transition between bigger and smaller windows.
+    public static final Dimension SCREEN_DIMENSION = Toolkit.getDefaultToolkit().getScreenSize();///< The dimension of the screen.
 
-    public boolean isFullScreen = true;
+    public boolean isFullscreen;///< Flag that indicates if the game window will be displayed din fullscreen mode.
 
-    private JFrame wndFrame;
-    private final String wndTitle;
-    private final int wndWidth;
-    private final int wndHeight;
-    private Canvas canvas;
+    private JFrame wndFrame;///< The JFrame object associated with the window.
+    private final String wndTitle;///< The title of the window.
+    private final int wndWidth;///< The width of the window.
+    private final int wndHeight;///< The height of the window.
+    private Canvas canvas;///< The Canvas object associated with the window.
 
-    public static final Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
-
+    /**
+     * Constructor with parameters.
+     *
+     * @param title The title of the window.
+     */
     public GameWindow(String title) {
         wndTitle = title;
-        wndWidth = screenDimension.width;
-        wndHeight = screenDimension.height;
+        wndWidth = SCREEN_DIMENSION.width;
+        wndHeight = SCREEN_DIMENSION.height;
         wndFrame = null;
+
+        isFullscreen = DatabaseManager.GetGameData("IsFullscreen") == 1;
     }
 
+    /**
+     * Constructs the game window.
+     */
     public void BuildGameWindow() {
         if (wndFrame != null) {
             return;
@@ -33,7 +46,7 @@ public class GameWindow {
         wndFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         wndFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         wndFrame.setResizable(true);
-        wndFrame.setUndecorated(isFullScreen);
+        wndFrame.setUndecorated(isFullscreen);
         wndFrame.setLocationRelativeTo(null);
         wndFrame.setVisible(true);
 
@@ -42,17 +55,40 @@ public class GameWindow {
         wndFrame.add(canvas);
         wndFrame.pack();
 
-        GlobalReferences.gameWindow = this;
+        GlobalReferences.SetGameWindow(this);
     }
 
+    /**
+     * Returns the width of the game window.
+     *
+     * @return The width of the game window.
+     */
     public int GetWndWidth() {
         return wndWidth;
     }
+
+    /**
+     * Returns the height of the game window.
+     *
+     * @return The height of the game window.
+     */
     public int GetWndHeight() {
         return wndHeight;
     }
+
+    /**
+     * Returns the Canvas object.
+     *
+     * @return A Canvas object.
+     */
     public Canvas GetCanvas() {
         return canvas;
     }
+
+    /**
+     * Returns the JFrame object.
+     *
+     * @return A JFrame object.
+     */
     public JFrame GetFrame() {return wndFrame;}
 }

@@ -4,6 +4,9 @@ import Assets.Audio.AudioManager;
 import Assets.Audio.SoundEffectAssets;
 import States.StateManager;
 
+/**
+ *  @brief Holds all possible audio-related events.
+ */
 public enum AudioEvent implements GameEvent {
     PLAY_CURRENT_STATE_MUSIC(() -> AudioManager.GetInstance().Play(StateManager.GetInstance().GetCurrentStateIndex().bgMusic)),
     STOP_CURRENT_STATE_MUSIC(() -> AudioManager.GetInstance().Stop(StateManager.GetInstance().GetCurrentStateIndex().bgMusic)),
@@ -18,8 +21,7 @@ public enum AudioEvent implements GameEvent {
     PLAY_BUTTON_PRESS(() -> AudioManager.GetInstance().Play(SoundEffectAssets.buttonPress)),
     STOP_ALL_SFX(() -> AudioManager.GetInstance().StopAllSFX());
 
-    //all audio events have an audio action that plays/stops necessary sounds
-    public Runnable playAudio;
+    public Runnable playAudio;///< A Runnable object that is called to play necessary audio related to the event.
 
     AudioEvent(Runnable action) {
         playAudio = action;

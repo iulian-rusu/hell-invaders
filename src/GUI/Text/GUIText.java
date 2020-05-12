@@ -1,16 +1,28 @@
 package GUI.Text;
 
-import java.awt.*;
-
 import Assets.FontAssets;
 
-public class GUIText implements GUITextComponent{
-    protected boolean isActive=true;
-    protected String text;
-    protected Font font;
-    protected Color color;
-    protected int x, y;
+import java.awt.*;
 
+/**
+ *  @brief Provides an API for a simple text object.
+ */
+public class GUIText implements GUITextComponent {
+    protected boolean isActive = true;///< Boolean flag that indicates whether the text is active.
+    protected String text;///< A string containing the actual text.
+    protected Font font;///< The font of the text.
+    protected Color color;///< The color of the text.
+    protected int x;///< The x coodrinate of the text.
+    protected int y;///< The y coordinate of the text.
+
+    /**
+     * Constructor with parameters.
+     *
+     * @param text A String object containing the actual text.
+     * @param x    The x coordinate.
+     * @param y    The y coordinate.
+     * @param size The font size.
+     */
     public GUIText(String text, int x, int y, float size) {
         this.text = text;
         this.x = x;
@@ -19,6 +31,15 @@ public class GUIText implements GUITextComponent{
         color = Color.WHITE;
     }
 
+    /**
+     * Constructor with parameters.
+     *
+     * @param text A String object containing the actual text.
+     * @param x    The x coordinate.
+     * @param y    The y coordinate.
+     * @param size The font size.
+     * @param c    The color of the text.
+     */
     public GUIText(String text, int x, int y, float size, Color c) {
         this(text, x, y, size);
         color = c;
@@ -62,6 +83,6 @@ public class GUIText implements GUITextComponent{
 
     @Override
     public void SetActive(boolean active) {
-        isActive=active;
+        isActive = active;
     }
 }

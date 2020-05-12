@@ -2,19 +2,26 @@ package States;
 
 import Assets.Images.BackgroundAssets;
 import Assets.Images.GUIAssets;
-import GameSystems.EventSystem.Events.AudioEvent;
 import GUI.GUIButton;
 import Game.GameWindow;
+import GameSystems.EventSystem.Events.AudioEvent;
+import SQL.DatabaseManager;
 
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ *  @brief Implements the main menu of the game.
+ */
 public class MenuState extends State {
-    private boolean logoColorflag = true;
+    private boolean logoColorflag = true;///< Flag to signal the color of the game logo. It alternates every second.
 
+    /**
+     * Constructor without parameters.
+     */
     public MenuState() {
-        final int menuY = GameWindow.screenDimension.height / 2-10;
-        final int menuX =( GameWindow.screenDimension.width - GUIButton.BUTTON_W) / 2;
+        final int menuY = GameWindow.SCREEN_DIMENSION.height / 2 - 10;
+        final int menuX = (GameWindow.SCREEN_DIMENSION.width - GUIButton.BUTTON_W) / 2;
         final int buttonSpacing = 75;
 
         allButtons = new ArrayList<>(5);
@@ -28,25 +35,33 @@ public class MenuState extends State {
                 menuX, menuY + 3 * buttonSpacing, GUIButton.BUTTON_W, GUIButton.BUTTON_H));
         allButtons.add(new GUIButton(GUIAssets.quit_button, GUIAssets.quit_button_hovered,
                 menuX, menuY + 4 * buttonSpacing, GUIButton.BUTTON_W, GUIButton.BUTTON_H));
-        //state transition events
-        //play
+        // State transition events
+        // New game button
         allButtons.get(0).AddActionListener(actionEvent -> {
-            //this will go to an intermediate state that asks again if the player is sure
-            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.NEW_GAME_QUERY_STATE);}
+                    if(DatabaseManager.IsEmpty(DatabaseManager.PLAYER_DATA_NAME)){
+                        // Nothing saved, go directly to a new game.
+                        NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
+                        StateManager.GetInstance().SetCurrentState(StateIndex.UPGRADE_STATE);
+                    } else {
+                        // Saved data exists in the database, ask the player again.
+                        StateManager.GetInstance().SetCurrentState(StateIndex.NEW_GAME_QUERY_STATE);
+                    }
+                }
         );
-        //resume
-        allButtons.get(1).AddActionListener(actionEvent ->{
+        // Resume button
+        allButtons.get(1).AddActionListener(actionEvent -> {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
-            //this goes to UPGRADE_STATE without clearing player data
-            StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.UPGRADE_STATE);
+            // This goes to UpgradeState without clearing player data
+            StateManager.GetInstance().SetCurrentState(StateIndex.UPGRADE_STATE);
         });
-        //options
-        allButtons.get(2).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.OPTIONS_STATE));
-        //about
-        allButtons.get(3).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateManager.StateIndex.ABOUT_STATE));
-        //quit
+        // Options button
+        allButtons.get(2).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateIndex.OPTIONS_STATE));
+        // About button
+        allButtons.get(3).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateIndex.ABOUT_STATE));
+        // Quit button
         allButtons.get(4).AddActionListener(actionEvent -> {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
+            DatabaseManager.SavePlayerData();
             System.exit(0);
         });
     }
@@ -56,8 +71,10 @@ public class MenuState extends State {
         super.Init();
         NotifyAllObservers(AudioEvent.PLAY_CURRENT_STATE_MUSIC);
         logoColorflag = true;
-        //TODO: if the databse is not empty -> unblock "resume" button
-        allButtons.get(1).Block(GUIAssets.resume_button_blocked);
+        if (DatabaseManager.IsEmpty(DatabaseManager.PLAYER_DATA_NAME))
+            allButtons.get(1).Block(GUIAssets.resume_button_blocked);
+        else
+            allButtons.get(1).Unblock(GUIAssets.resume_button);
     }
 
     @Override

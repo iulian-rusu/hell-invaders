@@ -9,35 +9,42 @@ import GUI.GUIButton;
 import GUI.Text.GUIText;
 import Game.Game;
 import Game.GameWindow;
+import SQL.DatabaseManager;
 import States.AboutState;
 
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ *  @brief Adds the option to change the game difficulty.
+ */
 public class DifficultyOption implements Option {
-    //text parameters
-    public static final int DIFFICULTY_TEXT_X = (GameWindow.screenDimension.width - GUIButton.BUTTON_W) / 2 - 175;
-    public static final int LINE_SPACING = 50;
-    public static final int INFO_FONT_SIZE = AboutState.INFO_FONT_SIZE;
-    public static final int BIGGER_INFO_FONT_SIZE = INFO_FONT_SIZE + 30;
-    public static final int DESCRIPTION_LEFT_X = 300;
-    public static final int DESCRIPTION_TOP_Y = 310;
-    public static final int INFO_LEFT_X = DESCRIPTION_LEFT_X + 500;
-    //button parameters
-    public static final int DIFFICULTY_BUTTON_X = DIFFICULTY_TEXT_X + 360;
-    public static final int DIFFICULTY_BUTTON_Y = 160;
+    public static final int DIFFICULTY_TEXT_X =
+            (GameWindow.SCREEN_DIMENSION.width - GUIButton.BUTTON_W) / 2 - 175;///< The x coordinate of the option title's bottom-left corner.
+    public static final int LINE_SPACING = 50;///< The space between lines in the desciption.
+    public static final int INFO_FONT_SIZE = AboutState.INFO_FONT_SIZE;///< The font size of the additional information text.
+    public static final int BIGGER_INFO_FONT_SIZE = INFO_FONT_SIZE + 30;///< The font size for bigger text.
+    public static final int DESCRIPTION_LEFT_X = 300;///< The x coordinate of the description's bottom-left corner.
+    public static final int DESCRIPTION_TOP_Y = 310;///< The y coordinate of the description's bottom-left corner.
+    public static final int INFO_LEFT_X = DESCRIPTION_LEFT_X + 500;///< The x coordinate of the bottom-left corner of the second column of text.
 
-    private final GUIText difficultyText;
-    private final GUIButton difficultyButton;
-    private final ArrayList<GUIText> difficultyDescription;
+    public static final int DIFFICULTY_BUTTON_X = DIFFICULTY_TEXT_X + 360;///< The x coordinate of the top-left corner of the button.
+    public static final int DIFFICULTY_BUTTON_Y = 160;///< The y coordinate of the top-left corner of the button.
 
+    private final GUIText difficultyText;///< The title text of the option.
+    private final GUIButton difficultyButton;///< The button used to change the option.
+    private final ArrayList<GUIText> difficultyDescription;///< Additional description of the option.
+
+    /**
+     * Constructor without parameters.
+     */
     public DifficultyOption() {
         difficultyButton = new GUIButton(GUIAssets.easy_button, GUIAssets.easy_button_hovered, DIFFICULTY_BUTTON_X, DIFFICULTY_BUTTON_Y,
                 GUIButton.BUTTON_W, GUIButton.BUTTON_H);
         difficultyButton.AddActionListener(actionEvent -> NextDifficulty());
         difficultyText = new GUIText("  DIFFICULTY:",
                 DIFFICULTY_TEXT_X, DIFFICULTY_BUTTON_Y + 50, BIGGER_INFO_FONT_SIZE, AboutState.TEXT_COLOR);
-        //description
+        // Description text
         difficultyDescription = new ArrayList<>();
         difficultyDescription.add(new GUIText("THINGS AFFECTED BY DIFFICULTY: ",
                 DIFFICULTY_TEXT_X, DESCRIPTION_TOP_Y, INFO_FONT_SIZE, AboutState.TEXT_COLOR));
@@ -74,15 +81,21 @@ public class DifficultyOption implements Option {
         UpdateDescription();
     }
 
+    /**
+     * Updates the game difficulty.
+     */
     private void NextDifficulty() {
-        //update game difficulty
-        Game.DIFFICULTY = (Game.DIFFICULTY) % 3 + 1;
+        Game.difficulty = (Game.difficulty) % 3 + 1;
+        DatabaseManager.SaveGameData("Difficulty", Game.difficulty);
         UpdateButtonImages();
         UpdateDescription();
     }
 
+    /**
+     * Updates the image of the button to match the current difficulty.
+     */
     private void UpdateButtonImages() {
-        switch (Game.DIFFICULTY) {
+        switch (Game.difficulty) {
             case 1:
                 difficultyButton.SetImages(GUIAssets.easy_button, GUIAssets.easy_button_hovered);
                 break;
@@ -95,12 +108,15 @@ public class DifficultyOption implements Option {
         }
     }
 
+    /**
+     * Updates the description to match the current difficutly.
+     */
     private void UpdateDescription() {
         difficultyDescription.get(2).SetText(Monster.GET_DEFAULT_HEALTH() + "  HEALTH  x  " + Enemy.HEALTH_INCREMENT + "  PER LEVEL");
         difficultyDescription.get(4).SetText(Enemy.GET_DEFAULT_DAMAGE() + "  DAMAGE");
         difficultyDescription.get(6).SetText(Dragon.GET_DEFAULT_HEALTH() + "  HEALTH  x  " + Enemy.HEALTH_INCREMENT + "  PER LEVEL");
-        difficultyDescription.get(8).SetText(Dragon.GET_DEFAULT_DAMAGE() + "  DAMAGE  x  " + Game.DIFFICULTY +
-                ((Game.DIFFICULTY > 1) ? "  PROJECTILES" : "  PROJECTILE"));
+        difficultyDescription.get(8).SetText(Dragon.GET_DEFAULT_DAMAGE() + "  DAMAGE  x  " + Game.difficulty +
+                ((Game.difficulty > 1) ? "  PROJECTILES" : "  PROJECTILE"));
         difficultyDescription.get(10).SetText(Player.GET_DEFAULT_HEALTH() + "  HEALTH");
         difficultyDescription.get(12).SetText(Player.GET_DEFAULT_MANA() + "  MANA");
         difficultyDescription.get(14).SetText(Player.GET_DEFAULT_EXPERIENCE_GAIN() + "  XP  x  " + Player.EXPERIENCE_INCREMENT + "  PER LEVEL");
