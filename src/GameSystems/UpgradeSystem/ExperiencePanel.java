@@ -40,7 +40,7 @@ public class ExperiencePanel implements Observer {
     /**
      * Called each frame to draw the panel on the screen.
      *
-     * @param g A java Graphics object.
+     * @param g A Java Graphics object.
      */
     public void Draw(Graphics g) {
         experiencePanel.Draw(g);

@@ -2,7 +2,21 @@ package Entities.CollidableEntities.Projectiles;
 
 import java.awt.*;
 
+/**
+ * @brief Class that creates and returns a collection of projectiles when a spell cast event happens.
+ */
 public class ProjectileFactory {
+    /**
+     * Creates the collection of projectiles to be shot.
+     *
+     * @param type           The type of the projectile to be created.
+     * @param from           The Point from which the projectiles will be shot.
+     * @param to             The point towards which the projectiles were shot.
+     * @param damage         The damage dealt be each projectile.
+     * @param numProjectiles The number of projectiles shot at once.
+     * @param critChance     The critical hit chance of each projectile.
+     * @return A Java array containing all the projectiles.
+     */
     public static Projectile[] MakeProjectile(ProjectileType type, Point from, Point to, long damage, int numProjectiles, int critChance) {
         Projectile[] ans = new Projectile[numProjectiles];
         double[] angles = new double[numProjectiles];
@@ -19,7 +33,7 @@ public class ProjectileFactory {
         } else {
             half = (numProjectiles - 1) / 2.0;
         }
-
+        // Each projectile will be at a slight offset from the center one
         for (int i = 0; i < numProjectiles; ++i) {
             double dangle = (half - i) * 0.05;
             angles[i] = dangle + middleAngle;

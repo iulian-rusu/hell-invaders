@@ -2,10 +2,17 @@ package Assets.Images;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * @brief Holds references to asssets used in the graphical interface of the game.
+ */
 public class GUIAssets {
+    /**
+     * Loads all GUI assets from their spritesheet on the disk.
+     */
     public static void Init() {
         target_cursor = ImageLoader.LoadImage("/others/target_cursor.png");
 
+        // Load all buttons
         int buttonW = 124;
         int buttonH = 29;
         BufferedImage spritesheet = ImageLoader.LoadImage("/buttons/button_sprites.png");
@@ -52,6 +59,7 @@ public class GUIAssets {
         windowed_button = GetSubimageAt(spritesheet, 0,8, buttonW, buttonH);
         windowed_button_hovered = GetSubimageAt(spritesheet, 1,8, buttonW, buttonH);
 
+        // Load some other textures
         damage = ImageLoader.LoadImage("/others/damage.png");
         crit = ImageLoader.LoadImage("/others/crit.png");
         projectiles = ImageLoader.LoadImage("/others/projectiles.png");
@@ -66,9 +74,9 @@ public class GUIAssets {
         return spritesheet.getSubimage(x * w, y * h, w, h);
     }
 
-    //cursor
+    // Main cursor texture
     public static BufferedImage target_cursor;
-    //main menu buttons
+    // Main menu buttons
     public static BufferedImage new_game_button;
     public static BufferedImage new_game_button_hovered;
     public static BufferedImage resume_button;
@@ -80,7 +88,7 @@ public class GUIAssets {
     public static BufferedImage about_button_hovered;
     public static BufferedImage quit_button;
     public static BufferedImage quit_button_hovered;
-    //options buttons
+    // Options buttons
     public static BufferedImage easy_button;
     public static BufferedImage easy_button_hovered;
     public static BufferedImage medium_button;
@@ -95,13 +103,13 @@ public class GUIAssets {
     public static BufferedImage full_screen_button_hovered;
     public static BufferedImage windowed_button;
     public static BufferedImage windowed_button_hovered;
-    //upgrade icons
+    // Upgrade icons
     public static BufferedImage damage;
     public static BufferedImage crit;
     public static BufferedImage projectiles;
     public static BufferedImage upgrade_frost;
     public static BufferedImage upgrade_arcane;
-    //upgrade buttons
+    // Upgrade buttons
     public static BufferedImage buy_button;
     public static BufferedImage buy_button_hovered;
     public static BufferedImage buy_button_blocked;

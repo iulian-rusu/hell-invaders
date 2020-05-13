@@ -22,7 +22,7 @@ public class UpgradeState extends ReversibleState {
     public static final int UPGRADE_LEFT_X = 135;///< The x coordinate of the left upgrade panels.
     public static final int UPGRADE_RIGHT_X = GameWindow.SCREEN_DIMENSION.width -
             UPGRADE_LEFT_X - Upgrade.PANEL_WIDTH - Upgrade.ICON_WITDH;///< The x coordinate of the right upgrade panels.
-    public static final int UPGRADE_TOP_Y = 170;///< The y coordinate of the top of the upgrade panels.
+    public static final int UPGRADE_TOP_Y = 170;///< The y coordinate of the top upgrade panels.
     public static final int UPGRADE_Y_OFFSET = Upgrade.ICON_HEIGHT + 150;///< The y offset between upgrades.
 
     public static ArrayList<GUIText> infoText;///< Information about the current difficulty and level.

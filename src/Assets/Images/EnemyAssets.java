@@ -2,10 +2,16 @@ package Assets.Images;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * @brief Holds references to enemy textures.
+ */
 public class EnemyAssets {
     public static BufferedImage[] dragonFrames;
     public static BufferedImage[] monsterFrames;
 
+    /**
+     * Loads enemy textures from their spritesheets on the disk.
+     */
     public static void Init(){
         BufferedImage sprites= ImageLoader.LoadImage("/moving objects/dragon/dragon_sprites.png");
         assert sprites!=null;

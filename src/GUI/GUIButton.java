@@ -54,7 +54,7 @@ public class GUIButton extends Observable {
     /**
      * Draws the button on the screen.
      *
-     * @param g A java Graphics object.
+     * @param g A Java Graphics object.
      */
     public void Draw(Graphics g) {
         switch (currentState) {
@@ -72,7 +72,7 @@ public class GUIButton extends Observable {
     /**
      * Provides an API to add ActionListener objects to the button.
      *
-     * @param a A java ActionListener object.
+     * @param a A Java ActionListener object.
      */
     public void AddActionListener(ActionListener a) {
         actionListeners.add(a);
@@ -81,7 +81,7 @@ public class GUIButton extends Observable {
     /**
      * Called by the current game state when the mouse is moved. Used to detect hovering.
      *
-     * @param movePoint A java Point object representing the current position of the mouse.
+     * @param movePoint A Java Point object representing the current position of the mouse.
      */
     public void MouseMoved(Point movePoint) {
         if (currentState == GUIButtonState.BLOCKED) {
@@ -97,7 +97,7 @@ public class GUIButton extends Observable {
     /**
      * Called by the current game state when the mouse is pressed.
      *
-     * @param pressPoint A java Point object representing the current position of the mouse.
+     * @param pressPoint A Java Point object representing the current position of the mouse.
      */
     public void MousePressed(Point pressPoint) {
         if (currentState == GUIButtonState.BLOCKED) {
@@ -168,9 +168,7 @@ public class GUIButton extends Observable {
     }
 
     /**
-     * Holds all possible button states.
-     *
-     * @see java.lang.Enum
+     * @brief Holds all possible button states.
      */
     private enum GUIButtonState {
         RELEASED, HOVERED, PRESSED, BLOCKED

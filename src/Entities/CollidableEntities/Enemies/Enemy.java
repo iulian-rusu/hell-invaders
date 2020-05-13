@@ -106,7 +106,7 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
         slowedBegin = 0;
         if (!isSlowed) {
             isSlowed = true;
-            xVelocity *= FrostProjectile.SLOW_PERCENTAGE;
+            xVelocity *= (1 - FrostProjectile.SLOW_PERCENTAGE);
         }
     }
 

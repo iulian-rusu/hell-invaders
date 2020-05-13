@@ -19,7 +19,7 @@ public class DatabaseManager {
 
     /**
      * Constructor without parameters.
-     * Creates the database if it cannot be founf. Creates tables and stores default values if none are already there.
+     * Creates the database if it cannot be found. Creates tables and stores default values if none are already there.
      */
     public static void CreateDatabase() {
         try {

@@ -20,7 +20,7 @@ public abstract class Entity extends Observable {
     /**
      * Called each frame to draw the entity on the screen.
      *
-     * @param g A java Graphics object.
+     * @param g A Java Graphics object.
      */
     public abstract void Draw(Graphics g);
 }

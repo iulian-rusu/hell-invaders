@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @brief Stores references to some fonts.
+ * @brief Holds references to some fonts.
  */
 public class FontAssets {
     public static Font mainFont;

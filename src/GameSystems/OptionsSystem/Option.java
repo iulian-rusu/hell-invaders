@@ -11,7 +11,7 @@ public interface Option {
     /**
      * Draws the option description on the screen.
      *
-     * @param g A java Graphics object.
+     * @param g A Java Graphics object.
      */
     void Draw(Graphics g);
 

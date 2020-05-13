@@ -2,12 +2,18 @@ package Assets.Images;
 
 import java.awt.image.BufferedImage;
 
+/**
+ * @brief Holds references to projectile textures.
+ */
 public class ProjectileAssets {
     public static BufferedImage[] fireProjectiles;
     public static BufferedImage[] frostProjectiles;
     public static BufferedImage[] arcaneProjectiles;
     public static BufferedImage[] enemyProjectiles;
 
+    /**
+     * Loads all projectile textures from their spritesheets on the disk.
+     */
     public static void Init(){
         BufferedImage sprites= ImageLoader.LoadImage("/moving objects/projectiles/fire_sprites.png");
         assert sprites != null;

@@ -9,14 +9,14 @@ public interface GUITextComponent {
     /**
      * Draws the text on the screen.
      *
-     * @param g A java Graphics object.
+     * @param g A Java Graphics object.
      */
     void Draw(Graphics g);
 
     /**
      * Sets the text content of the object.
      *
-     * @param t A java String representing the new text content.
+     * @param t A Java String representing the new text content.
      */
     void SetText(String t);
 
@@ -37,7 +37,7 @@ public interface GUITextComponent {
     /**
      * Sets the new font of the text.
      *
-     * @param f A java Font object.
+     * @param f A Java Font object.
      */
     void SetFont(Font f);
 

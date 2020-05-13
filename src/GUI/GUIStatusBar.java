@@ -11,7 +11,8 @@ import java.util.function.Function;
 /**
  * @brief A generic class that provides an API for a status bar that tracks some value according to a function.
  *
- * @param <T> A type that extends Entity.
+ * @param <T> A generic type that extends Entity.
+ * @see Entities.Entity;
  */
 public class GUIStatusBar<T extends Entity> implements Observer {
     public static final int DEFAULT_WIDTH = 70;///< The default width of the bar.
@@ -85,7 +86,7 @@ public class GUIStatusBar<T extends Entity> implements Observer {
     /**
      * Draws the status bar on the screen.
      *
-     * @param g A java Graphics object.
+     * @param g A Java Graphics object.
      */
     public void Draw(Graphics g) {
         g.setColor(color);
@@ -98,7 +99,7 @@ public class GUIStatusBar<T extends Entity> implements Observer {
             return;
         switch ((CombatEvent) e) {
             case STATUS_BAR_RESET:
-                // Current value becomes new max value
+                // Current value becomes the new max value
                 maxValue = getter.apply(target);
             case STATUS_BAR_UPDATE:
                 ResizeBar();

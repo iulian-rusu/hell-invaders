@@ -17,8 +17,8 @@ public class AboutState extends ReversibleState {
     public static final int INFO_FONT_SIZE = DESCRIPTION_FONT_SIZE - 10;///< Smaller font size for other information.
     public static final int DESCRIPTION_LEFT_X = 160;///< The x coordinatete of the left side of the description text.
     public static final int DESCRIPTION_TOP_Y = 150;///< The y coordiante of the top of the description text.
-    public static final int INFO_LEFT_X = DESCRIPTION_LEFT_X + 70;///< The x coordinate of the left side of additional information.
-    public static final int INFO_RIGHT_X = INFO_LEFT_X + 220;///< The x coordinate of the right side of additional information.
+    public static final int INFO_LEFT_X = DESCRIPTION_LEFT_X + 70;///< The x coordinate of the left side of additional info text.
+    public static final int INFO_RIGHT_X = INFO_LEFT_X + 220;///< The x coordinate of the right side of additional info text.
     public static final Color TEXT_COLOR = new Color(255, 252, 241);///< The default text color.
 
     public static final int MAX_SCROLL_OFFSET = 470;///< The maximum amount the user can scroll down.

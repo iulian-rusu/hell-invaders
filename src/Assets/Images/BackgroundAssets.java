@@ -5,8 +5,10 @@ import Game.GameWindow;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
+/**
+ * @brief Holds references to some background images.
+ */
 public class BackgroundAssets {
-
     public static BufferedImage bgGameNormal;
     public static BufferedImage bgGameDark;
     public static BufferedImage bgMenuFirst;
@@ -14,6 +16,9 @@ public class BackgroundAssets {
     public static BufferedImage bgWin;
     public static BufferedImage bgLoss;
 
+    /**
+     * Loads all background images from the disk.
+     */
     public static void Init() {
         int w = GameWindow.SCREEN_DIMENSION.width;
         int h = GameWindow.SCREEN_DIMENSION.height;
