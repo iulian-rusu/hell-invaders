@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 
 /**
- *  @brief A decorator used to dynamically change text properties at runtime.
+ * @brief A decorator used to dynamically change text properties at runtime.
  */
 public abstract class GUITextDecorator implements GUITextComponent {
     protected GUITextComponent target;///< The target GUITextComponent object.

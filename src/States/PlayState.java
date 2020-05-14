@@ -15,6 +15,7 @@ import GameSystems.EventSystem.Events.CombatEvent;
 import GameSystems.EventSystem.Events.GameEvent;
 import GameSystems.LevelSystem.LevelLoader;
 import GameSystems.UpgradeSystem.ExperiencePanel;
+import SQL.DatabaseManager;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.Collections;
 import java.util.ConcurrentModificationException;
 
 /**
- *  @brief Implements the gameplay.
+ * @brief Implements the gameplay.
  */
 public class PlayState extends ReversibleState implements GameSystems.EventSystem.Observer {
     public static final int BATTLEFIELD_Y = 180;///< The y coordinate whenre the battlefield starts.
@@ -120,8 +121,10 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
         NotifyAllObservers(AudioEvent.STOP_ALL_SFX);
         if (isLevelWon) {
             player.SetLevel(player.GetLevel() + 1);
+            DatabaseManager.SavePlayerData();
             StateManager.GetInstance().SetCurrentState(StateIndex.WIN_STATE);
         } else {
+            DatabaseManager.SavePlayerData();
             StateManager.GetInstance().SetCurrentState(StateIndex.LOSS_STATE);
         }
     }

@@ -6,7 +6,7 @@ import Entities.CollidableEntities.Enemies.Enemy;
 import java.awt.*;
 
 /**
- * @brief Implements a projectile that slows enemies hit.
+ * @brief Implements a projectile type that slows enemies hit.
  */
 public class FrostProjectile extends Projectile {
     public static final int SLOW_FRAME_COUNT = 120;///< The number of frames while the target is slowed.
@@ -40,7 +40,7 @@ public class FrostProjectile extends Projectile {
         Graphics2D g2d = (Graphics2D) g;
         g2d.rotate(angle);
         // Change coordinates with rotation matrix to account for g2d rotation
-        int xTransform = (int) (hitBox.x * Math.cos(-angle) - (hitBox.y + textureBox.height * 0.5) * Math.sin(-angle)- textureBox.width * 0.5);
+        int xTransform = (int) (hitBox.x * Math.cos(-angle) - (hitBox.y + textureBox.height * 0.5) * Math.sin(-angle) - textureBox.width * 0.5);
         int yTransform = (int) (hitBox.x * Math.sin(-angle) + (hitBox.y + textureBox.height * 0.5) * Math.cos(-angle) - textureBox.height * 0.25);
         g2d.drawImage(ProjectileAssets.frostProjectiles[(frameCount / 20) % 3], xTransform, yTransform, textureBox.width, textureBox.height, null);
         g2d.rotate(-angle);

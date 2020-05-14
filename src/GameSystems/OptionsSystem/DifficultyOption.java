@@ -16,7 +16,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- *  @brief Adds the option to change the game difficulty.
+ * @brief Adds the option to change the game difficulty.
  */
 public class DifficultyOption implements Option {
     public static final int DIFFICULTY_TEXT_X =

@@ -18,18 +18,7 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
     public static final int DEFAULT_WIDTH = 200;///< The default width of an enemy.
     public static final int DEFAULT_HEIGHT = 240;///< The default height of an enemy.
     public static final int DEFAULT_X_VELOCITY = -1;///< The default x velocity of an enemy.
-
-    /**
-     * Returns the default damage dealt based on the game difficulty.
-     *
-     * @return An int representing the damage value.
-     */
-    public static int GET_DEFAULT_DAMAGE() {
-        return 10 + 5 * Game.difficulty;
-    }
-
     public static final int FRAMES_BETWEEN_ATTACKS = 120;///< The default number of frames between consecutive attacks.
-
     public static final double HEALTH_INCREMENT = 1.1;///< The increment in health each level.
 
     protected long health;///< The current health of the enemy.
@@ -37,13 +26,12 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
     protected double xVelocity;///< The double precision velocity on the x axis.
     protected double fx;///< The double precision x coordinate.
     protected GUIStatusBar<Enemy> healthBar;///< A GUIStatusBar object that tracks the health.
-
     protected boolean isMoving = true;///< Indicates if the enemy is moving.
     protected boolean isVisile = false;///< Indicates if the enemy is on the screen.
     protected boolean isSlowed = false;///< Indicates if the enemy is slowed by a spell.
-    private int slowedBegin = -1;///< Counts when the slowed state begain
     protected int framesSinceLastAttack = FRAMES_BETWEEN_ATTACKS;///< Counts the number of frames since the last attack.
 
+    private int slowedBegin = -1;///< Counts when the slowed state begain
     /**
      * Constructor with parameters.
      *
@@ -70,6 +58,15 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
         AddObserver(healthBar);
         // Add the player as an observer
         AddObserver(GlobalReferences.GetPlayer());
+    }
+
+    /**
+     * Returns the default damage dealt based on the game difficulty.
+     *
+     * @return An int representing the damage value.
+     */
+    public static int GET_DEFAULT_DAMAGE() {
+        return 10 + 5 * Game.difficulty;
     }
 
     /**
@@ -153,6 +150,13 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
         healthBar.Draw(g);
     }
 
+    /**
+     * Overrides the compareTo method to allow sorting of entities by their y coordinate.
+     *
+     * @param e The entity to be compared to.
+     * @return An int representing the result of the comparsion.
+     * @see java.lang.Comparable
+     */
     @Override
     public int compareTo(Enemy e) {
         return Integer.compare(this.y + GetHeight(), e.y + e.GetHeight());

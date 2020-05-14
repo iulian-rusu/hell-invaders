@@ -6,7 +6,7 @@ import GUI.GUIButton;
 import java.util.ArrayList;
 
 /**
- *  @brief Represents a state from which you can return to the previous game state.
+ * @brief Represents a state from which you can return to the previous game state.
  * <p>
  * All reversible states have a "Back" button in the top left corner.
  * This button sets the current game state to the state preceding this state.

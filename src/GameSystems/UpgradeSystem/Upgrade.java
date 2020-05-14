@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
- *  @brief Implements the upgrade mechanic of the game.
+ * @brief Implements the upgrade mechanic of the game.
  */
 public abstract class Upgrade extends Observable {
     public static final int OFFSET = 10;///< The distance between GUI elements.

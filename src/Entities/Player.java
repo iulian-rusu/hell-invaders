@@ -13,57 +13,27 @@ import GameSystems.EventSystem.Events.AudioEvent;
 import GameSystems.EventSystem.Events.CombatEvent;
 import GameSystems.EventSystem.Events.GameEvent;
 import GameSystems.EventSystem.Observer;
+import SQL.DatabaseManager;
 
 import java.awt.*;
 
 /**
- *  @brief Implements the main player of the game.
+ * @brief Implements the main player of the game.
  */
 public class Player extends Entity implements Observer {
     public static final int PLAYER_H = 150;///< The default height of the player.
     public static final int PLAYER_W = 125;///< The default width of the player.
     public static final int PLAYER_X = 35;///< The default x coordinate of the top-left corner of the player.
     public static final int PLAYER_Y = 420;///< The default y coordinate of the top-left corner of the player.
-
-    /**
-     * Returns the default health based on the game difficulty.
-     *
-     * @return An int representing the health of the player.
-     */
-    public static int GET_DEFAULT_HEALTH() {
-        return 100 + (4 - Game.difficulty) * 50;
-    }
-
     public static final int HEALTHBAR_HEIGHT = 20;///< The default healthbar height.
     public static final int HEALTHBAR_WIDTH = 250;///< The default healthbar width.
     public static final int HEALTHBAR_Y = 770;///< The default y coordinate of the top-left corner of the healthbar.
     public static final int HEALTHBAR_X = 70;///< The default x coordinate of the top-left corner of the healthbar.
-
-    /**
-     * Returns the default mana based on the game difficulty.
-     *
-     * @return An int representing the mana of the player.
-     */
-    public static int GET_DEFAULT_MANA() {
-        return 100 + (3 - Game.difficulty) * 25;
-    }
-
     public static final int MANA_COST_PER_SHOOT = 10;///< The default mana spent on each spell cast.
     public static final int MANA_REGEN_CHUNK = 3;///< The default amount of mana regenerated at once.
-    public static final int MANA_REGEN_PERIOD = 30; ///< The default delay between mana chunks that regenerate.
+    public static final int MANA_REGEN_PERIOD = 30; ///< The default delay between regenerated chunks of mana.
     public static final int MANABAR_Y = HEALTHBAR_Y + HEALTHBAR_HEIGHT + 10;///< The default y coordinate of the top-left corner of the manabar.
-
     public static final double EXPERIENCE_INCREMENT = 1.11;///< The increment in experience gain each level.
-
-    /**
-     * Returns the default experience gain based on the game difficulty.
-     *
-     * @return An int representing the experience gain of the player.
-     */
-    public static int GET_DEFAULT_EXPERIENCE_GAIN() {
-        return (5 + 5 * Game.difficulty);
-    }
-
     public static final long DEFAULT_DAMAGE = 20L;///< The default damage of the player.
 
     private final GUIStatusBar<Player> healthBar;///< The healthbar of the player.
@@ -100,6 +70,33 @@ public class Player extends Entity implements Observer {
     }
 
     /**
+     * Returns the default health based on the game difficulty.
+     *
+     * @return An int representing the health of the player.
+     */
+    public static int GET_DEFAULT_HEALTH() {
+        return 100 + (4 - Game.difficulty) * 50;
+    }
+
+    /**
+     * Returns the default mana based on the game difficulty.
+     *
+     * @return An int representing the mana of the player.
+     */
+    public static int GET_DEFAULT_MANA() {
+        return 100 + (3 - Game.difficulty) * 25;
+    }
+
+    /**
+     * Returns the default experience gain based on the game difficulty.
+     *
+     * @return An int representing the experience gain of the player.
+     */
+    public static int GET_DEFAULT_EXPERIENCE_GAIN() {
+        return (5 + 5 * Game.difficulty);
+    }
+
+    /**
      * Gets called when a new level is started.
      */
     public void Init() {
@@ -112,13 +109,12 @@ public class Player extends Entity implements Observer {
      * Used to reset the player stats to their base values when a new game is started.
      */
     public void ResetAllStats() {
-        numProjectiles = 1;
-        projectileDamage = DEFAULT_DAMAGE;
-        projectileDamageLevel = 1;
-        critChance = 0;
-        currentProjetile = ProjectileType.FIRE;
-        experience = 0L;
-        level = 1;
+        SetNumProjectiles(1);
+        SetProjectileDamage(DEFAULT_DAMAGE, 1);
+        SetCritChance(0);
+        SetProjectileType(ProjectileType.FIRE.value);
+        SetExperience(0L);
+        SetLevel(1);
     }
 
     @Override
@@ -142,6 +138,11 @@ public class Player extends Entity implements Observer {
         manaBar.Draw(g);
     }
 
+    /**
+     * Called when the player takes damage from an enemy.
+     *
+     * @param damage A long representing the amount of damage taken.
+     */
     public void TakeDamage(long damage) {
         health -= damage;
         if (health > 0) {
@@ -153,18 +154,18 @@ public class Player extends Entity implements Observer {
     /**
      * Called when the player casts a spell.
      *
-     * @param p The point towards which the spell was cast.
+     * @param target The point towards which the spell was cast.
      * @return An array representing the projectiles that were shot.
      */
-    public Projectile[] ShootProjectile(Point p) {
+    public Projectile[] ShootProjectile(Point target) {
         if (mana < MANA_COST_PER_SHOOT) {
             return null;
         }
         mana -= MANA_COST_PER_SHOOT;
         NotifyAllObservers(currentProjetile.sfxEvent);
         NotifyAllObservers(CombatEvent.STATUS_BAR_UPDATE);
-        //calculate coordinates of hitbox to center it at p -> subtract half width and height from each coordinate
-        Point to = new Point(p.x - Projectile.PROJECTILE_WIDTH / 2, p.y - Projectile.PROJECTILE_HEIGHT / 2);
+        // Calculate new point to center the projectile hitbox around target
+        Point to = new Point(target.x - Projectile.PROJECTILE_WIDTH / 2, target.y - Projectile.PROJECTILE_HEIGHT / 2);
         return ProjectileFactory.MakeProjectile(currentProjetile,
                 new Point(PLAYER_X + 100, PLAYER_Y + 10), to, projectileDamage, numProjectiles, critChance);
     }
@@ -175,8 +176,8 @@ public class Player extends Entity implements Observer {
             return;
         switch ((CombatEvent) e) {
             case ENEMY_DEATH:
-                experience += (long) (GET_DEFAULT_EXPERIENCE_GAIN() * (Math.pow(EXPERIENCE_INCREMENT, level - 1)));
-                //pass the notification to the experience panel
+                SetExperience(experience + (long) (GET_DEFAULT_EXPERIENCE_GAIN() * Math.pow(EXPERIENCE_INCREMENT, level - 1)));
+                // Pass the notification to the experience panel
                 NotifyAllObservers(CombatEvent.ENEMY_DEATH);
                 break;
             case ENEMY_ATTACK:
@@ -203,7 +204,7 @@ public class Player extends Entity implements Observer {
     }
 
     /**
-     * Used to set the current projectile damage.
+     * Used to set the current projectile damage. Notifies DatabaseManager tha the player data has been modified.
      *
      * @param d     A long representing the new projectile damage.
      * @param level An int representing the new projectile damage level.
@@ -211,6 +212,7 @@ public class Player extends Entity implements Observer {
     public void SetProjectileDamage(long d, int level) {
         projectileDamage = d;
         projectileDamageLevel = level;
+        DatabaseManager.SetPlayerDataModified();
     }
 
     /**
@@ -222,16 +224,15 @@ public class Player extends Entity implements Observer {
         return numProjectiles;
     }
 
-
     /**
-     * Used to set the current number of projectiles.
+     * Used to set the current number of projectiles. Notifies DatabaseManager tha the player data has been modified.
      *
      * @param num An int representing the new number of projectiles.
      */
     public void SetNumProjectiles(int num) {
         numProjectiles = num;
+        DatabaseManager.SetPlayerDataModified();
     }
-
 
     /**
      * Used to access the current crtit chance.
@@ -242,34 +243,32 @@ public class Player extends Entity implements Observer {
         return critChance;
     }
 
-
     /**
-     * Used to set the current crit chance.
+     * Used to set the current crit chance. Notifies DatabaseManager tha the player data has been modified.
      *
      * @param crit An int representing the new crit chance in percentages.
      */
     public void SetCritChance(int crit) {
         critChance = crit;
+        DatabaseManager.SetPlayerDataModified();
     }
 
     /**
      * Used to get the current spell type.
      *
-     * @return An int representing the current spell type: 1 for fire, 2 for frost and 3 for arcane.
+     * @return An int representing the current spell type:
+     * <ol>
+     *     <li> Fire </li>
+     *     <li> Frost </li>
+     *     <li> Arcane </li>
+     * </ol>
      */
     public int GetProjectileType() {
-        switch (currentProjetile) {
-            case FROST:
-                return 2;
-            case ARCANE:
-                return 3;
-            default:
-                return 1;
-        }
+        return currentProjetile.value;
     }
 
     /**
-     * Used to set the current spell type.
+     * Used to set the current spell type. Notifies DatabaseManager tha the player data has been modified.
      *
      * @param projectileType An int representing the new spell type: 1 for fire, 2 for frost and 3 for arcane.
      */
@@ -285,6 +284,7 @@ public class Player extends Entity implements Observer {
                 currentProjetile = ProjectileType.FIRE;
                 break;
         }
+        DatabaseManager.SetPlayerDataModified();
     }
 
     /**
@@ -297,12 +297,13 @@ public class Player extends Entity implements Observer {
     }
 
     /**
-     * Used to set the current experience.
+     * Used to set the current experience. Notifies DatabaseManager tha the player data has been modified.
      *
      * @param exp A long representing the new experience value.
      */
     public void SetExperience(long exp) {
         experience = exp;
+        DatabaseManager.SetPlayerDataModified();
     }
 
     /**
@@ -315,12 +316,14 @@ public class Player extends Entity implements Observer {
     }
 
     /**
-     * Used to set the current level.
+     * Used to set the current level. The value is mapped to the interval [1, 365] using its remainder modulo 365.
+     * Notifies DatabaseManager tha the player data has been modified.
      *
      * @param l An int representing the new level value.
      */
     public void SetLevel(int l) {
-        level = l;
+        level = (l - 1) % 365 + 1;
+        DatabaseManager.SetPlayerDataModified();
     }
 
     /**

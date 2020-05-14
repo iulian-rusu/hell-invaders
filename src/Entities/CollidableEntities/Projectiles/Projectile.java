@@ -84,7 +84,7 @@ public abstract class Projectile extends CollidableEntity {
         int textX = hitBox.x + RNG.nextInt() % 15;
         int textY = hitBox.y + RNG.nextInt() % 15;
         int size = hasCrit ? 60 : 50;
-        //using decorator design pattern to add a timer for the text
+        // Add timer to the text with a deorator
         GUITextComponent ans = new GUITimedDecorator(new GUIText(val, textX, textY, size), 30);
         ans.SetFont(FontAssets.mainFontItalic);
         ans.SetColor(hasCrit ? Color.YELLOW : Color.WHITE);

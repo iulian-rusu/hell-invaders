@@ -6,22 +6,11 @@ import GameSystems.EventSystem.Events.UpgradeEvent;
 import GameSystems.NumberSystem.LargeNumberHandler;
 
 /**
- *  @brief Provides an upgrade mechanic for the number of projectiles shot by the player.
+ * @brief Provides an upgrade mechanic for the number of projectiles shot by the player.
  */
 public class ProjectileNumberUpgrade extends Upgrade {
     public static final long DEFAULT_PRICE = 500;///< The default price of the first purchase.
     public static final double PRICE_INCREMENT = 100.0;///< The amount by which the next purchase increments.
-
-    /**
-     * Returns the current price of the upgrade corresponding to its level.
-     *
-     * @param level The current level of the upgrade.
-     * @return The price of the upgrade at the current level.
-     */
-    public static long GET_PRICE(int level) {
-        return (long) (DEFAULT_PRICE * Math.pow(PRICE_INCREMENT, level - 1));
-    }
-
     private int numProjectiles;///< The number of projectiles to be upgraded to.
 
     /**
@@ -38,6 +27,16 @@ public class ProjectileNumberUpgrade extends Upgrade {
         upgradeName.SetText("PROJECTILES");
         // Set action listener forthe button
         buyButton.AddActionListener(actionEvent -> Buy());
+    }
+
+    /**
+     * Returns the current price of the upgrade corresponding to its level.
+     *
+     * @param level The current level of the upgrade.
+     * @return The price of the upgrade at the current level.
+     */
+    public static long GET_PRICE(int level) {
+        return (long) (DEFAULT_PRICE * Math.pow(PRICE_INCREMENT, level - 1));
     }
 
     @Override

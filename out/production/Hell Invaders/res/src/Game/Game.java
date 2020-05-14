@@ -14,22 +14,30 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferStrategy;
 
 /**
- *  @brief Class that runs the game.
+ * @author Iulian Rusu, https://github.com/iulian-rusu
+ * @brief Class that runs the main game loop.
+ * <p>
+ * The Game class extends the MouseAdapter abstract class to handle mouse events.
+ * This class also implements the Runnable interface to run the game loop in a new thread.
+ * <p>
+ * @see java.lang.Runnable
+ * @see java.awt.event.MouseAdapter;
+ * @see java.awt.event.MouseEvent;
+ * @see java.awt.event.MouseWheelEvent;
  */
 public class Game extends MouseAdapter implements Runnable {
     public static int difficulty = 1;///< The current game difficulty.
-
-    private GameWindow wnd;///< The window of the game.
     Cursor targetCursor;///< The cursor of the game.
-    private volatile boolean runState;///< Flag that indicates if the game is running.
-    private StateManager stateManager;///< Reference to the StateManager object. Used to manage internal game states.
     LoadingScreen loadingScreen;///< Reference to a LoadingScreen which renders while the game is loading.
+    private GameWindow wnd;///< The window of the game.
+    private volatile boolean isRunning;///< Flag that indicates if the game is running.
+    private StateManager stateManager;///< Reference to the StateManager object. Used to manage internal game states.
 
     /**
      * Constructor without parameters.
      */
     public Game() {
-        runState = false;
+        isRunning = false;
     }
 
     /**
@@ -46,9 +54,9 @@ public class Game extends MouseAdapter implements Runnable {
         loadingScreen = new LoadingScreen(wnd);
         Thread loadThread = new Thread(loadingScreen);
         loadThread.start();
-        // Load assets
+        // Load image assets
         ImageLoader.Init();
-        // Load audio
+        // Load audio assets
         AudioManager.Init();
         // Load all game states
         stateManager = StateManager.GetInstance();
@@ -75,7 +83,7 @@ public class Game extends MouseAdapter implements Runnable {
         final double timeFrame = 1000000000.0 / framesPerSecond;
         // Stop loading thread
         loadingScreen.Stop();
-        while (runState) {
+        while (isRunning) {
             curentTime = System.nanoTime();
             if ((curentTime - oldTime) >= timeFrame) {
                 Update();
@@ -89,8 +97,8 @@ public class Game extends MouseAdapter implements Runnable {
      * Creates a new thread and runs the game loop in it.
      */
     public synchronized void StartGame() {
-        if (!runState) {
-            runState = true;
+        if (!isRunning) {
+            isRunning = true;
             Thread gameThread = new Thread(this);
             gameThread.start();
         }

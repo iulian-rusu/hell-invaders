@@ -5,7 +5,7 @@ import GameSystems.UpgradeSystem.ExperiencePanel;
 import SQL.DatabaseManager;
 
 /**
- *  @brief Helper class for easier access to important references.
+ * @brief Helper class for easier access to important references.
  */
 public class GlobalReferences {
     private static Player player = null;///< Reference to the main player.
@@ -13,14 +13,15 @@ public class GlobalReferences {
     private static ExperiencePanel experiencePanel = null;///< Reference to the experience panel of the player.
 
     /**
-     * Returns the Player instance. Also creates it if it hasn't been accessed yet.
+     * Returns the Player instance.
+     * If the player hasn't been accessed yet, this method will create a new player and will load player data from the database.
      *
      * @return The main player instance.
      */
     public static Player GetPlayer() {
         if (player == null) {
             player = new Player();
-            if(!DatabaseManager.IsEmpty(DatabaseManager.PLAYER_DATA_NAME)) {
+            if (!DatabaseManager.IsEmpty(DatabaseManager.PLAYER_DATA_NAME)) {
                 DatabaseManager.LoadPlayerData();
             } else {
                 player.ResetAllStats();
@@ -51,7 +52,9 @@ public class GlobalReferences {
     }
 
     /**
-     * Returns the ExperiencePanel instance. Also creates it if it hasn't been accessed yet.
+     * Returns the ExperiencePanel instance.
+     * If the experience panel hasn't been accessed yet, this method will create it.
+     * If the experience panel hasn't been accessed yet, this method will create itF.
      *
      * @return The ExperiencePanel instance
      */

@@ -7,7 +7,11 @@ import java.awt.*;
  */
 public class ProjectileFactory {
     /**
-     * Creates the collection of projectiles to be shot.
+     * Creates ad returns a collection of projectiles that were shot.
+     * <p>
+     * The player has the option to shoot multiple projectiles at the same time.
+     * Each projectile will fly at a slight angle offset relative to the line connecting the point of the player and the target point.
+     * This factory method is also used for enemy projectiles. The number of enemy projectiles shot at once depends on game difficulty.
      *
      * @param type           The type of the projectile to be created.
      * @param from           The Point from which the projectiles will be shot.

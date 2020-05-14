@@ -8,28 +8,16 @@ import GameSystems.NumberSystem.LargeNumberHandler;
 import java.awt.image.BufferedImage;
 
 /**
- *  @brief Provides an upgrade mechanic for the spell type of the player.
+ * @brief Provides an upgrade mechanic for the spell type of the player.
  */
 public class SpellUpgrade extends Upgrade {
     public static final long DEFAULT_PRICE = 9000;///< The default price of the first purchase.
     public static final double PRICE_INCREMENT = 100.0;///< The amount by which the next purchase increments.
-
-    /**
-     * Returns the current price of the upgrade corresponding to its level.
-     *
-     * @param level The current level of the upgrade.
-     * @return The price of the upgrade at the current level.
-     */
-    public static long GET_PRICE(int level) {
-        return (long) (DEFAULT_PRICE * Math.pow(PRICE_INCREMENT, level - 1));
-    }
-
     private final String[] spellProgression =
             {"FIRE", "FROST", "ARCANE", MAX_TEXT};///< An array containing all upgrade names.
     private final BufferedImage[] spellIcons =
             {null, GUIAssets.upgrade_frost, GUIAssets.upgrade_arcane, GUIAssets.upgrade_arcane};///< An array containing all icons.
     private int spellIndex;///< The index of the current upgrade in the array.
-
     /**
      * Constructor with parameters.
      *
@@ -43,6 +31,16 @@ public class SpellUpgrade extends Upgrade {
         upgradeName.SetText("SPELL TYPE");
         // Set action listener for the button
         buyButton.AddActionListener(actionEvent -> Buy());
+    }
+
+    /**
+     * Returns the current price of the upgrade corresponding to its level.
+     *
+     * @param level The current level of the upgrade.
+     * @return The price of the upgrade at the current level.
+     */
+    public static long GET_PRICE(int level) {
+        return (long) (DEFAULT_PRICE * Math.pow(PRICE_INCREMENT, level - 1));
     }
 
     @Override

@@ -2,7 +2,7 @@ package GameSystems.EventSystem.Events;
 
 
 /**
- *  @brief Holds all possible combat-related events.
+ * @brief Holds all possible combat-related events.
  */
 public enum CombatEvent implements GameEvent {
     STATUS_BAR_UPDATE,

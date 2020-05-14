@@ -6,24 +6,12 @@ import GameSystems.EventSystem.Events.UpgradeEvent;
 import GameSystems.NumberSystem.LargeNumberHandler;
 
 /**
- *  @brief Provide an upgrade mechanic for the player's critical hit chance.
+ * @brief Provide an upgrade mechanic for the player's critical hit chance.
  */
 public class CritUpgrade extends Upgrade {
     public static final long DEFAULT_PRICE = 100;///< The default price of the first purchase.
     public static final double PRICE_INCREMENT = 1.45;///< The amount by which the next purchase increments.
-
-    /**
-     * Returns the current price of the upgrade corresponding to its level.
-     *
-     * @param level The current level of the upgrade.
-     * @return The price of the upgrade at the current level.
-     */
-    public static long GET_PRICE(int level) {
-        return (long) (DEFAULT_PRICE * Math.pow(PRICE_INCREMENT, level - 1));
-    }
-
     public static final int CRIT_INCREMENT = 5;///< The increment in critical hit chance with each level.
-
     private int critChance;///< The critical hit chance to be upgraded to.
 
     /**
@@ -40,6 +28,16 @@ public class CritUpgrade extends Upgrade {
         upgradeName.SetText("CRITICAL CHANCE");
         // Set action listener for buy button
         buyButton.AddActionListener(actionEvent -> Buy());
+    }
+
+    /**
+     * Returns the current price of the upgrade corresponding to its level.
+     *
+     * @param level The current level of the upgrade.
+     * @return The price of the upgrade at the current level.
+     */
+    public static long GET_PRICE(int level) {
+        return (long) (DEFAULT_PRICE * Math.pow(PRICE_INCREMENT, level - 1));
     }
 
     @Override

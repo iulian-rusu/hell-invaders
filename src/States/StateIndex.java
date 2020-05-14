@@ -4,7 +4,7 @@ import Assets.Audio.BackgroundMusic;
 import Assets.Audio.BackgroundMusicAssets;
 
 /**
- *  @brief Associates each game state with a index in the state array and with a background music.
+ * @brief Maps each game state to its index in the state vector and its background music.
  */
 public enum StateIndex {
     MENU_STATE(0, BackgroundMusicAssets.menuMusic),
@@ -22,7 +22,7 @@ public enum StateIndex {
     /**
      * Constructor with parameters.
      *
-     * @param i The index of the state in the state vector.
+     * @param i     The index of the state in the state vector.
      * @param music The background music of the state.
      */
     StateIndex(int i, BackgroundMusic music) {

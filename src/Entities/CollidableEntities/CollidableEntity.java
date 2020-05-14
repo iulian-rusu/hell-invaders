@@ -10,13 +10,12 @@ import java.awt.*;
  */
 public abstract class CollidableEntity extends Entity {
 
+    public boolean isActive = true;///< Flag that indicates if the entity is still active. An inactive entity is removed from the map.
     protected Rectangle hitBox;///< The hitbox of the enitity.
     protected Rectangle textureBox;///< The texture box of the entity.
     protected int x;///< The x coordinate of the top-left corner of the hitbox.
     protected int y;///< The y coordinate of the top-left corner of the hitbox.
     protected boolean isCollisionActive = true;///< Flag that indicates if the entity is able to collide.
-
-    public boolean isActive = true;///< Flag that indicates if the entity is still active. An inactive entity is removed from the map.
 
     /**
      * Constructor with parameters.

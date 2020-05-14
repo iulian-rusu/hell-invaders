@@ -5,7 +5,7 @@ import Assets.FontAssets;
 import java.awt.*;
 
 /**
- *  @brief Provides an API for a simple text object.
+ * @brief Provides an API for a simple text object.
  */
 public class GUIText implements GUITextComponent {
     protected boolean isActive = true;///< Boolean flag that indicates whether the text is active.

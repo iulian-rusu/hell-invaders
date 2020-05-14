@@ -16,13 +16,13 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- *  @brief Implements the upgrade page of the game.
+ * @brief Implements the upgrade page of the game.
  */
 public class UpgradeState extends ReversibleState {
     public static final int UPGRADE_LEFT_X = 135;///< The x coordinate of the left upgrade panels.
     public static final int UPGRADE_RIGHT_X = GameWindow.SCREEN_DIMENSION.width -
             UPGRADE_LEFT_X - Upgrade.PANEL_WIDTH - Upgrade.ICON_WITDH;///< The x coordinate of the right upgrade panels.
-    public static final int UPGRADE_TOP_Y = 170;///< The y coordinate of the top of the upgrade panels.
+    public static final int UPGRADE_TOP_Y = 170;///< The y coordinate of the top upgrade panels.
     public static final int UPGRADE_Y_OFFSET = Upgrade.ICON_HEIGHT + 150;///< The y offset between upgrades.
 
     public static ArrayList<GUIText> infoText;///< Information about the current difficulty and level.
@@ -47,6 +47,7 @@ public class UpgradeState extends ReversibleState {
         allButtons.add(new GUIButton(GUIAssets.play_button, GUIAssets.play_button_hovered, playX, 725, playW, playH));
         allButtons.get(1).AddActionListener(actionEvent -> {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
+            DatabaseManager.SavePlayerData();
             StateManager.GetInstance().SetCurrentState(StateIndex.PLAY_STATE);
         });
 

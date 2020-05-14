@@ -15,7 +15,7 @@ import States.ReversibleState;
 import java.awt.*;
 
 /**
- *  @brief Provides a container for the experience held by the player.
+ * @brief Provides a container for the experience held by the player.
  */
 public class ExperiencePanel implements Observer {
     public static final int EXPERIENCE_PANEL_WIDTH = GUIButton.BUTTON_W;///< The default widht of the panel.

@@ -14,7 +14,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- *  @brief Implements the win mechanic of the game.
+ * @brief Implements the win mechanic of the game.
  */
 public class WinState extends State {
     public static final int WIN_BACKGROUND_TRANSITION = 2;///< The number of seconds after which the background changes.

@@ -3,7 +3,7 @@ package GUI.Text;
 import java.awt.*;
 
 /**
- *  @brief Provides an API for interacting with graphical text elements.
+ * @brief Provides an API for interacting with graphical text elements.
  */
 public interface GUITextComponent {
     /**

@@ -9,7 +9,7 @@ import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 
 /**
- *  @brief Implements the "About" page of the game.
+ * @brief Implements the "About" page of the game.
  */
 public class AboutState extends ReversibleState {
     public static final int LINE_SPACING = 50;///< Spacing between text lines.

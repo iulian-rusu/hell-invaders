@@ -8,7 +8,7 @@ import java.awt.event.MouseWheelEvent;
 import java.util.ArrayList;
 
 /**
- *  @brief Class that implements the game state mechanic.
+ * @brief Class that implements the game state mechanic.
  */
 public abstract class State extends Observable {
     protected ArrayList<GUIButton> allButtons;///< Holds all the buttons of a state.
@@ -77,7 +77,7 @@ public abstract class State extends Observable {
     /**
      * Called each frame to draw elements to the screen.
      *
-     * @param g2d A java Graphics2D object.
+     * @param g2d A Java Graphics2D object.
      */
     public abstract void Draw(Graphics2D g2d);
 }

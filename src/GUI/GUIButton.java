@@ -10,15 +10,14 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
- *  @brief Provides an API for an interactive button object.
+ * @brief Provides an API for an interactive button object.
  */
 public class GUIButton extends Observable {
     public static final int BUTTON_W = 230;///< The default width of the button.
     public static final int BUTTON_H = 60;///< The default height of the button.
-
-    private GUIButtonState currentState;///< The current state of the button. Can be released, hovered, pressed, blocked.
     private final Rectangle clickBox;///< The Rectangle object that defines the bounds of the button.
     private final ArrayList<ActionListener> actionListeners;///< A list of ActionListener objects to add functionality to the button.
+    private GUIButtonState currentState;///< The current state of the button. Can be released, hovered, pressed, blocked.
     private BufferedImage imageReleased;///< The texutre of the released button.
     private BufferedImage imageHovered;///< The texture of the hovered button.
 

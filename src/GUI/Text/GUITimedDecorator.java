@@ -5,11 +5,11 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.*;
 
 /**
- *  @brief Adds the ability to create timed text that becomes inactive after a period of time.
+ * @brief Adds the ability to create timed text that becomes inactive after a period of time.
  */
 public class GUITimedDecorator extends GUITextDecorator {
-    private int frameCount = -1;///< Counts the duration of the text.
     private final int lifetime;///< The number of frames while the text is active.
+    private int frameCount = -1;///< Counts the duration of the text.
 
     /**
      * Constructor with parameters.

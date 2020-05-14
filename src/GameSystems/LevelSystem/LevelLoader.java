@@ -15,10 +15,12 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- *  @brief Class that handles level initialization. Loads all enemies based on the current level and wave templates.
+ * @brief Class that handles level initialization. Loads all enemies based on the current level and wave templates.
  */
 public class LevelLoader {
     public static final int LEVEL_PERIOD_LENGTH = 5;///< The length of a level cycle.
+    public static final int X_DEVIATION = 500;///< The maximum amount by which each enemy spawn point can deviate from the default spawn location.
+    private static final Random RNG = new Random(System.currentTimeMillis());///< Random object that generates random number sequences.
 
     /**
      * Returns the interval between each wave based on the current game difficulty.
@@ -28,9 +30,6 @@ public class LevelLoader {
     public static int GET_SECONDS_BETWEEN_WAVES() {
         return Game.difficulty == 3 ? 5 : 10;
     }
-
-    public static final int X_DEVIATION = 500;///< The maximum amount by which each enemy spawn point can deviate from the default spawn location.
-    private static final Random RNG = new Random(System.currentTimeMillis());///< Random object that generates random number sequences.
 
     /**
      * Loads all enemies into the level.
@@ -62,7 +61,7 @@ public class LevelLoader {
                 int numDragons = in.nextInt();
                 LoadWave(allEnemies, level, wave, numMonsters, numDragons);
                 if (level > 5) {
-                    //load double for level > 5
+                    // Load twice as muany enemies for levels above 5
                     LoadWave(allEnemies, level, wave, numMonsters, numDragons);
                 }
             }

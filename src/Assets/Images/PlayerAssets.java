@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
  * @brief Holds referenes to player textures.
  */
 public class PlayerAssets {
-    public static BufferedImage[] playerFrames;
+    public static BufferedImage[] playerFrames;///< All player assets.
 
     /**
      * Loads all player texture from the plauer spritesheet on the disk.

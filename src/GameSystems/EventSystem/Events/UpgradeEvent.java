@@ -2,7 +2,7 @@ package GameSystems.EventSystem.Events;
 
 
 /**
- *  @brief Holds all possible upgrade-related events.
+ * @brief Holds all possible upgrade-related events.
  */
 public enum UpgradeEvent implements GameEvent {
     SPELL_UPGRADE_BOUGHT,

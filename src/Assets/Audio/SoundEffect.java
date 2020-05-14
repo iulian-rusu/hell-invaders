@@ -7,16 +7,16 @@ import java.io.IOException;
  * @brief Container for a Clip object that provides an API for playing sound effects.
  */
 public class SoundEffect implements Audio {
+    public boolean isPlaying;///< Flag that indicates if the clip is playing.
     Clip clip;///< The actual Clip object that stores the sound data.
     String path;///< The name of the music file on the disk.
-    public boolean isPlaying;///< Flag that indicates if the clip is playing.
     private SoundEffect child = null;///< Child clip, created if the current clip is busy and can't play.
 
     /**
      * Constructor with parameters.
      *
      * @param path The path to the music file on the disk.
-     * @throws UnsupportedAudioFileException In case it's not w .wav file.
+     * @throws UnsupportedAudioFileException If the audio format is invalid.
      * @throws IOException                   If the file is missing.
      * @throws LineUnavailableException      If the clip is already being used.
      */

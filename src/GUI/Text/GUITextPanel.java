@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- *  @brief Extends the GUIText class by adding a background panel for the text.
+ * @brief Extends the GUIText class by adding a background panel for the text.
  */
 public class GUITextPanel extends GUIText {
     public static final Color DEFAULT_YELLOW_COLOR = new Color(121, 85, 72);///< The default shade for the yellow panel.

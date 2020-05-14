@@ -16,12 +16,21 @@ import java.io.IOException;
  */
 public class AudioManager implements Observer {
 
+    private static volatile AudioManager instance = null;///< Stores a reference to the unique instance of the class.
+
+    /**
+     * Private constructor without parameters.
+     */
+    private AudioManager() {
+        Init();
+    }
+
     /**
      * Used to access the instance of the class.
      *
      * @return An instance of AudioManager.
      */
-    public static AudioManager GetInstance() {
+    public static synchronized AudioManager GetInstance() {
         if (instance == null) {
             instance = new AudioManager();
         }
@@ -84,13 +93,4 @@ public class AudioManager implements Observer {
             return;
         ((AudioEvent) e).playAudio.run();
     }
-
-    /**
-     * Private constructor without parameters.
-     */
-    private AudioManager() {
-        Init();
-    }
-
-    private static AudioManager instance = null;///< The unique instance of the singleton.
 }

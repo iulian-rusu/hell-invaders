@@ -8,11 +8,11 @@ import java.io.IOException;
  * @brief Holds references to some background music.
  */
 public class BackgroundMusicAssets {
-    public static BackgroundMusic menuMusic;
-    public static BackgroundMusic upgradeMusic;
-    public static BackgroundMusic gameMusic;
-    public static BackgroundMusic winMusic;
-    public static BackgroundMusic lossMusic;
+    public static BackgroundMusic menuMusic;///< Plays in the main menu.
+    public static BackgroundMusic upgradeMusic;///< Plays in the upgrade menu.
+    public static BackgroundMusic gameMusic;///< Plays in during a level.
+    public static BackgroundMusic winMusic;///< Plays when the level is won.
+    public static BackgroundMusic lossMusic;///< Plays when the level is lost.
 
     /**
      * Loads the music from the disk.

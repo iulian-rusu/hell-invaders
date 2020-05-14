@@ -7,12 +7,12 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 /**
- *  @brief Displays a loading screen in a parallel thread while the main game thread is laoding data.
+ * @brief Displays a loading screen in a parallel thread while the main game thread is laoding data.
  */
 public class LoadingScreen implements Runnable {
-    private volatile boolean isLoading = true;///< Boolean flag that indicates if the game is still loading.
     private final GameWindow wnd;///< Reference to the main game window.
     private final BufferedImage bgLoad = ImageLoader.LoadImage("/backgrounds/bg_load.png");///< The image to be drawn as a loading screen.
+    private volatile boolean isLoading = true;///< Boolean flag that indicates if the game is still loading.
 
     /**
      * Constructor with parameters.

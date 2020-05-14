@@ -1,16 +1,16 @@
 package GameSystems.NumberSystem;
 
 /**
- *  @brief Class that manages large values and transforms them into more user-friendly text.
+ * @brief Class that manages large values and transforms them into more user-friendly text.
  * <p>
  * This is done by appending units of measurement corresponding to the size of the original number.
  * <ul>
- *     <li> Kilo = 10^3  </li>
- *     <li> Mega = 10^6  </li>
- *     <li> Giga = 10^9  </li>
- *     <li> Tera = 10^12 </li>
- *     <li> Peta = 10^15 </li>
- *     <li> Exa = 10^18  </li>
+ *     <li> Kilo = 10<sup>3</sup>  </li>
+ *     <li> Mega = 10<sup>6</sup>  </li>
+ *     <li> Giga = 10<sup>9</sup>  </li>
+ *     <li> Tera = 10<sup>12</sup> </li>
+ *     <li> Peta = 10<sup>15</sup> </li>
+ *     <li> Exa  = 10<sup>18</sup> </li>
  * </ul>
  */
 public class LargeNumberHandler {

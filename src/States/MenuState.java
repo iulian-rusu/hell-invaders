@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- *  @brief Implements the main menu of the game.
+ * @brief Implements the main menu of the game.
  */
 public class MenuState extends State {
     private boolean logoColorflag = true;///< Flag to signal the color of the game logo. It alternates every second.
@@ -38,7 +38,7 @@ public class MenuState extends State {
         // State transition events
         // New game button
         allButtons.get(0).AddActionListener(actionEvent -> {
-                    if(DatabaseManager.IsEmpty(DatabaseManager.PLAYER_DATA_NAME)){
+                    if (DatabaseManager.IsEmpty(DatabaseManager.PLAYER_DATA_NAME)) {
                         // Nothing saved, go directly to a new game.
                         NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
                         StateManager.GetInstance().SetCurrentState(StateIndex.UPGRADE_STATE);
@@ -61,7 +61,6 @@ public class MenuState extends State {
         // Quit button
         allButtons.get(4).AddActionListener(actionEvent -> {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
-            DatabaseManager.SavePlayerData();
             System.exit(0);
         });
     }

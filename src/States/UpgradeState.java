@@ -16,7 +16,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- *  @brief Implements the upgrade page of the game.
+ * @brief Implements the upgrade page of the game.
  */
 public class UpgradeState extends ReversibleState {
     public static final int UPGRADE_LEFT_X = 135;///< The x coordinate of the left upgrade panels.
@@ -47,6 +47,7 @@ public class UpgradeState extends ReversibleState {
         allButtons.add(new GUIButton(GUIAssets.play_button, GUIAssets.play_button_hovered, playX, 725, playW, playH));
         allButtons.get(1).AddActionListener(actionEvent -> {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
+            DatabaseManager.SavePlayerData();
             StateManager.GetInstance().SetCurrentState(StateIndex.PLAY_STATE);
         });
 

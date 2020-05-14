@@ -5,7 +5,7 @@ import Assets.Audio.SoundEffectAssets;
 import States.StateManager;
 
 /**
- *  @brief Holds all possible audio-related events.
+ * @brief Holds all possible audio-related events.
  */
 public enum AudioEvent implements GameEvent {
     PLAY_CURRENT_STATE_MUSIC(() -> AudioManager.GetInstance().Play(StateManager.GetInstance().GetCurrentStateIndex().bgMusic)),

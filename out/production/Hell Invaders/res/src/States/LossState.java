@@ -12,7 +12,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- *  @brief Implements the loss mechanic of the game.
+ * @brief Implements the loss mechanic of the game.
  */
 public class LossState extends State {
     private final GUIText gameOverText;///< Text that tells the player they lost.

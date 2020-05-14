@@ -5,7 +5,7 @@ import GUI.GUIButton;
 import java.awt.*;
 
 /**
- *  @brief Provides an interface for adding options to the "Options" page of the game.
+ * @brief Provides an interface for adding options to the "Options" page of the game.
  */
 public interface Option {
     /**

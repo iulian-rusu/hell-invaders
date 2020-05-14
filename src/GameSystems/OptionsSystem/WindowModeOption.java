@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- *  @brief Adds the option to switch between fullscreen and windowed mode.
+ * @brief Adds the option to switch between fullscreen and windowed mode.
  */
 public class WindowModeOption implements Option {
     public static final int WINDOW_MODE_TEXT_X =

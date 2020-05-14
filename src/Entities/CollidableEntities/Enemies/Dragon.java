@@ -20,6 +20,22 @@ import java.util.Arrays;
 public class Dragon extends Enemy {
     public static final Point DEFAULT_TARGET_POINT =
             new Point(Player.PLAYER_X + Player.PLAYER_W, Player.PLAYER_Y + Player.PLAYER_H / 2);///< The point towards which to shoot
+    public static final int DEFAULT_HEIGHT = 100;///< The default height of the texture box.
+    public static final int DEFAULT_HITBOX_WIDTH = (int) (DEFAULT_WIDTH * 0.6);///< The width of the hitbox relative to the texture.
+    public static final int DEFAULT_HITBOX_HEIGHT = (int) (DEFAULT_HEIGHT * 0.6);///< The height of the hitbox relative to the texture box.
+    public static final int DEFAULT_ATTACK_TRANSITION_X = GameWindow.SCREEN_DIMENSION.width / 2;///< The default x coordinate for attack state trigger.
+
+    private ArrayList<Projectile> projectiles;///< An ArrayList of all projectiles shot by the Dragon and that are still active.
+    /**
+     * Constructor with parameters.
+     *
+     * @param x     The x coordinate of the top-left corner of the hitbox.
+     * @param y     The y coordinate of the top-left corner of the hitbox.
+     * @param level The level of the monster.
+     */
+    public Dragon(int x, int y, int level) {
+        super(x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT, DEFAULT_WIDTH, DEFAULT_HEIGHT, level);
+    }
 
     /**
      * Returns the default damage dealt based on the game difficulty.
@@ -51,24 +67,6 @@ public class Dragon extends Enemy {
             ans = -ans;
         }
         return ans;
-    }
-
-    public static final int DEFAULT_HEIGHT = 100;///< The default height of the texture box.
-    public static final int DEFAULT_HITBOX_WIDTH = (int) (DEFAULT_WIDTH * 0.6);///< The width of the hitbox relative to the texture.
-    public static final int DEFAULT_HITBOX_HEIGHT = (int) (DEFAULT_HEIGHT * 0.6);///< The height of the hitbox relative to the texture box.
-    public static final int DEFAULT_ATTACK_TRANSITION_X = GameWindow.SCREEN_DIMENSION.width / 2;///< The default x coordinate for attack state trigger.
-
-    private ArrayList<Projectile> projectiles;///< An ArrayList of all projectiles shot by the Dragon and that are still active.
-
-    /**
-     * Constructor with parameters.
-     *
-     * @param x     The x coordinate of the top-left corner of the hitbox.
-     * @param y     The y coordinate of the top-left corner of the hitbox.
-     * @param level The level of the monster.
-     */
-    public Dragon(int x, int y, int level) {
-        super(x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT, DEFAULT_WIDTH, DEFAULT_HEIGHT, level);
     }
 
     @Override

@@ -9,28 +9,30 @@ import java.sql.*;
  * @brief Manages access to the SQLite database. Allows the loading of previous game data and settings.
  */
 public class DatabaseManager {
-    public static final String DB_NAME = "game_stats.db";///< The name of the game databse.
-    public static final String PLAYER_DATA_NAME = "PlayerData";///< The name of the table containing player-retalted data.
+    public static final String DB_NAME = "game_stats.db";///< The name of the database.
+    public static final String PLAYER_DATA_NAME = "PlayerData";///< The name of the table containing player-retated data.
     public static final String GAME_SETTINGS_NAME = "GameSettings";///< The name of the table containing game settings.
 
     private static Connection connection;///< The currently open connection to the database.
     private static Statement statement;///< The currently open statement.
-    private static boolean isConnected = false;///< Flag to indicate current state.
+    private static boolean isConnected = false;///< Flag to indicate if the manager is currently conencted to the database.
+    private static boolean playerDataModified = false;///< Flag to indicate if the player data has been modified and needs to be saved.
 
     /**
      * Constructor without parameters.
-     * Creates the database if it cannot be found. Creates tables and stores default values if none are already there.
+     * <p>
+     * Creates the database if it cannot be found. Stores default values for game settings if none are there yet.
      */
     public static void CreateDatabase() {
         try {
             // Create player data table if it doesn't exist yet
             String createPlayerTable = "CREATE TABLE IF NOT EXISTS " + PLAYER_DATA_NAME +
                     "(Level INT NOT NULL," +
-                    " Experience INT NOT NULL, " +
-                    " ProjectileDamage INT NOT NULL, " +
-                    " ProjectileDamageLevel INT NOT NULL, " +
-                    " NumProjectiles INT NOT NULL, " +
-                    " CritChance INT NOT NULL, " +
+                    " Experience INT NOT NULL," +
+                    " ProjectileDamage INT NOT NULL," +
+                    " ProjectileDamageLevel INT NOT NULL," +
+                    " NumProjectiles INT NOT NULL," +
+                    " CritChance INT NOT NULL," +
                     " CurrentProjectile INT NOT NULL)";
             Connect();
             statement.execute(createPlayerTable);
@@ -60,6 +62,10 @@ public class DatabaseManager {
         }
     }
 
+    public static void SetPlayerDataModified() {
+        playerDataModified = true;
+    }
+
     /**
      * Returns a boolean indicating whether a table from the database is empty.
      *
@@ -80,8 +86,20 @@ public class DatabaseManager {
 
     /**
      * Stores the current player data into the database. If some data is already there, it will be overwritten.
+     * <p>
+     * Player data is automatically saved when:
+     * <ul>
+     *     <li> A new game is started. </li>
+     *     <li> The game state transitions from the upgrade state to the main menu. </li>
+     *     <li> Before a new level is started. </li>
+     *     <li> After a level is completed (won or lost). </li>
+     * </ul>
+     * <p>
+     * This method will only save the data if the playerDataModified flag is set to true.
      */
     public static void SavePlayerData() {
+        if (!playerDataModified)
+            return;
         try {
             Player player = GlobalReferences.GetPlayer();
             int level = player.GetLevel();
@@ -112,6 +130,7 @@ public class DatabaseManager {
             Connect();
             statement.execute(command);
             Disconnect();
+            playerDataModified = false;
         } catch (SQLException | NullPointerException throwables) {
             throwables.printStackTrace();
         } finally {
@@ -121,6 +140,8 @@ public class DatabaseManager {
 
     /**
      * Deletes all player data from the database.
+     * <p>
+     * Player data is cleared when a new game is started.
      */
     public static void ClearPlayerData() {
         try {
@@ -137,6 +158,8 @@ public class DatabaseManager {
 
     /**
      * Loads player data from the database and updates the Player instance.
+     * <p>
+     * Player data is loaded immediately after the Player object is created.
      */
     public static void LoadPlayerData() {
         try {
@@ -158,6 +181,7 @@ public class DatabaseManager {
             player.SetCritChance(critChance);
             player.SetProjectileType(currentProjectile);
 
+            playerDataModified = false; // Set it to false because the data loaded is not new
         } catch (SQLException | NullPointerException throwables) {
             throwables.printStackTrace();
         } finally {
@@ -167,6 +191,8 @@ public class DatabaseManager {
 
     /**
      * Saves the value specified into the field of the game settings table.
+     * <p>
+     * Game data is automatically saved after each option change.
      *
      * @param field The name of the field to be updated.
      * @param value The value to be inserted.
@@ -184,6 +210,8 @@ public class DatabaseManager {
 
     /**
      * Retrieves and returns data from the specified field in the game table.
+     * <p>
+     * Game date is loaded when the game is initialized.
      *
      * @param field The name of the vield to retrieve from.
      * @return An integer represeting the value from the table.
@@ -201,7 +229,7 @@ public class DatabaseManager {
     }
 
     /**
-     * Creates a new connection to the database if not already connected.
+     * Creates a new connection to the database, if not already connected.
      */
     private static void Connect() {
         if (isConnected)
@@ -219,7 +247,7 @@ public class DatabaseManager {
     }
 
     /**
-     * Closses the currently active connection to the database.
+     * Closes the currently active connection to the database, if it exists.
      */
     private static void Disconnect() {
         if (!isConnected)

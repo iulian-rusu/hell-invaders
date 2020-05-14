@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- *  @brief Implements the options of the game.
+ * @brief Implements the options of the game.
  */
 public class OptionsState extends ReversibleState {
     private final ArrayList<Option> allOptions;///< Holds all options.

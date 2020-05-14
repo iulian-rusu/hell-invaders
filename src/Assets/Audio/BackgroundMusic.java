@@ -7,12 +7,12 @@ import java.io.IOException;
  * @brief Container for a Clip object that provides an API for playing background music.
  */
 public class BackgroundMusic implements Audio {
-    Clip clip;///< THe actual clip object.
+    public boolean isPlaying;///< Flag that indicates if the music is playing.
+    public boolean isLooping;///< Flag that indicates if the music will loop after finishing.
+    Clip clip;///< The actual clip object.
     AudioInputStream audioInputStream;///< The input stream from the file.
     AudioFormat format;///< The format of the file.
     DataLine.Info info;///< The dataline info from the format.
-    public boolean isPlaying;///< Flag that indicates if the music is playing.
-    public boolean isLooping;///< Flag that indicates if the music will loop after finishing.
 
     /**
      * Constructor with parameters.

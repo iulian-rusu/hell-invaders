@@ -5,7 +5,7 @@ import GameSystems.EventSystem.Observable;
 import java.awt.*;
 
 /**
- *  @brief Implements a generic entity - an object that can be dynamically created and interracted with.
+ * @brief Implements a generic entity - an object that can be dynamically created and interacted with.
  */
 public abstract class Entity extends Observable {
     protected int frameCount = -1;///< Counts the current frame of the game.

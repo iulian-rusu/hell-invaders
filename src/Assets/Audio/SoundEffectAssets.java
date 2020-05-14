@@ -8,20 +8,20 @@ import java.io.IOException;
  * @brief Holds references to some sound effetcs.
  */
 public class SoundEffectAssets {
-    public static SoundEffect enemyHurt;
-    public static SoundEffect dragonShoot;
-    public static SoundEffect enemySpawn;
-    public static SoundEffect fireShoot;
-    public static SoundEffect frostShoot;
-    public static SoundEffect arcaneShoot;
-    public static SoundEffect winSFX;
-    public static SoundEffect oof;
-    public static SoundEffect buttonPress;
+    public static SoundEffect enemyHurt;///< Plays when an enemy is hit.
+    public static SoundEffect dragonShoot;///< Plays when a dragon attacks.
+    public static SoundEffect enemySpawn;///< Plays when an enemy spawns.
+    public static SoundEffect fireShoot;///< Plays when a fire spell is cast.
+    public static SoundEffect frostShoot;///< Plays when a frost spell is cast.
+    public static SoundEffect arcaneShoot;///< Plays when an arcane spell is cast.
+    public static SoundEffect winSFX;///< Plays when a level is won.
+    public static SoundEffect oof;///< Plays when the player is hit.
+    public static SoundEffect buttonPress;///< Plays when a button is pressed.
 
     /**
      * Loads sound effects from the disk.
      *
-     * @throws UnsupportedAudioFileException In case it's not w .wav file.
+     * @throws UnsupportedAudioFileException If the audio format is invalid.
      * @throws IOException                   If the file is missing.
      * @throws LineUnavailableException      If the clip is already being used.
      */

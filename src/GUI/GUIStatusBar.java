@@ -9,9 +9,8 @@ import java.awt.*;
 import java.util.function.Function;
 
 /**
- * @brief A generic class that provides an API for a status bar that tracks some value according to a function.
- *
  * @param <T> A generic type that extends Entity.
+ * @brief A generic class that provides an API for a status bar that tracks some value according to a function.
  * @see Entities.Entity;
  */
 public class GUIStatusBar<T extends Entity> implements Observer {
@@ -20,12 +19,12 @@ public class GUIStatusBar<T extends Entity> implements Observer {
     public static final int DEFAULT_Y_OFFSET = -20;///< The default offset of the bar above the target entity.
 
     private final Rectangle bar;///< The Rectangle object that defines the boundaries of the bar.
+    private final T target;///< The entity whose values is being tracked by the bar.
+    private final Function<T, Long> getter;///< A callback function that returns the tracked value from the target.
     private Color color;///< The color of the bar.
     private double currentValue;///< The current value of the bar.
     private double maxValue;///< The value corresponding to the full bar.
     private int maxWidth = DEFAULT_WIDTH;///< The width of the bar.
-    private final T target;///< The entity whose values is being tracked by the bar.
-    private final Function<T, Long> getter;///< A callback function that returns the tracked value from the target.
 
     /**
      * Constructor with parameters.
