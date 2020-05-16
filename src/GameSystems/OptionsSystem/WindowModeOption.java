@@ -3,6 +3,7 @@ package GameSystems.OptionsSystem;
 import Assets.Images.GUIAssets;
 import GUI.GUIButton;
 import GUI.Text.GUIText;
+import Game.Game;
 import Game.GameWindow;
 import Game.GlobalReferences;
 import SQL.DatabaseManager;
@@ -62,10 +63,16 @@ public class WindowModeOption implements Option {
         frame.dispose();
         frame.setUndecorated(!gameWindow.isFullscreen);
         gameWindow.isFullscreen = !gameWindow.isFullscreen;
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        DatabaseManager.SaveGameData("IsFullscreen", gameWindow.isFullscreen ? 1 : 0);
         UpdateButtonImages();
+    }
+
+    @Override
+    public void SaveData() {
+        GameWindow gameWindow = GlobalReferences.GetGameWindow();
+        DatabaseManager.SaveGameData("IsFullscreen", gameWindow.isFullscreen ? 1 : 0);
     }
 
     @Override

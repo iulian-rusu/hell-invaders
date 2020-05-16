@@ -1,6 +1,7 @@
 package GameSystems.UpgradeSystem;
 
 import Assets.Images.GUIAssets;
+import Entities.CollidableEntities.Projectiles.ProjectileType;
 import Game.GlobalReferences;
 import GameSystems.EventSystem.Events.UpgradeEvent;
 import GameSystems.NumberSystem.LargeNumberHandler;
@@ -65,7 +66,7 @@ public class SpellUpgrade extends Upgrade {
             return;
         }
         GlobalReferences.GetPlayer().SetExperience(playerXP);
-        GlobalReferences.GetPlayer().SetProjectileType(spellIndex + 1);
+        GlobalReferences.GetPlayer().SetProjectileType(ProjectileType.valueOf(spellProgression[spellIndex]));
         // Update values
         level++;
         spellIndex++;
@@ -75,7 +76,8 @@ public class SpellUpgrade extends Upgrade {
 
     @Override
     public void Init() {
-        level = GlobalReferences.GetPlayer().GetProjectileType();
+        level = GlobalReferences.GetPlayer().GetProjectileType().value;
+        isMaxed = false;
         spellIndex = level;
         UpdateDescription();
     }

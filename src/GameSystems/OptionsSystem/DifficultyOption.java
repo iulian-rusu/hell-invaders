@@ -86,7 +86,6 @@ public class DifficultyOption implements Option {
      */
     private void NextDifficulty() {
         Game.difficulty = (Game.difficulty) % 3 + 1;
-        DatabaseManager.SaveGameData("Difficulty", Game.difficulty);
         UpdateButtonImages();
         UpdateDescription();
     }
@@ -120,6 +119,11 @@ public class DifficultyOption implements Option {
         difficultyDescription.get(10).SetText(Player.GET_DEFAULT_HEALTH() + "  HEALTH");
         difficultyDescription.get(12).SetText(Player.GET_DEFAULT_MANA() + "  MANA");
         difficultyDescription.get(14).SetText(Player.GET_DEFAULT_EXPERIENCE_GAIN() + "  XP  x  " + Player.EXPERIENCE_INCREMENT + "  PER LEVEL");
+    }
+
+    @Override
+    public void SaveData() {
+        DatabaseManager.SaveGameData("Difficulty", Game.difficulty);
     }
 
     @Override

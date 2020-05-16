@@ -13,15 +13,19 @@ import java.util.ArrayList;
  * @brief Implements the options of the game.
  */
 public class OptionsState extends ReversibleState {
-    private final ArrayList<Option> allOptions;///< Holds all options.
+    private final ArrayList<Option> allOptions = new ArrayList<>(2);///< Holds all options.
 
     /**
      * Constructor without parameters.
      */
     public OptionsState() {
         // Back button
-        allButtons.get(0).AddActionListener(actionEvent -> StateManager.GetInstance().SetCurrentState(StateIndex.MENU_STATE));
-        allOptions = new ArrayList<>(2);
+        allButtons.get(0).AddActionListener(actionEvent -> {
+            for (Option option : allOptions) {
+                option.SaveData();
+            }
+            StateManager.GetInstance().SetCurrentState(StateIndex.MENU_STATE);
+        });
         // Add difficulty button
         DifficultyOption difficultyOption = new DifficultyOption();
         allButtons.add(difficultyOption.GetButtonHandle());

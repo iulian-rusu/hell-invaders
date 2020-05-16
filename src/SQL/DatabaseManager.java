@@ -1,9 +1,12 @@
 package SQL;
 
+import Entities.CollidableEntities.Projectiles.ProjectileType;
 import Entities.Player;
 import Game.GlobalReferences;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @brief Manages access to the SQLite database. Allows the loading of previous game data and settings.
@@ -16,7 +19,8 @@ public class DatabaseManager {
     private static Connection connection;///< The currently open connection to the database.
     private static Statement statement;///< The currently open statement.
     private static boolean isConnected = false;///< Flag to indicate if the manager is currently conencted to the database.
-    private static boolean playerDataModified = false;///< Flag to indicate if the player data has been modified and needs to be saved.
+    private static final PlayerDataObserver playerDataObserver = new PlayerDataObserver();
+    private static final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");///< Date format for logging.
 
     /**
      * Constructor without parameters.
@@ -33,7 +37,7 @@ public class DatabaseManager {
                     " ProjectileDamageLevel INT NOT NULL," +
                     " NumProjectiles INT NOT NULL," +
                     " CritChance INT NOT NULL," +
-                    " CurrentProjectile INT NOT NULL)";
+                    " CurrentProjectile CHAR(20) NOT NULL)";
             Connect();
             statement.execute(createPlayerTable);
             Disconnect();
@@ -62,8 +66,14 @@ public class DatabaseManager {
         }
     }
 
-    public static void SetPlayerDataModified() {
-        playerDataModified = true;
+    /**
+     * Returns a reference to the player data observer.
+     *
+     * @return A PlayerDataObserver object.
+     * @see GameSystems.EventSystem.Observer
+     */
+    public static PlayerDataObserver GetPlayerDataObserverHandle() {
+        return playerDataObserver;
     }
 
     /**
@@ -90,15 +100,13 @@ public class DatabaseManager {
      * Player data is automatically saved when:
      * <ul>
      *     <li> A new game is started. </li>
-     *     <li> The game state transitions from the upgrade state to the main menu. </li>
-     *     <li> Before a new level is started. </li>
-     *     <li> After a level is completed (won or lost). </li>
+     *     <li> The user returns from the upgrade menu to the main menu </li>
      * </ul>
      * <p>
      * This method will only save the data if the playerDataModified flag is set to true.
      */
     public static void SavePlayerData() {
-        if (!playerDataModified)
+        if (!playerDataObserver.GetPlayerDataModified())
             return;
         try {
             Player player = GlobalReferences.GetPlayer();
@@ -108,13 +116,13 @@ public class DatabaseManager {
             int projectileDamageLevel = player.GetProjectileDamageLevel();
             int numProjectiles = player.GetNumProjectiles();
             int critChance = player.GetCritChance();
-            int currentProjectile = player.GetProjectileType();
+            String currentProjectile = player.GetProjectileType().toString();
 
             String command;
             if (IsEmpty(PLAYER_DATA_NAME)) {
                 command = String.format("INSERT INTO " + PLAYER_DATA_NAME +
                                 " (Level, Experience, ProjectileDamage, ProjectileDamageLevel, NumProjectiles, CritChance, CurrentProjectile) " +
-                                "VALUES (%d, %d, %d, %d, %d, %d, %d)",
+                                "VALUES (%d, %d, %d, %d, %d, %d, '%s')",
                         level, experience, projectileDamage, projectileDamageLevel, numProjectiles, critChance, currentProjectile);
             } else {
                 command = String.format("UPDATE " + PLAYER_DATA_NAME +
@@ -124,13 +132,15 @@ public class DatabaseManager {
                                 "ProjectileDamageLevel = %d, " +
                                 "NumProjectiles = %d, " +
                                 "CritChance = %d, " +
-                                "CurrentProjectile = %d",
+                                "CurrentProjectile = '%s'",
                         level, experience, projectileDamage, projectileDamageLevel, numProjectiles, critChance, currentProjectile);
             }
             Connect();
             statement.execute(command);
             Disconnect();
-            playerDataModified = false;
+            playerDataObserver.ResetPlayerDataMOdified();
+
+            LogMessage("Saved player data.");
         } catch (SQLException | NullPointerException throwables) {
             throwables.printStackTrace();
         } finally {
@@ -148,6 +158,8 @@ public class DatabaseManager {
             if (!IsEmpty(PLAYER_DATA_NAME)) {
                 Connect();
                 statement.execute("DELETE FROM " + PLAYER_DATA_NAME);
+
+                LogMessage("Cleared player data.");
             }
         } catch (SQLException | NullPointerException throwables) {
             throwables.printStackTrace();
@@ -171,7 +183,7 @@ public class DatabaseManager {
             int projectileDamageLevel = playerData.getInt("ProjectileDamageLevel");
             int numProjectiles = playerData.getInt("NumProjectiles");
             int critChance = playerData.getInt("CritChance");
-            int currentProjectile = playerData.getInt("CurrentProjectile");
+            String currentProjectile = playerData.getString("CurrentProjectile");
 
             Player player = GlobalReferences.GetPlayer();
             player.SetLevel(level);
@@ -179,9 +191,9 @@ public class DatabaseManager {
             player.SetProjectileDamage(projectileDamage, projectileDamageLevel);
             player.SetNumProjectiles(numProjectiles);
             player.SetCritChance(critChance);
-            player.SetProjectileType(currentProjectile);
+            player.SetProjectileType(ProjectileType.valueOf(currentProjectile));
 
-            playerDataModified = false; // Set it to false because the data loaded is not new
+            LogMessage("Loaded player data.");
         } catch (SQLException | NullPointerException throwables) {
             throwables.printStackTrace();
         } finally {
@@ -192,7 +204,7 @@ public class DatabaseManager {
     /**
      * Saves the value specified into the field of the game settings table.
      * <p>
-     * Game data is automatically saved after each option change.
+     * Game data is automatically saved after leaving the options menu.
      *
      * @param field The name of the field to be updated.
      * @param value The value to be inserted.
@@ -259,5 +271,15 @@ public class DatabaseManager {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    /**
+     * Prints a log message.
+     *
+     * @param msg A String containing the message to be logged.
+     */
+    public static void LogMessage(String msg){
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(String.format("[DATABASE MANAGER @ %s]: %s", dateFormat.format(now), msg));
     }
 }

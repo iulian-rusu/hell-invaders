@@ -136,7 +136,7 @@ public class Game extends MouseAdapter implements Runnable {
         assert bs != null;
         Graphics2D g2d = (Graphics2D) bs.getDrawGraphics();
         if (!wnd.isFullscreen) {
-            g2d.scale(1, 0.95);
+            g2d.scale(1, GameWindow.Y_SCALE_FACTOR);
         }
         g2d.clearRect(0, 0, wnd.GetWndWidth(), wnd.GetWndHeight());
         // Draw elements in the current state

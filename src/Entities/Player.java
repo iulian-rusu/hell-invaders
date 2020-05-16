@@ -12,6 +12,7 @@ import Game.GlobalReferences;
 import GameSystems.EventSystem.Events.AudioEvent;
 import GameSystems.EventSystem.Events.CombatEvent;
 import GameSystems.EventSystem.Events.GameEvent;
+import GameSystems.EventSystem.Events.PlayerDataEvent;
 import GameSystems.EventSystem.Observer;
 import SQL.DatabaseManager;
 
@@ -67,6 +68,8 @@ public class Player extends Entity implements Observer {
         AddObserver(manaBar);
         // Add experience observer
         AddObserver(GlobalReferences.GetExperiencePanel());
+        // Add data observer for database management
+        AddObserver(DatabaseManager.GetPlayerDataObserverHandle());
     }
 
     /**
@@ -109,12 +112,15 @@ public class Player extends Entity implements Observer {
      * Used to reset the player stats to their base values when a new game is started.
      */
     public void ResetAllStats() {
-        SetNumProjectiles(1);
-        SetProjectileDamage(DEFAULT_DAMAGE, 1);
-        SetCritChance(0);
-        SetProjectileType(ProjectileType.FIRE.value);
-        SetExperience(0L);
-        SetLevel(1);
+        numProjectiles = 1;
+        projectileDamage = DEFAULT_DAMAGE;
+        projectileDamageLevel = 1;
+        critChance = 0;
+        currentProjetile = ProjectileType.FIRE;
+        experience = 0L;
+        level = 1;
+        // Notify the PlayerDataObserver with a generic PlayerDataEvent instance
+        NotifyAllObservers(new PlayerDataEvent(){});
     }
 
     @Override
@@ -176,12 +182,12 @@ public class Player extends Entity implements Observer {
             return;
         switch ((CombatEvent) e) {
             case ENEMY_DEATH:
-                SetExperience(experience + (long) (GET_DEFAULT_EXPERIENCE_GAIN() * Math.pow(EXPERIENCE_INCREMENT, level - 1)));
-                // Pass the notification to the experience panel
+                experience += (long) (GET_DEFAULT_EXPERIENCE_GAIN() * Math.pow(EXPERIENCE_INCREMENT, level - 1));
+                // Notify ExperiencePanel that the player XP updated
                 NotifyAllObservers(CombatEvent.ENEMY_DEATH);
                 break;
             case ENEMY_ATTACK:
-                health -= Enemy.GET_DEFAULT_DAMAGE();
+                TakeDamage(Enemy.GET_DEFAULT_DAMAGE());
         }
     }
 
@@ -204,7 +210,7 @@ public class Player extends Entity implements Observer {
     }
 
     /**
-     * Used to set the current projectile damage. Notifies DatabaseManager tha the player data has been modified.
+     * Used to set the current projectile damage.
      *
      * @param d     A long representing the new projectile damage.
      * @param level An int representing the new projectile damage level.
@@ -212,7 +218,6 @@ public class Player extends Entity implements Observer {
     public void SetProjectileDamage(long d, int level) {
         projectileDamage = d;
         projectileDamageLevel = level;
-        DatabaseManager.SetPlayerDataModified();
     }
 
     /**
@@ -225,13 +230,12 @@ public class Player extends Entity implements Observer {
     }
 
     /**
-     * Used to set the current number of projectiles. Notifies DatabaseManager tha the player data has been modified.
+     * Used to set the current number of projectiles.
      *
      * @param num An int representing the new number of projectiles.
      */
     public void SetNumProjectiles(int num) {
         numProjectiles = num;
-        DatabaseManager.SetPlayerDataModified();
     }
 
     /**
@@ -244,47 +248,35 @@ public class Player extends Entity implements Observer {
     }
 
     /**
-     * Used to set the current crit chance. Notifies DatabaseManager tha the player data has been modified.
+     * Used to set the current crit chance.
      *
      * @param crit An int representing the new crit chance in percentages.
      */
     public void SetCritChance(int crit) {
         critChance = crit;
-        DatabaseManager.SetPlayerDataModified();
     }
 
     /**
      * Used to get the current spell type.
      *
-     * @return An int representing the current spell type:
-     * <ol>
+     * @return A ProjectileType object representing the current spell type:
+     * <ul>
      *     <li> Fire </li>
      *     <li> Frost </li>
      *     <li> Arcane </li>
-     * </ol>
+     * </ul>
      */
-    public int GetProjectileType() {
-        return currentProjetile.value;
+    public ProjectileType GetProjectileType() {
+        return currentProjetile;
     }
 
     /**
-     * Used to set the current spell type. Notifies DatabaseManager tha the player data has been modified.
+     * Used to set the current spell type.
      *
-     * @param projectileType An int representing the new spell type: 1 for fire, 2 for frost and 3 for arcane.
+     * @param projectileType A ProjectileType object representing the new spell type.
      */
-    public void SetProjectileType(int projectileType) {
-        switch (projectileType) {
-            case 2:
-                currentProjetile = ProjectileType.FROST;
-                break;
-            case 3:
-                currentProjetile = ProjectileType.ARCANE;
-                break;
-            default:
-                currentProjetile = ProjectileType.FIRE;
-                break;
-        }
-        DatabaseManager.SetPlayerDataModified();
+    public void SetProjectileType(ProjectileType projectileType) {
+        currentProjetile = projectileType;
     }
 
     /**
@@ -297,13 +289,12 @@ public class Player extends Entity implements Observer {
     }
 
     /**
-     * Used to set the current experience. Notifies DatabaseManager tha the player data has been modified.
+     * Used to set the current experience.
      *
      * @param exp A long representing the new experience value.
      */
     public void SetExperience(long exp) {
         experience = exp;
-        DatabaseManager.SetPlayerDataModified();
     }
 
     /**
@@ -317,13 +308,11 @@ public class Player extends Entity implements Observer {
 
     /**
      * Used to set the current level. The value is mapped to the interval [1, 365] using its remainder modulo 365.
-     * Notifies DatabaseManager tha the player data has been modified.
      *
      * @param l An int representing the new level value.
      */
     public void SetLevel(int l) {
         level = (l - 1) % 365 + 1;
-        DatabaseManager.SetPlayerDataModified();
     }
 
     /**

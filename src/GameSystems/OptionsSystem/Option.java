@@ -16,6 +16,11 @@ public interface Option {
     void Draw(Graphics g);
 
     /**
+     * Called to save the option to the database.
+     */
+    void SaveData();
+
+    /**
      * Returns a reference to the button that changes the option state.
      *
      * @return A GUIButton object that is responsible for interacting with the option.

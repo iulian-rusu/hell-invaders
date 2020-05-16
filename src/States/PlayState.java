@@ -110,7 +110,7 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
     }
 
     /**
-     * Finalizes the current level and transitions the game to the reuired state.
+     * Finalizes the current level and transitions the game to the required state.
      */
     private void Finish() {
         isLevelWon = player.GetHealth() > 0;
@@ -121,10 +121,8 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
         NotifyAllObservers(AudioEvent.STOP_ALL_SFX);
         if (isLevelWon) {
             player.SetLevel(player.GetLevel() + 1);
-            DatabaseManager.SavePlayerData();
             StateManager.GetInstance().SetCurrentState(StateIndex.WIN_STATE);
         } else {
-            DatabaseManager.SavePlayerData();
             StateManager.GetInstance().SetCurrentState(StateIndex.LOSS_STATE);
         }
     }
@@ -179,11 +177,8 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
     public void OnNotify(GameEvent e) {
         if (!(e instanceof CombatEvent))
             return;
-        switch ((CombatEvent) e) {
-            case LEVEL_LOSS:
-            case LEVEL_WIN:
-                Finish();
-                break;
+        if (e == CombatEvent.LEVEL_LOSS) {
+            Finish();
         }
     }
 }

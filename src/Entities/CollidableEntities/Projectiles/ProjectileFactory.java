@@ -1,5 +1,7 @@
 package Entities.CollidableEntities.Projectiles;
 
+import Assets.Images.ProjectileAssets;
+
 import java.awt.*;
 
 /**
@@ -55,6 +57,7 @@ public class ProjectileFactory {
                 for (int i = 0; i < numProjectiles; ++i) {
                     ans[i] = new FrostProjectile(from.x, from.y, vx[i], vy[i], angles[i], damage, critChance);
                 }
+
                 return ans;
             case ARCANE:
                 for (int i = 0; i < numProjectiles; ++i) {

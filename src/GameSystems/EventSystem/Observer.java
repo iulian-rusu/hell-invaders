@@ -8,7 +8,7 @@ import GameSystems.EventSystem.Events.GameEvent;
 public interface Observer {
 
     /**
-     * Called to notify the observer that an event has happened.
+     * Called when an observer is notified.
      *
      * @param e A GameEvent object.
      */

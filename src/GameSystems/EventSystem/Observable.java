@@ -5,7 +5,7 @@ import GameSystems.EventSystem.Events.GameEvent;
 import java.util.ArrayList;
 
 /**
- * @brief Abstract class extended by all classes that can be observed by an observer-type object.
+ * @brief Abstract class extended by all classes that can hold and notify observers.
  */
 public abstract class Observable {
     private ArrayList<Observer> allObservers;///< A list of all the observers of the object.

@@ -6,6 +6,7 @@ import GUI.Text.GUIText;
 import GUI.Text.GUITextPanel;
 import Game.GlobalReferences;
 import GameSystems.EventSystem.Observable;
+import SQL.DatabaseManager;
 import States.AboutState;
 
 import java.awt.*;
@@ -64,8 +65,10 @@ public abstract class Upgrade extends Observable {
         }
         description.get(0).SetFontSize(FONT_SIZE + 10);
         description.get(0).SetColor(Color.ORANGE);
-        // Experience panel will observe all upgrades
+        // Experience panel will observe all upgrades to update the XP value
         AddObserver(GlobalReferences.GetExperiencePanel());
+        // PlayerDataObserver will keep track of all upgrades to know when saving data is needed
+        AddObserver(DatabaseManager.GetPlayerDataObserverHandle());
     }
 
     /**
@@ -74,7 +77,7 @@ public abstract class Upgrade extends Observable {
     public void CheckIfBlocked() {
         if (isMaxed || GlobalReferences.GetPlayer().GetExperience() < this.price) {
             buyButton.Block(GUIAssets.buy_button_blocked);
-        } else if (!isMaxed) {
+        } else {
             buyButton.Unblock(GUIAssets.buy_button);
         }
     }

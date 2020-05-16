@@ -4,7 +4,7 @@ package GameSystems.EventSystem.Events;
 /**
  * @brief Holds all possible upgrade-related events.
  */
-public enum UpgradeEvent implements GameEvent {
+public enum UpgradeEvent implements PlayerDataEvent {
     SPELL_UPGRADE_BOUGHT,
     DAMAGE_UPGRADE_BOUGHT,
     CRIT_UPGRADE_BOUGHT,

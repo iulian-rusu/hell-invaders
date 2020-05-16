@@ -47,7 +47,6 @@ public class UpgradeState extends ReversibleState {
         allButtons.add(new GUIButton(GUIAssets.play_button, GUIAssets.play_button_hovered, playX, 725, playW, playH));
         allButtons.get(1).AddActionListener(actionEvent -> {
             NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
-            DatabaseManager.SavePlayerData();
             StateManager.GetInstance().SetCurrentState(StateIndex.PLAY_STATE);
         });
 

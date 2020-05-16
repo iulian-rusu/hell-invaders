@@ -4,6 +4,7 @@ import Assets.Images.BackgroundAssets;
 import Assets.Images.GUIAssets;
 import GUI.GUIButton;
 import Game.GameWindow;
+import Game.GlobalReferences;
 import GameSystems.EventSystem.Events.AudioEvent;
 import SQL.DatabaseManager;
 
@@ -39,11 +40,12 @@ public class MenuState extends State {
         // New game button
         allButtons.get(0).AddActionListener(actionEvent -> {
                     if (DatabaseManager.IsEmpty(DatabaseManager.PLAYER_DATA_NAME)) {
-                        // Nothing saved, go directly to a new game.
+                        // Nothing saved, go directly to a new game
                         NotifyAllObservers(AudioEvent.STOP_CURRENT_STATE_MUSIC);
+                        GlobalReferences.GetPlayer().ResetAllStats();
                         StateManager.GetInstance().SetCurrentState(StateIndex.UPGRADE_STATE);
                     } else {
-                        // Saved data exists in the database, ask the player again.
+                        // Saved data exists in the database - ask the player again
                         StateManager.GetInstance().SetCurrentState(StateIndex.NEW_GAME_QUERY_STATE);
                     }
                 }
@@ -70,10 +72,12 @@ public class MenuState extends State {
         super.Init();
         NotifyAllObservers(AudioEvent.PLAY_CURRENT_STATE_MUSIC);
         logoColorflag = true;
-        if (DatabaseManager.IsEmpty(DatabaseManager.PLAYER_DATA_NAME))
+        // Check if the Resume button is available
+        if (DatabaseManager.IsEmpty(DatabaseManager.PLAYER_DATA_NAME)) {
             allButtons.get(1).Block(GUIAssets.resume_button_blocked);
-        else
+        } else {
             allButtons.get(1).Unblock(GUIAssets.resume_button);
+        }
     }
 
     @Override

@@ -9,6 +9,5 @@ public enum CombatEvent implements GameEvent {
     STATUS_BAR_RESET,
     ENEMY_ATTACK,
     ENEMY_DEATH,
-    LEVEL_WIN,
     LEVEL_LOSS
 }

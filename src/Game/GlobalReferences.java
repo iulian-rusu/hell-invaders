@@ -14,16 +14,20 @@ public class GlobalReferences {
 
     /**
      * Returns the Player instance.
+     * <p>
      * If the player hasn't been accessed yet, this method will create a new player and will load player data from the database.
+     * If no player data can be found, the method will load default values.
      *
-     * @return The main player instance.
+     * @return A Player instance.
      */
     public static Player GetPlayer() {
         if (player == null) {
             player = new Player();
+            // Check if data can be loaded from a previous save
             if (!DatabaseManager.IsEmpty(DatabaseManager.PLAYER_DATA_NAME)) {
                 DatabaseManager.LoadPlayerData();
             } else {
+                // Else load default values and store them in the database
                 player.ResetAllStats();
             }
         }
@@ -42,7 +46,7 @@ public class GlobalReferences {
     /**
      * Returns the GameWindow instance.
      *
-     * @return The GameWindow instance.
+     * @return A GameWindow instance.
      */
     public static GameWindow GetGameWindow() {
         if (gameWindow == null) {
@@ -56,7 +60,7 @@ public class GlobalReferences {
      * If the experience panel hasn't been accessed yet, this method will create it.
      * If the experience panel hasn't been accessed yet, this method will create itF.
      *
-     * @return The ExperiencePanel instance
+     * @return An ExperiencePanel instance
      */
     public static ExperiencePanel GetExperiencePanel() {
         if (experiencePanel == null) {

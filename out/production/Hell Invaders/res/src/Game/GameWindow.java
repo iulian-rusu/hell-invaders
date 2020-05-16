@@ -41,8 +41,6 @@ public class GameWindow {
         wndFrame.setResizable(true);
         wndFrame.setUndecorated(isFullscreen);
         wndFrame.setLocationRelativeTo(null);
-        Choice c = new Choice();
-        wndFrame.add(c);
         wndFrame.setVisible(true);
 
         canvas = new Canvas();

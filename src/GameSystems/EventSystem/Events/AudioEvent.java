@@ -23,6 +23,13 @@ public enum AudioEvent implements GameEvent {
 
     public Runnable playAudio;///< A Runnable object that is called to play necessary audio related to the event.
 
+    /**
+     * Consturctor with parameters.
+     *
+     * @param action A Runnable object, receives a lambda expression which contains a call to AudioManager.
+     * @see java.lang.Runnable
+     * @see AudioManager
+     */
     AudioEvent(Runnable action) {
         playAudio = action;
     }

@@ -2,7 +2,7 @@ package Entities.CollidableEntities.Enemies;
 
 import Assets.Images.EnemyAssets;
 import Game.Game;
-import Game.GlobalReferences;
+import GameSystems.EventSystem.Events.CombatEvent;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,6 +14,7 @@ public class Monster extends Enemy {
     public static final int DEFAULT_HITBOX_WIDTH = (int) (DEFAULT_WIDTH * 0.5);///< The width of the hitbox relative to the texture box.
     public static final int DEFAULT_HITBOX_HEIGHT = (int) (DEFAULT_HEIGHT * 0.6);///< The height of the hitbox relative to the texture box.
     public static final int DEFAULT_ATTACK_TRANSITION_X = 170;///< The default x coordinate for attack state trigger.
+
     /**
      * Constructor with parameters.
      *
@@ -65,7 +66,7 @@ public class Monster extends Enemy {
     protected void Attack() {
         if (framesSinceLastAttack >= FRAMES_BETWEEN_ATTACKS) {
             framesSinceLastAttack = 0;
-            GlobalReferences.GetPlayer().TakeDamage(GET_DEFAULT_DAMAGE());
+            NotifyAllObservers(CombatEvent.ENEMY_ATTACK);
         }
     }
 
