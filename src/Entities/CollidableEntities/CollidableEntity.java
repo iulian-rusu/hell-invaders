@@ -9,7 +9,6 @@ import java.awt.*;
  * @brief Implements a generic collidable entity - an entity which supports collisions and has a hitbox.
  */
 public abstract class CollidableEntity extends Entity {
-
     public boolean isActive = true;///< Flag that indicates if the entity is still active. An inactive entity is removed from the map.
     protected Rectangle hitBox;///< The hitbox of the enitity.
     protected Rectangle textureBox;///< The texture box of the entity.

@@ -53,5 +53,20 @@ public class ImageLoader {
         resized.getGraphics().drawImage(tmp, 0, 0, null);
         return resized;
     }
+
+    /**
+     * Returns a subimage from a spritesheets.
+     * The method assumes a grid structure of the spritesheet where each sprite has dimensions x and y.
+     *
+     * @param spritesheet The spritesheet to load from.
+     * @param x           The x coordinate of the sprite to be loaded.
+     * @param y           The y coordinate of the sprite to be loaded.
+     * @param w           The width of sprites on the spritesheet.
+     * @param h           The height of sprites on the spritesheet.
+     * @return A BufferedImage object representing the cropped sprite.
+     */
+    public static BufferedImage GetSubimageAt(BufferedImage spritesheet, int x, int y, int w, int h) {
+        return spritesheet.getSubimage(x * w, y * h, w, h);
+    }
 }
 

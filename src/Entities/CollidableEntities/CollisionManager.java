@@ -35,12 +35,12 @@ public class CollisionManager {
      */
     public static ArrayList<GUITextComponent> CheckCollisions(ArrayList<Enemy> allEnemies, ArrayList<Projectile> allProjectiles) {
         ArrayList<GUITextComponent> combatTexts = new ArrayList<>();
-        for (Projectile p : allProjectiles) {
-            for (Enemy e : allEnemies) {
-                if (p.isActive && e.isActive && p.CollidesWith(e)) {
-                    p.DealDamage(e);
-                    p.SetActive(false);
-                    combatTexts.add(p.GetCombatText());
+        for (Projectile projectile : allProjectiles) {
+            for (Enemy enemy : allEnemies) {
+                if (projectile.isActive && enemy.isActive && projectile.CollidesWith(enemy)) {
+                    projectile.DealDamage(enemy);
+                    projectile.SetActive(false);
+                    combatTexts.add(projectile.GetCombatText());
                     break;
                 }
             }

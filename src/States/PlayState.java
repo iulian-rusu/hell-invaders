@@ -15,13 +15,11 @@ import GameSystems.EventSystem.Events.CombatEvent;
 import GameSystems.EventSystem.Events.GameEvent;
 import GameSystems.LevelSystem.LevelLoader;
 import GameSystems.UpgradeSystem.ExperiencePanel;
-import SQL.DatabaseManager;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.ConcurrentModificationException;
 
 /**
  * @brief Implements the gameplay.
@@ -34,9 +32,11 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
     private final ExperiencePanel experiencePanel;///< A reference to the experience panel.
     private final ArrayList<Enemy> allEnemies;///< List that holds all active enemies.
     private final ArrayList<Projectile> allProjectiles;///< List that holds all active projectiles.
+    private final ArrayList<Projectile> projectilesToAdd;///< List of projectiles that will be added in the next Update() call.
     private final ArrayList<GUITextComponent> allCombatText;///< List that holds all text spawned during combat.
     private final Rectangle clickBox;///< Rectangle that defines the battlefield.
     private boolean isLevelWon;///< Flag that indicates whether the player has won the level.
+
 
     /**
      * Constructor without parameters.
@@ -61,6 +61,7 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
             }
         };
         allProjectiles = new ArrayList<>();
+        projectilesToAdd = new ArrayList<>();
         allCombatText = new ArrayList<>();
 
         // Get player
@@ -87,16 +88,18 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
     @Override
     public void Update() {
         super.Update();
-        try {
-            allEnemies.forEach(Enemy::Update);
-            allProjectiles.forEach(Projectile::Update);
-            player.Update();
-            // Check for collisions and eventually delete inactive entities
-            CleanCombatText();
-            allCombatText.addAll(CollisionManager.Update(allEnemies, allProjectiles));
-        } catch (ConcurrentModificationException e) {
-            e.printStackTrace();
+        // Add new projectiles if necessary
+        if (projectilesToAdd.size() > 0) {
+            allProjectiles.addAll(projectilesToAdd);
+            projectilesToAdd.clear();
         }
+        allEnemies.forEach(Enemy::Update);
+        allProjectiles.forEach(Projectile::Update);
+        player.Update();
+        // Check for collisions and eventually delete inactive entities
+        CleanCombatText();
+        allCombatText.addAll(CollisionManager.Update(allEnemies, allProjectiles));
+
         CheckIfFinished();
     }
 
@@ -137,27 +140,23 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
     @Override
     public void Draw(Graphics2D g2d) {
         g2d.drawImage(BackgroundAssets.bgGameNormal, 0, 0, null);
-        try {
-            for (Enemy e : allEnemies) {
-                e.Draw(g2d);
-            }
-            for (Projectile p : allProjectiles) {
-                p.Draw(g2d);
-            }
-            for (GUITextComponent t : allCombatText) {
-                t.Draw(g2d);
-            }
-        } catch (ConcurrentModificationException e) {
-            e.printStackTrace();
+        for (Enemy enemy : allEnemies) {
+            enemy.Draw(g2d);
+        }
+        for (Projectile projectile : allProjectiles) {
+            projectile.Draw(g2d);
+        }
+        for (GUITextComponent textComponent : allCombatText) {
+            textComponent.Draw(g2d);
         }
         player.Draw(g2d);
         experiencePanel.Draw(g2d);
-        for (GUIButton b : allButtons) {
-            b.Draw(g2d);
+        for (GUIButton button : allButtons) {
+            button.Draw(g2d);
         }
         // Draw the same information as in UpgradeState
-        for (GUIText t : UpgradeState.infoText) {
-            t.Draw(g2d);
+        for (GUIText text : UpgradeState.infoText) {
+            text.Draw(g2d);
         }
     }
 
@@ -165,10 +164,10 @@ public class PlayState extends ReversibleState implements GameSystems.EventSyste
     public void MousePressed(Point pressPoint) {
         super.MousePressed(pressPoint);
         if (clickBox.contains(pressPoint)) {
-            Projectile[] toBeAdded = player.ShootProjectile(pressPoint);
-            // Check if player had enough mana to shoot
-            if (toBeAdded != null) {
-                allProjectiles.addAll(Arrays.asList(toBeAdded));
+            Projectile[] newProjectiles = player.ShootProjectile(pressPoint);
+            // New projectiles might be null if the player didn't have enough mana to shoot
+            if (newProjectiles != null) {
+                projectilesToAdd.addAll(Arrays.asList(newProjectiles));
             }
         }
     }

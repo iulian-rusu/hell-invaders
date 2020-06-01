@@ -17,7 +17,7 @@ import java.awt.*;
 public abstract class Enemy extends CollidableEntity implements Comparable<Enemy> {
     public static final int DEFAULT_WIDTH = 200;///< The default width of an enemy.
     public static final int DEFAULT_HEIGHT = 240;///< The default height of an enemy.
-    public static final int DEFAULT_X_VELOCITY = -1;///< The default x velocity of an enemy.
+    public static final double DEFAULT_X_VELOCITY = -1.0;///< The default x velocity of an enemy.
     public static final int FRAMES_BETWEEN_ATTACKS = 120;///< The default number of frames between consecutive attacks.
     public static final double HEALTH_INCREMENT = 1.1;///< The increment in health each level.
 
@@ -30,8 +30,7 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
     protected boolean isVisile = false;///< Indicates if the enemy is on the screen.
     protected boolean isSlowed = false;///< Indicates if the enemy is slowed by a spell.
     protected int framesSinceLastAttack = FRAMES_BETWEEN_ATTACKS;///< Counts the number of frames since the last attack.
-
-    private int slowedBegin = -1;///< Counts when the slowed state begain
+    protected int slowedFrameCount = -1;///< Counts when the slowed state began
     /**
      * Constructor with parameters.
      *
@@ -100,10 +99,22 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
      * Called when the enemy is slowed by a spell.
      */
     public void GetSlowed() {
-        slowedBegin = 0;
+        slowedFrameCount = 0;
         if (!isSlowed) {
             isSlowed = true;
             xVelocity *= (1 - FrostProjectile.SLOW_PERCENTAGE);
+        }
+    }
+
+    /**
+     * Updates the slowedFrameCount and checks if the enemy is still slowed.
+     */
+    protected void UpdateSlowedStatus(){
+        ++slowedFrameCount;
+        if (slowedFrameCount > FrostProjectile.SLOW_FRAME_COUNT) {
+            isSlowed = false;
+            xVelocity /= (1 - FrostProjectile.SLOW_PERCENTAGE);
+            slowedFrameCount = -1;
         }
     }
 
@@ -132,12 +143,7 @@ public abstract class Enemy extends CollidableEntity implements Comparable<Enemy
         }
         // Check if slowed
         if (isSlowed) {
-            ++slowedBegin;
-            if (slowedBegin > FrostProjectile.SLOW_FRAME_COUNT) {
-                isSlowed = false;
-                xVelocity = DEFAULT_X_VELOCITY;
-                slowedBegin = -1;
-            }
+            UpdateSlowedStatus();
         }
         // Update the number of frames since last attack
         if (framesSinceLastAttack < FRAMES_BETWEEN_ATTACKS) {

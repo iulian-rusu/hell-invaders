@@ -78,17 +78,17 @@ public class Game extends MouseAdapter implements Runnable {
     public void run() {
         InitGame();
         long oldTime = System.nanoTime();
-        long curentTime;
+        long currentTime;
         final int framesPerSecond = 60;
         final double timeFrame = 1000000000.0 / framesPerSecond;
         // Stop loading thread
         loadingScreen.Stop();
         while (isRunning) {
-            curentTime = System.nanoTime();
-            if ((curentTime - oldTime) >= timeFrame) {
+            currentTime = System.nanoTime();
+            if ((currentTime - oldTime) >= timeFrame) {
                 Update();
                 Draw();
-                oldTime = curentTime;
+                oldTime = currentTime;
             }
         }
     }

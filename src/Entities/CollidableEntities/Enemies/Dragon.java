@@ -18,6 +18,7 @@ import java.util.Arrays;
  * @brief Implements the Dragon type of enemy - a long ranged attacker.
  */
 public class Dragon extends Enemy {
+    public static final double DEFAULT_X_VELOCITY = -1.5;///< Overrides the default x velocity from the Enemy class.
     public static final Point DEFAULT_TARGET_POINT =
             new Point(Player.PLAYER_X + Player.PLAYER_W, Player.PLAYER_Y + Player.PLAYER_H / 2);///< The point towards which to shoot
     public static final int DEFAULT_HEIGHT = 100;///< The default height of the texture box.
@@ -35,6 +36,7 @@ public class Dragon extends Enemy {
      */
     public Dragon(int x, int y, int level) {
         super(x, y, DEFAULT_HITBOX_WIDTH, DEFAULT_HITBOX_HEIGHT, DEFAULT_WIDTH, DEFAULT_HEIGHT, level);
+        this.xVelocity = DEFAULT_X_VELOCITY;
     }
 
     /**

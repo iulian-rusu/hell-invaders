@@ -1,7 +1,5 @@
 package Entities.CollidableEntities.Projectiles;
 
-import Assets.Images.ProjectileAssets;
-
 import java.awt.*;
 
 /**

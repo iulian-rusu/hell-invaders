@@ -80,7 +80,7 @@ public class LevelLoader {
      * @param dragons    The number of Dragon type enemies to be loaded.
      */
     public static void LoadWave(ArrayList<Enemy> allEnemies, int level, int wave, int monsters, int dragons) {
-        int x = GameWindow.SCREEN_DIMENSION.width + 180 - Enemy.DEFAULT_X_VELOCITY * 60 * GET_SECONDS_BETWEEN_WAVES() * (wave);
+        int x = (int)(GameWindow.SCREEN_DIMENSION.width + 180 - Enemy.DEFAULT_X_VELOCITY * 60 * GET_SECONDS_BETWEEN_WAVES() * (wave));
         int y;
         for (int i = 0; i < monsters; ++i) {
             int xOffset = (i > 0) ? x + Math.abs(RNG.nextInt()) % X_DEVIATION : x;
