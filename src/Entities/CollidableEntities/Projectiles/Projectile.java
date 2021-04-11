@@ -3,12 +3,14 @@ package Entities.CollidableEntities.Projectiles;
 import Assets.FontAssets;
 import Entities.CollidableEntities.CollidableEntity;
 import Entities.CollidableEntities.Enemies.Enemy;
+import Entities.Player;
 import GUI.Text.GUIText;
 import GUI.Text.GUITextComponent;
 import GUI.Text.GUITimedDecorator;
 import GameSystems.NumberSystem.LargeNumberHandler;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 /**
@@ -99,6 +101,29 @@ public abstract class Projectile extends CollidableEntity {
      */
     protected long GetCriticalDamage(long damage) {
         return damage * CRIT_AMPLIFIER;
+    }
+
+    /**
+     * Draws the projectile with the required texture. Called by derived classes.
+     *
+     * @param texture The texture of the concrete projetile.
+     * @param g A Java Graphics object that is used to draw.
+     */
+    protected void DrawTexture(BufferedImage texture, Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+
+        Point offset = new Point(Player.PROJECTILE_START.x, (int) (Player.PROJECTILE_START.y + textureBox.height * 0.5));
+        // Change coordinates with rotation matrix to account for g2d rotation
+        double xTranslated = textureBox.x - offset.x + textureBox.width * 0.5;
+        double yTranslated = textureBox.y - offset.y + textureBox.height * 0.5;
+        int xTransform = (int) (xTranslated * Math.cos(-angle) - yTranslated * Math.sin(-angle) - textureBox.width * 0.5);
+        int yTransform = (int) (xTranslated * Math.sin(-angle) + yTranslated * Math.cos(-angle) - textureBox.height * 0.5);
+
+        g2d.translate(offset.x, offset.y);
+        g2d.rotate(angle);
+        g2d.drawImage(texture, xTransform, yTransform, textureBox.width, textureBox.height, null);
+        g2d.rotate(-angle);
+        g2d.translate(-offset.x, -offset.y);
     }
 
     @Override

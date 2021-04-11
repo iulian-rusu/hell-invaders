@@ -26,6 +26,8 @@ public class Player extends Entity implements Observer {
     public static final int PLAYER_W = 125;///< The default width of the player.
     public static final int PLAYER_X = 35;///< The default x coordinate of the top-left corner of the player.
     public static final int PLAYER_Y = 420;///< The default y coordinate of the top-left corner of the player.
+    public static final Point PROJECTILE_START = new Point(Player.PLAYER_X + 100, Player.PLAYER_Y + 10);///< The starting point of each projectile shot by the player.
+
     public static final int HEALTHBAR_HEIGHT = 20;///< The default healthbar height.
     public static final int HEALTHBAR_WIDTH = 250;///< The default healthbar width.
     public static final int HEALTHBAR_Y = 770;///< The default y coordinate of the top-left corner of the healthbar.
@@ -173,7 +175,7 @@ public class Player extends Entity implements Observer {
         // Calculate new point to center the projectile hitbox around target
         Point to = new Point(target.x - Projectile.PROJECTILE_WIDTH / 2, target.y - Projectile.PROJECTILE_HEIGHT / 2);
         return ProjectileFactory.MakeProjectile(currentProjetile,
-                new Point(PLAYER_X + 100, PLAYER_Y + 10), to, projectileDamage, numProjectiles, critChance);
+                Player.PROJECTILE_START, to, projectileDamage, numProjectiles, critChance);
     }
 
     @Override

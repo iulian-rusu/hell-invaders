@@ -36,12 +36,6 @@ public class EnemyProjectile extends Projectile {
 
     @Override
     public void Draw(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.rotate(angle);
-        // Change coordinates with rotation matrix to account for g2d rotation
-        int xTransform = (int) ((x + textureBox.width * 0.5) * Math.cos(-angle) - (y + textureBox.height * 0.5) * Math.sin(-angle) - textureBox.width * 0.5);
-        int yTransform = (int) ((x + textureBox.width * 0.5) * Math.sin(-angle) + (y + textureBox.height * 0.5) * Math.cos(-angle) - textureBox.height * 0.5);
-        g2d.drawImage(ProjectileAssets.enemyProjectiles[(frameCount / 15) % 2], xTransform, yTransform, textureBox.width, textureBox.height, null);
-        g2d.rotate(-angle);
+        DrawTexture(ProjectileAssets.enemyProjectiles[(frameCount / 15) % 2], g);
     }
 }

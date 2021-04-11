@@ -280,6 +280,6 @@ public class DatabaseManager {
      */
     public static void LogMessage(String msg){
         LocalDateTime now = LocalDateTime.now();
-        System.out.println(String.format("[DATABASE MANAGER @ %s]: %s", dateFormat.format(now), msg));
+        System.out.printf("[DATABASE MANAGER @ %s]: %s%n", dateFormat.format(now), msg);
     }
 }
